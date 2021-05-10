@@ -1,12 +1,16 @@
 package model;
 public abstract class AbstractEntity{
-	private final int id;
+	private final String id;
 	
 	public AbstractEntity(){
-		this.id = 0;
+		this.id = "";
 	}
 	
-	public AbstractEntity(int id){
+	public AbstractEntity(String id){
 		this.id = id;
+	}
+	
+	public String getId(){
+		return this.id;
 	}
 }

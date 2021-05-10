@@ -4,16 +4,16 @@ import exception.FileFormatException;
 import exception.ItemNotFoundException;
 import exception.NotSupportedException;
 import storage.IContainer;
-import model.User;
+import model.Currency;
 
-public class UserRepository {
+public class CurrencyRepository {
 
-	public UserRepository() {
+	public CurrencyRepository() {
 
 	}
 
 	/**
-	 * The function tries to write the users to the necessary file.
+	 * The function tries to write the outfits to the necessary file.
 	 * 
 	 * @return DatabaseResult(null, message);
 	 */
@@ -35,26 +35,17 @@ public class UserRepository {
 	 * @param name = gotten user name
 	 * @return database result
 	 */
-	public DatabaseResult getUserByName(String name) {
+	public DatabaseResult getCurrencyById(String id) {
 		// get user container of system which holds all users
-		final IContainer<User> users = BaseRepository.users();
+		final IContainer<Currency> currencies = BaseRepository.currencies();
 		String message = "";
 		Object result = null;
 		try {
 			// try to find the user
-			result = users.getByName(name);
+			result = currencies.getById(id);
 		} catch (ItemNotFoundException | NotSupportedException e) {
 			message += e.getMessage();
 		}
 		return new DatabaseResult(result, message);
-	}
-
-	/**
-	 * The function returns the user container of system
-	 * 
-	 * @return User Container which holds all users
-	 */
-	public final IContainer<User> getUsers() {
-		return BaseRepository.users();
 	}
 }

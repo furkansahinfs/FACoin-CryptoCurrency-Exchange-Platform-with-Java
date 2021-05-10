@@ -1,65 +1,69 @@
 package fileio;
 
-import contract.Contract;
 import exception.FileFormatException;
-import factory.Creator;
-import model.Outfit;
+import model.Currency;
 import model.User;
+import model.Wallet;
 import storage.IContainer;
 
 public class BaseRepository {
-	
+
 	// FileController to read data, write data and get read content of files.
 	private static FileController fileController;
 
-	public BaseRepository(){
-		fileController = new FileController(new Creator());
+	public BaseRepository() {
+		fileController = new FileController();
 	}
-	
+
 	/**
 	 * The function reads all files and initialises containers.
+	 * 
 	 * @throws FileFormatException
 	 */
-	public void initDatabase() throws FileFormatException{
+	public void initDatabase() throws FileFormatException {
 		fileController.readAll();
 	}
-	
+
 	/**
 	 * The function returns the read users' container
-	 * @return  User Container
+	 * 
+	 * @return User Container
 	 */
-	protected static final IContainer<User> users(){
+	protected static final IContainer<User> users() {
 		return fileController.users();
 	}
-	
+
 	/**
-	 * The function returns the read outfits' container
-	 * @return  Outfit Container
+	 * The function returns the read currencies' container
+	 * 
+	 * @return Currency Container
 	 */
-	protected static final IContainer<Outfit> outfits(){
-		return fileController.outfits();
+	protected static final IContainer<Currency> currencies() {
+		return fileController.currencies();
 	}
-	
+
 	/**
-	 * The function returns the container of read like contracts of users'
-	 * @return  Like Contract Container
+	 * The function returns the read Crypto Wallets' container
+	 * 
+	 * @return Wallet Container
 	 */
-	protected static final IContainer<Contract> likes(){
-		return fileController.getUserLikeContracts();
+	protected static final IContainer<Wallet> crypto_wallets() {
+		return fileController.crypto_wallets();
 	}
-	
+
 	/**
-	 * The function returns the container of read dislike contracts of users'
-	 * @return Dislike Contract Container
+	 * The function returns the read Bank Wallets' container
+	 * 
+	 * @return Wallet Container
 	 */
-	protected static final IContainer<Contract> dislikes(){
-		return fileController.getUserDislikeContracts();
+	protected static final IContainer<Wallet> bank_wallets() {
+		return fileController.bank_wallets();
 	}
-	
+
 	/**
 	 * The function writes all data to necessary files.
 	 */
-	protected static void saveChanges() throws FileFormatException{
+	protected static void saveChanges() throws FileFormatException {
 		fileController.writeAll();
 	}
 }

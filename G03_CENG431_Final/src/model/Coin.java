@@ -1,9 +1,10 @@
 package model;
 
-public abstract class Coin extends AbstractEntity{
+public class Coin extends Currency{
 
-	public Coin(){
-		
+	public Coin(String id, float value, String name) {
+		super(id, value, name);
 	}
-
+	
+	
 }

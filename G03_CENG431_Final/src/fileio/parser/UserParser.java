@@ -1,9 +1,7 @@
 package fileio.parser;
 
 import java.io.StringReader;
-
 import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.json.JSONException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -12,16 +10,12 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import exception.FileFormatException;
-import factory.CreationResult;
-import factory.ICreatorService;
-import model.Outfit;
 import model.User;
 import storage.IContainer;
 import storage.UserContainer;
 
 public class UserParser {
-	private ICreatorService creator;
-	private IContainer<Outfit> outfits;
+	
 
 	/**
 	 * The UserParser parses the gotten contract file content and creates user
@@ -41,11 +35,9 @@ public class UserParser {
 	 * @return User Container
 	 * @throws XMLException
 	 */
-	protected IContainer<User> parseUsers(String fileAll, ICreatorService creator, IContainer<Outfit> outfits)
+	protected IContainer<User> parseUsers(String fileAll)
 			throws Exception {
 
-		this.creator = creator;
-		this.outfits = outfits;
 		Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
 				.parse(new InputSource(new StringReader(fileAll)));
 		IContainer<User> users = new UserContainer();// initialise user container
@@ -91,23 +83,19 @@ public class UserParser {
 	 * @throws SAXException
 	 */
 	private User createUser(Element userNodeElement) throws SAXException {
-		String userName, password = "";
-		String idsOfFollowings = "";
-		String idsOfFollowers = "";
+		String userId, userName, cryptoWalletId, bankWalletId, password = "";
+		
 		// get values
-		userName = userNodeElement.getAttribute("userName");
+		userId = userNodeElement.getAttribute("id");
+		userName = getTagValue("username", userNodeElement);
 		password = getTagValue("password", userNodeElement);
-		idsOfFollowings = getTagValue("followings", userNodeElement);
-		idsOfFollowers = getTagValue("followers", userNodeElement);
+		cryptoWalletId = getTagValue("cryptoWallet", userNodeElement);
+		bankWalletId = getTagValue("bankWallet", userNodeElement);
+	
 
-		User user;
+		User user = null;
 
-		// Create a user using creator
-		CreationResult cr = creator.createUser(userName, password, userNodeElement, idsOfFollowers, idsOfFollowings,
-				outfits); // pass to creator
-		if (cr.object == null)// if creation is failed, throw exception
-			throw new SAXException("Wrong format " + cr.message);
-		user = (User) cr.object;
+		// TODO UserFactory Creator
 
 		return user;
 	}

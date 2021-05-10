@@ -1,78 +1,62 @@
 package fileio;
 
-import java.io.IOException;
-
-import contract.Contract;
-import factory.ICreatorService;
 import fileio.parser.Parser;
-import model.Outfit;
 import model.User;
-import storage.ContractContainer;
+import model.Wallet;
 import storage.IContainer;
-import storage.OutfitContainer;
 import storage.UserContainer;
+import storage.WalletContainer;
 
 public class FileIO implements IFileIO {
 	private FileRead fRead;
-	private ICreatorService creator;
 	private FileWrite fWrite;
 	private Parser parser;
 
-	public FileIO(ICreatorService creator) {
+	public FileIO() {
 		this.fRead = new FileRead(); // initialise file read
-		this.creator = creator;
 		this.fWrite = new FileWrite(); // initialise file write
 		this.parser = new Parser();
 	}
 
 	@Override
-	public IContainer<Outfit> readOutfits(String filePath) throws Exception {
-		IContainer<Outfit> outfits = null;
+	public IContainer<Wallet> readCryptoWallets(String filePath) throws Exception {
+		IContainer<Wallet> cryptoWallets = null;
 
 		String fileAll = fRead.readFile(filePath);// read file
 		if (!fileAll.isBlank())// if not blank
-			outfits = parser.parseOutfits(fileAll, this.creator); // parse outfits
+			cryptoWallets = parser.parseCryptoWallets(fileAll); // parse wallets
 		else
-			outfits = new OutfitContainer(); // initialise empty container
+			cryptoWallets = new WalletContainer(); // initialise empty container
 
-		return outfits;
+		return cryptoWallets;
+	}
+	
+	@Override
+	public IContainer<Wallet> readBankWallets(String filePath) throws Exception {
+		IContainer<Wallet> bankWallets = null;
+
+		String fileAll = fRead.readFile(filePath);// read file
+		if (!fileAll.isBlank())// if not blank
+			bankWallets = parser.parseCryptoWallets(fileAll); // parse wallets
+		else
+			bankWallets = new WalletContainer(); // initialise empty container
+
+		return bankWallets;
 	}
 
 	@Override
-	public IContainer<User> readUsers(IContainer<Outfit> outfits, String filePath) throws Exception {
+	public IContainer<User> readUsers(String filePath) throws Exception {
 		IContainer<User> users = null;
 
 		String fileAll = fRead.readFile(filePath); // read file
 		if (!fileAll.isBlank()) // if not blank
-			users = parser.parseUsers(fileAll, this.creator, outfits); // parse users
+			users = parser.parseUsers(fileAll); // parse users
 		else
 			users = new UserContainer(); // initialise empty container
 
 		return users;
 	}
 
-	@Override
-	public IContainer<Contract> readContracts(String filePath, IContainer<User> users, IContainer<Outfit> outfits)
-			throws Exception {
-		IContainer<Contract> contracts = null;
-		try {
-			String fileAll = fRead.readFile(filePath); // read file
-			if (!fileAll.isBlank()) // if not blank
-			{
-				// parse contracts
-				contracts = parser.parseContracts(fileAll, this.creator, users, outfits);
-			}
-
-			else {
-				contracts = new ContractContainer(); // initialise empty container
-			}
-
-		} catch (IOException e) {
-			contracts = new ContractContainer(); // initialise empty container
-		}
-
-		return contracts;
-	}
 	
 	@Override
 	public void writeUsers(IContainer<User> users, String filePath) throws Exception {
@@ -80,15 +64,16 @@ public class FileIO implements IFileIO {
 	}
 
 	@Override
-	public void writeOutfits(IContainer<Outfit> outfits, String filePath) throws Exception {
-		fWrite.writeItems(outfits, filePath);
+	public void writeCryptoWallets(IContainer<Wallet> cryptoWallets, String filePath) throws Exception {
+		fWrite.writeItems(cryptoWallets, filePath);
 
 	}
-
+	
 	@Override
-	public void writeContracts(IContainer<Contract> contracts, String filePath) throws Exception {
-		fWrite.writeItems(contracts, filePath);
+	public void writeBankWallets(IContainer<Wallet> bankWallets, String filePath) throws Exception {
+		fWrite.writeItems(bankWallets, filePath);
 
 	}
+
 
 }

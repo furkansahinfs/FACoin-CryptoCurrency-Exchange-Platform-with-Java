@@ -1,22 +1,32 @@
 package fileio;
 
-import contract.Contract;
-import model.Outfit;
 import model.User;
+import model.Wallet;
 import storage.IContainer;
 
 /**
  * This class handles fileio operations
  */
 public interface IFileIO {
+	
 	/**
 	 * This function reads outfits
 	 * 
-	 * @param filePath of the outfits file
-	 * @returns read outfits
+	 * @param filePath of the crypto_wallets.json file
+	 * @returns read crypto_wallets
 	 * @throws Exception for fileio exceptions
 	 */
-	public IContainer<Outfit> readOutfits(String filePath) throws Exception;
+	public IContainer<Wallet> readCryptoWallets(String filePath) throws Exception;
+	
+	/**
+	 * This function reads outfits
+	 * 
+	 * @param filePath of the bank_wallets.json file
+	 * @returns read bank_wallets
+	 * @throws Exception for fileio exceptions
+	 */
+	public IContainer<Wallet> readBankWallets(String filePath) throws Exception;
+
 
 	/**
 	 * This function reads users
@@ -25,19 +35,8 @@ public interface IFileIO {
 	 * @returns read users
 	 * @throws Exception for fileio exceptions
 	 */
-	public IContainer<User> readUsers(IContainer<Outfit> oufits, String filePath) throws Exception;
+	public IContainer<User> readUsers(String filePath) throws Exception;
 
-	/**
-	 * This function reads contracts
-	 * 
-	 * @param filePath of the contracts file
-	 * @param users    of the system
-	 * @param outfits  of the system
-	 * @returns read contracts
-	 * @throws Exception for fileio exceptions
-	 */
-	public IContainer<Contract> readContracts(String filePath, IContainer<User> users, IContainer<Outfit> outfits)
-			throws Exception;
 
 	/**
 	 * This function writes users
@@ -47,23 +46,25 @@ public interface IFileIO {
 	 * @throws Exception for write operations
 	 */
 	public void writeUsers(IContainer<User> users, String filePath) throws Exception;
-
+	
 	/**
-	 * This function writes outfits
+	 * This function writes wallets
 	 * 
-	 * @param outfits  of the system
+	 * @param cryptoWallets    of the system
 	 * @param filePath of the file
-	 * @throws Exceptions for write operations
+	 * @throws Exception for write operations
 	 */
-	public void writeOutfits(IContainer<Outfit> outfits, String filePath) throws Exception;
-
+	public void writeCryptoWallets(IContainer<Wallet> cryptoWallets, String filePath) throws Exception;
+	
+	
 	/**
-	 * This function writes contracts
+	 * This function writes users
 	 * 
-	 * @param contracts of the system
-	 * @param filePath  of the file
-	 * @throws Exceptions for write operations
+	 * @param bankWallets    of the system
+	 * @param filePath of the file
+	 * @throws Exception for write operations
 	 */
-	public void writeContracts(IContainer<Contract> contracts, String filePath) throws Exception;
+	public void writeBankWallets(IContainer<Wallet> bankWallets, String filePath) throws Exception;
+
 
 }

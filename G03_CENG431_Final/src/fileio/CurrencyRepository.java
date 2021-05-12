@@ -48,4 +48,5 @@ public class CurrencyRepository {
 		}
 		return new DatabaseResult(result, message);
 	}
+	
 }

@@ -16,8 +16,19 @@ public class UserContainer extends Container<User> {
 	 * @throws ItemNotFoundException
 	 */
 	@Override
-	public User getById(String id) throws NotSupportedException {
-		throw new NotSupportedException("src.storage.UserContainer.getById() function is not supported for IdContainer.");
+	public User getById(String id) throws  ItemNotFoundException {
+		User found = null;
+		for (User user : this.getContainer()) {
+			if (user.equals(id)) {
+				found = user;
+				break;
+			}
+		}
+		if (found == null) {
+			throw new ItemNotFoundException("There is no user has id " + id);
+		} else {
+			return found;
+		}
 	}
 
 	/**

@@ -10,19 +10,23 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import exception.FileFormatException;
+import factory.UserFactory;
+import fileio.UserRepository;
 import model.User;
 import storage.IContainer;
 import storage.UserContainer;
 
 public class UserParser {
 	
-
+	private UserFactory userFactory;
+	private UserRepository userRepository;
 	/**
 	 * The UserParser parses the gotten contract file content and creates user
 	 * objects
 	 */
 	protected UserParser() {
-
+		userRepository = new UserRepository();
+		userFactory = new UserFactory();
 	}
 
 	/**
@@ -70,7 +74,15 @@ public class UserParser {
 				Element userNodeElement = (Element) userNode;
 				// create user invoking createUser()
 				User user = createUser(userNodeElement);
-				users.add(user); // add created user to the users
+				if(user != null)
+				{
+					users.add(user); // add created user to the users
+				}
+				else
+				{
+					throw new SAXException("FileFormatError for users.xml");
+				}
+				
 			}
 		}
 	}
@@ -90,15 +102,13 @@ public class UserParser {
 		userName = getTagValue("username", userNodeElement);
 		password = getTagValue("password", userNodeElement);
 		cryptoWalletId = getTagValue("cryptoWallet", userNodeElement);
-		bankWalletId = getTagValue("bankWallet", userNodeElement);
-	
+		bankWalletId = getTagValue("bankWallet", userNodeElement);	
 
 		User user = null;
-
-		// TODO UserFactory Creator
-
+		user = userFactory.createUser(userId, userName, password, cryptoWalletId, bankWalletId);
 		return user;
 	}
+	
 
 	// gets value by tag name
 	private static String getTagValue(String tag, Element element) {

@@ -1,6 +1,9 @@
 package factory;
-public abstract class AbstractFactory{
-	public void createEntity(AbstractFactory factory){
-		factory.createEntity(factory);
+public class AbstractFactory{
+	
+	public AbstractFactory(){}
+	
+	public Object createEntity(AbstractFactory factory, Object args){
+		return factory.createEntity(factory,args);
 	}
 }

@@ -10,4 +10,8 @@ public class WalletEntity{
 	public float getTotal(){
 		return this.currency.getValue()*quantity;
 	}
+	
+	public String getCurrency(){
+		return currency.getClass().getSimpleName();
+	}
 }

@@ -1,12 +1,14 @@
-package fileio;
+package fileio.repository;
 
 import model.User;
 import model.Wallet;
 import storage.IContainer;
-
+import storage.*;
 import model.Currency;
 
 import exception.FileFormatException;
+import fileio.FileIO;
+import fileio.IFileIO;
 
 /**
  * This class holds all informations
@@ -17,11 +19,17 @@ public class FileController {
 	private IContainer<User> users;
 	private IContainer<Wallet> cryptoWallets;
 	private IContainer<Wallet> bankWallets;
-	private IContainer<Currency> currencies;
+	private IContainer<Currency> banknotes;
+	private IContainer<Currency> coins;
 	private IFileIO fileIO;
 
 	protected FileController() {
 		fileIO = new FileIO();
+		users = new UserContainer();
+		cryptoWallets = new WalletContainer();
+		bankWallets = new WalletContainer();
+		banknotes = new CurrencyContainer();
+		coins = new CurrencyContainer();
 	}
 
 	/**
@@ -32,9 +40,11 @@ public class FileController {
 	 */
 	protected void readAll() throws FileFormatException {
 		try {
-			cryptoWallets = fileIO.readCryptoWallets("data\\crypto_wallets.json");
-			bankWallets = fileIO.readBankWallets("data\\bank_wallets.json");
-			users = fileIO.readUsers("data\\users.xml");
+			fileIO.readCryptoWallets("data\\crypto_wallets.json");
+			fileIO.readBankWallets("data\\bank_wallets.json");
+			fileIO.readUsers("data\\users.xml");
+			fileIO.readBanknotes("data\\banknotes.json");
+			fileIO.readCoins("data\\coins.json");
 		} catch (Exception e) {
 			throw new FileFormatException(e.getMessage());
 		}
@@ -50,6 +60,8 @@ public class FileController {
 			fileIO.writeUsers(users, "data\\users.xml");
 			fileIO.writeCryptoWallets(cryptoWallets, "data\\crypto_wallets.json");
 			fileIO.writeBankWallets(bankWallets, "data\\bank_wallets.json");
+			fileIO.writeCoins(coins,"data\\coins.json");
+			fileIO.writeBanknotes(coins,"data\\banknotes.json");
 		} catch (Exception e) {
 			throw new FileFormatException(e.getMessage());
 		}
@@ -68,8 +80,12 @@ public class FileController {
 		return bankWallets;
 	}
 
-	protected IContainer<Currency> currencies(){
-		return currencies;
+	protected IContainer<Currency> coins(){
+		return coins;
+	}
+	
+	protected IContainer<Currency> banknotes(){
+		return banknotes;
 	}
 
 }

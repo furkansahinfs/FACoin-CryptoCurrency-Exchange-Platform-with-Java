@@ -1,4 +1,4 @@
 package factory;
-public abstract class CandleFactory extends AbstractFactory{
+public abstract class CandleFactory{
 	
 }

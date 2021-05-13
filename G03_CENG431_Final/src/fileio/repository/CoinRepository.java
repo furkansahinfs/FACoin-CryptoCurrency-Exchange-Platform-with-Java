@@ -1,4 +1,4 @@
-package fileio;
+package fileio.repository;
 
 import exception.FileFormatException;
 import exception.ItemNotFoundException;
@@ -6,9 +6,9 @@ import exception.NotSupportedException;
 import storage.IContainer;
 import model.Currency;
 
-public class CurrencyRepository {
+public class CoinRepository implements IRepository<Currency>,IRestrictedRepository<Currency> {
 
-	public CurrencyRepository() {
+	public CoinRepository() {
 
 	}
 
@@ -35,9 +35,9 @@ public class CurrencyRepository {
 	 * @param name = gotten user name
 	 * @return database result
 	 */
-	public DatabaseResult getCurrencyById(String id) {
+	public DatabaseResult getById(String id) {
 		// get user container of system which holds all users
-		final IContainer<Currency> currencies = BaseRepository.currencies();
+		final IContainer<Currency> currencies = BaseRepository.coins();
 		String message = "";
 		Object result = null;
 		try {
@@ -47,6 +47,31 @@ public class CurrencyRepository {
 			message += e.getMessage();
 		}
 		return new DatabaseResult(result, message);
+	}
+	
+	public IContainer<Currency> coins()
+	{
+		return BaseRepository.coins();
+	}
+	
+	public boolean addEntity(Currency currency)
+	{
+		return BaseRepository.coins().add(currency);
+	}
+	
+	public Currency removeEntity(Currency currency)
+	{
+		try {
+			return BaseRepository.coins().remove(currency);
+		} catch (ItemNotFoundException e) {
+			return null;
+		}
+	}
+
+	@Override
+	public DatabaseResult getByName(String name) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

@@ -3,8 +3,8 @@ package factory;
 import java.util.Dictionary;
 import java.util.Enumeration;
 
+import factory.validator.BankWalletValidator;
 import factory.validator.ValidationResult;
-import factory.validator.WalletValidator;
 import model.BankWallet;
 import model.Wallet;
 import model.WalletEntity;
@@ -17,7 +17,7 @@ public class BankWalletFactory extends WalletFactory {
 	public Wallet createWallet(String id, Dictionary<String, String> params) {
 		String walletId = id;
 		Wallet walletResult = null;
-		ValidationResult vr = WalletValidator.validateBankWallet(walletId);
+		ValidationResult vr = BankWalletValidator.validateBankWallet(walletId);
 		if (!vr.isValid) {
 			walletId = vr.messages;
 		}
@@ -35,7 +35,7 @@ public class BankWalletFactory extends WalletFactory {
 				break;
 			}
 
-			if (!WalletValidator.isEntityBanknote(result)) {
+			if (!BankWalletValidator.isEntityBanknote(result)) {
 				isNotEligible = true;
 				break;
 			}

@@ -1,5 +1,6 @@
 package fileio;
 
+import model.Currency;
 import model.User;
 import model.Wallet;
 import storage.IContainer;
@@ -10,22 +11,22 @@ import storage.IContainer;
 public interface IFileIO {
 	
 	/**
-	 * This function reads outfits
+	 * This function reads crpyto wallets
 	 * 
 	 * @param filePath of the crypto_wallets.json file
 	 * @returns read crypto_wallets
 	 * @throws Exception for fileio exceptions
 	 */
-	public IContainer<Wallet> readCryptoWallets(String filePath) throws Exception;
+	public void readCryptoWallets(String filePath) throws Exception;
 	
 	/**
-	 * This function reads outfits
+	 * This function reads bank wallets
 	 * 
 	 * @param filePath of the bank_wallets.json file
 	 * @returns read bank_wallets
 	 * @throws Exception for fileio exceptions
 	 */
-	public IContainer<Wallet> readBankWallets(String filePath) throws Exception;
+	public void readBankWallets(String filePath) throws Exception;
 
 
 	/**
@@ -35,7 +36,29 @@ public interface IFileIO {
 	 * @returns read users
 	 * @throws Exception for fileio exceptions
 	 */
-	public IContainer<User> readUsers(String filePath) throws Exception;
+	public void readUsers(String filePath) throws Exception;
+
+
+	/**
+	 * This function reads coins
+	 * 
+	 * @param filePath of coins file
+	 * @returns read coins
+	 * @throws Exception for fileio exceptions
+	 */
+	public void readCoins(String filePath) throws Exception;
+	
+	
+	/**
+	 * This function reads banknotes
+	 * 
+	 * @param filePath of banknotes file
+	 * @returns read banknotes
+	 * @throws Exception for fileio exceptions
+	 */
+	public void readBanknotes(String filePath) throws Exception;
+
+	
 
 
 	/**
@@ -48,7 +71,7 @@ public interface IFileIO {
 	public void writeUsers(IContainer<User> users, String filePath) throws Exception;
 	
 	/**
-	 * This function writes wallets
+	 * This function writes crypto wallets
 	 * 
 	 * @param cryptoWallets    of the system
 	 * @param filePath of the file
@@ -58,13 +81,31 @@ public interface IFileIO {
 	
 	
 	/**
-	 * This function writes users
+	 * This function writes bank wallets
 	 * 
 	 * @param bankWallets    of the system
 	 * @param filePath of the file
 	 * @throws Exception for write operations
 	 */
 	public void writeBankWallets(IContainer<Wallet> bankWallets, String filePath) throws Exception;
+	
+	/**
+	 * This function writes coins
+	 * 
+	 * @param coins    of the system
+	 * @param filePath of the file
+	 * @throws Exception for write operations
+	 */
+	public void writeCoins(IContainer<Currency> coins, String filePath) throws Exception;
+	
+		/**
+	 * This function writes users
+	 * 
+	 * @param banknotes    of the system
+	 * @param filePath of the file
+	 * @throws Exception for write operations
+	 */
+	public void writeBanknotes(IContainer<Currency> banknotes, String filePath) throws Exception;
 
 
 }

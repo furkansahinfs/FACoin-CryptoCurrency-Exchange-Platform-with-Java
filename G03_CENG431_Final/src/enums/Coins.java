@@ -1,7 +1,7 @@
 package enums;
 
 public enum Coins {
-	BTC, ETH, DOGE, XRP;
+	BTC, LTC, DOGE;
 
 	public static boolean isCoin(String value) {
 		try {
@@ -11,4 +11,5 @@ public enum Coins {
 			return false;
 		}
 	}
+	
 }

@@ -1,4 +1,4 @@
-package fileio;
+package fileio.repository;
 
 import exception.FileFormatException;
 import model.Currency;
@@ -38,8 +38,17 @@ public class BaseRepository {
 	 * 
 	 * @return Currency Container
 	 */
-	protected static final IContainer<Currency> currencies() {
-		return fileController.currencies();
+	protected static final IContainer<Currency> coins() {
+		return fileController.coins();
+	}
+	
+	/**
+	 * The function returns the read currencies' container
+	 * 
+	 * @return Currency Container
+	 */
+	protected static final IContainer<Currency> banknotes() {
+		return fileController.banknotes();
 	}
 
 	/**

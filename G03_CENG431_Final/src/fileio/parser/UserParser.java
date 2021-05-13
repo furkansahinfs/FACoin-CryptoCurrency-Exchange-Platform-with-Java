@@ -11,21 +11,18 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import exception.FileFormatException;
 import factory.UserFactory;
-import fileio.UserRepository;
+import fileio.repository.IRepository;
+import fileio.repository.UserRepository;
 import model.User;
-import storage.IContainer;
-import storage.UserContainer;
 
 public class UserParser {
 	
 	private UserFactory userFactory;
-	private UserRepository userRepository;
 	/**
 	 * The UserParser parses the gotten contract file content and creates user
 	 * objects
 	 */
 	protected UserParser() {
-		userRepository = new UserRepository();
 		userFactory = new UserFactory();
 	}
 
@@ -39,15 +36,13 @@ public class UserParser {
 	 * @return User Container
 	 * @throws XMLException
 	 */
-	protected IContainer<User> parseUsers(String fileAll)
+	protected void parseUsers(String fileAll)
 			throws Exception {
-
+		
 		Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
 				.parse(new InputSource(new StringReader(fileAll)));
-		IContainer<User> users = new UserContainer();// initialise user container
-		parse(doc, users);// parse all to users
-		return users;// return users
-
+		IRepository<User> userRepository = new UserRepository();// initialise user container
+		parse(doc, userRepository);// parse all to users
 	}
 
 	/**
@@ -58,7 +53,7 @@ public class UserParser {
 	 * @param users = contract container
 	 * @throws JSONException
 	 */
-	private void parse(Document doc, IContainer<User> users) throws Exception {
+	private void parse(Document doc, IRepository<User> userRepository) throws Exception {
 
 		doc.getDocumentElement().normalize();
 		if (!doc.getDocumentElement().getNodeName().equals("users"))
@@ -76,7 +71,7 @@ public class UserParser {
 				User user = createUser(userNodeElement);
 				if(user != null)
 				{
-					users.add(user); // add created user to the users
+					userRepository.addEntity(user); // add created user to the users
 				}
 				else
 				{

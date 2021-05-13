@@ -4,7 +4,7 @@ import java.util.Dictionary;
 import java.util.Enumeration;
 
 import factory.validator.ValidationResult;
-import factory.validator.WalletValidator;
+import factory.validator.CryptoWalletValidator;
 import model.CryptoWallet;
 import model.Wallet;
 import model.WalletEntity;
@@ -16,7 +16,7 @@ public class CryptoWalletFactory extends WalletFactory{
 	public Wallet createWallet(String id, Dictionary<String, String> params) {
 		String walletId = id;
 		Wallet walletResult = null;
-		ValidationResult vr = WalletValidator.validateCryptoWallet(walletId);
+		ValidationResult vr = CryptoWalletValidator.validateCryptoWallet(walletId);
 		if(!vr.isValid){
 			walletId = vr.messages;
 		}
@@ -34,7 +34,7 @@ public class CryptoWalletFactory extends WalletFactory{
 				break;
 			}
 			
-			if(!WalletValidator.isEntityCoin(result)){
+			if(!CryptoWalletValidator.isEntityCoin(result)){
 				isNotEligible = true;
 				break;
 			}

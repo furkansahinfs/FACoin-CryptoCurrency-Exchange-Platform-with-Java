@@ -1,9 +1,13 @@
 package factory;
 public class AbstractFactory{
 	
-	public AbstractFactory(){}
+	private AbstractFactory factory;
+	public AbstractFactory(AbstractFactory factory){
+		this.factory = factory;
+	}
 	
-	public Object createEntity(AbstractFactory factory, Object args){
-		return factory.createEntity(factory,args);
+	public Object createEntity(Object args){
+		return factory.createEntity(args);
 	}
 }
+

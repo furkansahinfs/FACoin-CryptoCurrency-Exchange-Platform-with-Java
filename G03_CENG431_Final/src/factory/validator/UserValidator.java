@@ -1,8 +1,10 @@
 package factory.validator;
 
 import factory.RandomFactory;
-import fileio.DatabaseResult;
-import fileio.UserRepository;
+import fileio.repository.DatabaseResult;
+import fileio.repository.IRestrictedRepository;
+import fileio.repository.UserRepository;
+import model.User;
 
 public class UserValidator {
 
@@ -23,11 +25,14 @@ public class UserValidator {
 
 	private static ValidationResult validateUserName(String userName) {
 		ValidationResult validationResult = new ValidationResult("Username is already in User Repository");
-		DatabaseResult resultUserName = (new UserRepository()).getUserByName(userName);
-
+		IRestrictedRepository<User> userRepository = new UserRepository();
+		
+		DatabaseResult resultUserName; resultUserName = userRepository.getByName(userName);
 		if (resultUserName.getObject() == null) {
 			validationResult = new ValidationResult(true, "");
 		}
+
+		
 		return validationResult;
 
 	}
@@ -38,13 +43,13 @@ public class UserValidator {
 	}
 
 	private static ValidationResult validateUserId(String userId) {
-		UserRepository userRepository = new UserRepository();
-		DatabaseResult userIdResult = userRepository.getUserById(userId);
+		IRestrictedRepository<User> userRepository = new UserRepository();
+		DatabaseResult userIdResult = userRepository.getById(userId);
 		if (userIdResult.getObject() == null) {
 			return new ValidationResult(true, "Validated");
 		}
 		String new_id = RandomFactory.randomId();
-		while (userRepository.getUserById(new_id).getObject() != null) {
+		while (userRepository.getById(new_id).getObject() != null) {
 			new_id = RandomFactory.randomId();
 		}
 		return new ValidationResult(new_id);

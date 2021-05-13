@@ -1,10 +1,5 @@
 package fileio.parser;
 
-import model.Currency;
-import model.User;
-import model.Wallet;
-import storage.IContainer;
-
 /**
  * This function is a middleware for parser classes
  *
@@ -13,13 +8,15 @@ public class Parser {
 	private UserParser userParser;
 	private CryptoWalletParser cryptoWalletParser;
 	private BankWalletParser bankWalletParser;
-	private CurrencyParser currencyParser;
+	private CoinParser coinParser;
+	private BanknoteParser banknoteParser;
 
 	public Parser() {
 		this.userParser = new UserParser();
 		this.cryptoWalletParser = new CryptoWalletParser();
 		this.bankWalletParser = new BankWalletParser();
-		this.currencyParser = new CurrencyParser();
+		this.coinParser = new CoinParser();
+		this.banknoteParser = new BanknoteParser();
 	}
 
 	/**
@@ -30,9 +27,9 @@ public class Parser {
 	 * @return User Container
 	 * @throws XMLException
 	 */
-	public IContainer<User> parseUsers(String fileAll)
+	public void parseUsers(String fileAll)
 			throws Exception {
-		return userParser.parseUsers(fileAll);
+		userParser.parseUsers(fileAll);
 	}
 	
 	/**
@@ -43,9 +40,9 @@ public class Parser {
 	 * @return Wallet Container
 	 * @throws JSONException
 	 */
-	public IContainer<Wallet> parseCryptoWallets(String fileAll)
+	public void parseCryptoWallets(String fileAll)
 			throws Exception {
-		return cryptoWalletParser.parseWallets(fileAll);
+		cryptoWalletParser.parseWallets(fileAll);
 	}
 	
 	/**
@@ -56,9 +53,9 @@ public class Parser {
 	 * @return Wallet Container
 	 * @throws JSONException
 	 */
-	public IContainer<Wallet> parseBankWallets(String fileAll)
+	public void parseBankWallets(String fileAll)
 			throws Exception {
-		return bankWalletParser.parseWallets(fileAll);
+		bankWalletParser.parseWallets(fileAll);
 	}
 	
 	
@@ -70,9 +67,22 @@ public class Parser {
 	 * @return Currency Container
 	 * @throws JSONException
 	 */
-	public IContainer<Currency> parseCurrencies(String fileAll)
+	public void parseCoins(String fileAll)
 			throws Exception {
-		return currencyParser.parseCurrencies(fileAll);
+		coinParser.parseCurrencies(fileAll);
+	}
+	
+	/**
+	 * The function parses gotten file content and returns the currency container which
+	 * holds created currencies
+	 * 
+	 * @param fileAll = currencies.json file content
+	 * @return Currency Container
+	 * @throws JSONException
+	 */
+	public void parseBanknotes(String fileAll)
+			throws Exception {
+		banknoteParser.parseCurrencies(fileAll);
 	}
 
 

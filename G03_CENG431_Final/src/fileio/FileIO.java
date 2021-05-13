@@ -1,12 +1,10 @@
 package fileio;
 
 import fileio.parser.Parser;
+import model.Currency;
 import model.User;
 import model.Wallet;
 import storage.IContainer;
-import storage.UserContainer;
-import storage.WalletContainer;
-
 public class FileIO implements IFileIO {
 	private FileRead fRead;
 	private FileWrite fWrite;
@@ -19,42 +17,28 @@ public class FileIO implements IFileIO {
 	}
 
 	@Override
-	public IContainer<Wallet> readCryptoWallets(String filePath) throws Exception {
-		IContainer<Wallet> cryptoWallets = null;
-
+	public void readCryptoWallets(String filePath) throws Exception {
 		String fileAll = fRead.readFile(filePath);// read file
 		if (!fileAll.isBlank())// if not blank
-			cryptoWallets = parser.parseCryptoWallets(fileAll); // parse wallets
-		else
-			cryptoWallets = new WalletContainer(); // initialise empty container
+			parser.parseCryptoWallets(fileAll); // parse wallets
 
-		return cryptoWallets;
 	}
 	
 	@Override
-	public IContainer<Wallet> readBankWallets(String filePath) throws Exception {
-		IContainer<Wallet> bankWallets = null;
-
+	public void readBankWallets(String filePath) throws Exception {
 		String fileAll = fRead.readFile(filePath);// read file
 		if (!fileAll.isBlank())// if not blank
-			bankWallets = parser.parseCryptoWallets(fileAll); // parse wallets
-		else
-			bankWallets = new WalletContainer(); // initialise empty container
+		    parser.parseBankWallets(fileAll);// parse wallets
 
-		return bankWallets;
+
 	}
 
 	@Override
-	public IContainer<User> readUsers(String filePath) throws Exception {
-		IContainer<User> users = null;
-
+	public void readUsers(String filePath) throws Exception {
 		String fileAll = fRead.readFile(filePath); // read file
 		if (!fileAll.isBlank()) // if not blank
-			users = parser.parseUsers(fileAll); // parse users
-		else
-			users = new UserContainer(); // initialise empty container
+			parser.parseUsers(fileAll); // parse users
 
-		return users;
 	}
 
 	
@@ -73,6 +57,33 @@ public class FileIO implements IFileIO {
 	public void writeBankWallets(IContainer<Wallet> bankWallets, String filePath) throws Exception {
 		fWrite.writeItems(bankWallets, filePath);
 
+	}
+
+	@Override
+	public void readCoins(String filePath) throws Exception {
+		String fileAll = fRead.readFile(filePath); // read file
+		if (!fileAll.isBlank()) // if not blank
+			parser.parseCoins(fileAll); // parse users
+		
+	}
+
+	@Override
+	public void readBanknotes(String filePath) throws Exception {
+		String fileAll = fRead.readFile(filePath); // read file
+		if (!fileAll.isBlank()) // if not blank
+			parser.parseBanknotes(fileAll);// parse users
+		
+	}
+
+	@Override
+	public void writeCoins(IContainer<Currency> coins, String filePath) throws Exception {
+		fWrite.writeItems(coins, filePath);
+		
+	}
+
+	@Override
+	public void writeBanknotes(IContainer<Currency> banknotes, String filePath) throws Exception {
+		fWrite.writeItems(banknotes, filePath);
 	}
 
 

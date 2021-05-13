@@ -6,13 +6,12 @@ import java.util.Iterator;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import exception.FileFormatException;
 import factory.CryptoWalletFactory;
 import factory.WalletFactory;
-import storage.IContainer;
-import storage.WalletContainer;
-import model.Wallet;
+import fileio.repository.CryptoWalletRepository;
+import fileio.repository.IRepository;
+import model.CryptoWallet;
 
 public class CryptoWalletParser {
 
@@ -37,21 +36,18 @@ public class CryptoWalletParser {
 	 * @throws FileFormatException
 	 * @throws JSONException
 	 */
-	protected IContainer<Wallet> parseWallets(String fileAll) throws FileFormatException {
-		IContainer<Wallet> wallets = null;
+	protected void parseWallets(String fileAll) throws FileFormatException {
+		IRepository<CryptoWallet> cryptoWalletRepository = new CryptoWalletRepository();
 		try {
 			JSONObject jsonContracts;
 			jsonContracts = (new JSONParser()).parse(fileAll); // get json object of file content
-			wallets = parse(jsonContracts); // parse wallets
+			parse(jsonContracts, cryptoWalletRepository); // parse wallets
 		} catch (JSONException e) {
 		}
-
-		return wallets;
-
 	}
 
-	private IContainer<Wallet> parse(JSONObject jsonObject) throws JSONException, FileFormatException {
-		IContainer<Wallet> wallets = new WalletContainer();
+	private void parse(JSONObject jsonObject,IRepository<CryptoWallet> cryptoWalletRepository) throws JSONException, FileFormatException {
+		
 		// iterate json object
 		Iterator<?> keys = jsonObject.keys();
 		Object val = null;
@@ -73,15 +69,14 @@ public class CryptoWalletParser {
 					String quantity = coinJson.getString("quantity");
 					coin.put(coinId, quantity);
 				}
-				Wallet wallet = createWallet(key, coin);
-				wallets.add(wallet);
+				CryptoWallet wallet = createWallet(key, coin);
+				cryptoWalletRepository.addEntity(wallet);
 			}
 		}
-		return wallets;
 	}
 
-	private Wallet createWallet(String walletId, Dictionary<String, String> coins) throws FileFormatException {
-		Wallet createdWallet = cryptoWalletFactory.createWallet(walletId, coins);
+	private CryptoWallet createWallet(String walletId, Dictionary<String, String> coins) throws FileFormatException {
+		CryptoWallet createdWallet = (CryptoWallet) cryptoWalletFactory.createWallet(walletId, coins);
 		if (createdWallet != null) {
 			return createdWallet;
 		} else {

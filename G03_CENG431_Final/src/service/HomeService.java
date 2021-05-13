@@ -1,14 +1,14 @@
 package service;
 
-import fileio.CurrencyRepository;
-import fileio.DatabaseResult;
+import fileio.repository.CoinRepository;
+import fileio.repository.DatabaseResult;
 
 public class HomeService {
 
-	private final CurrencyRepository currencies;
+	private final CoinRepository currencies;
 
 	public HomeService() {
-		currencies = new CurrencyRepository();
+		currencies = new CoinRepository();
 	}
 
 	

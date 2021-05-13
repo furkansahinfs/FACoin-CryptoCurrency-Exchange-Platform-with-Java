@@ -2,8 +2,9 @@ package factory;
 
 import factory.validator.UserValidator;
 import factory.validator.ValidationResult;
-import fileio.DatabaseResult;
-import fileio.WalletRepository;
+import fileio.repository.BankWalletRepository;
+import fileio.repository.CryptoWalletRepository;
+import fileio.repository.DatabaseResult;
 import model.User;
 import model.Wallet;
 
@@ -18,8 +19,8 @@ public class UserFactory {
 		ValidationResult isUserOK = UserValidator.validateUser(userName, password, userId);
 
 		if (isUserOK.isValid) {
-			DatabaseResult resultCryptoWallet = (new WalletRepository()).getCryptoWalletById(cryptoWalletId);
-			DatabaseResult resultBankWallet = (new WalletRepository()).getBankWalletById(bankWalletId);
+			DatabaseResult resultCryptoWallet = (new CryptoWalletRepository()).getById(cryptoWalletId);
+			DatabaseResult resultBankWallet = (new BankWalletRepository()).getById(bankWalletId);
 			Object cryptoWallet = resultCryptoWallet.getObject();
 			Object bankWallet = resultBankWallet.getObject();
 			if (cryptoWallet != null && bankWallet != null) {

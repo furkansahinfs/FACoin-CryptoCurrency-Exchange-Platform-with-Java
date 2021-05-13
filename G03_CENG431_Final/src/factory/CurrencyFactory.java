@@ -1,23 +1,16 @@
 package factory;
 
-import model.ICurrency;
-
-public class CurrencyFactory extends AbstractFactory{
+public abstract class CurrencyFactory extends AbstractFactory{	
 	
-	@Override
-	public Object createEntity(AbstractFactory factory, Object args){
-		
-		ICurrency currency = null;
-		
-		if(!(args instanceof CurrencyFactoryParams)){
-			return currency;
-		}
-		
-		CurrencyFactoryParams params = (CurrencyFactoryParams)args;
-		
-		
-		
-		return factory.createEntity(factory,args);
+	public CurrencyFactory(CurrencyFactory factory) {
+		super(factory);
 	}
+	
+	public CurrencyFactory() {
+		super(null);
+	}
+
+	@Override
+	public abstract Object createEntity(Object args);
 	
 }

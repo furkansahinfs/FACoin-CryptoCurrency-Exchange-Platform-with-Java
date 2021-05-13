@@ -1,7 +1,8 @@
 package service;
 
 import javax.swing.DefaultListModel;
-import fileio.UserRepository;
+
+import fileio.repository.UserRepository;
 import model.User;
 
 /**

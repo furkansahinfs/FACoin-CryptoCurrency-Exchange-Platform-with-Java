@@ -1,5 +1,10 @@
 package httpio;
 
-public class HttpRequest {
+import enums.RequestType;
 
+public abstract class HttpRequest {
+	
+	private String endpoint;
+	private RequestType type;
+	
 }

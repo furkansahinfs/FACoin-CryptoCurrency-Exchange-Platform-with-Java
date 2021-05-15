@@ -1,4 +1,7 @@
 package model;
+
+import java.util.Dictionary;
+
 public interface ICurrency{
-	public float getValue();
+	public Dictionary<String,Float> getValue();
 }

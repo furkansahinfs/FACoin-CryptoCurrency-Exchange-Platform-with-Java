@@ -9,7 +9,13 @@ import model.Currency;
 import model.ICurrency;
 
 public class BanknoteFactory extends CurrencyFactory {
-
+	
+	
+	public BanknoteFactory() {
+		super(null);
+		super.setFactory(this);
+	}
+	
 	@Override
 	public Object createEntity(Object args) {
 		ICurrency currency = null;
@@ -20,7 +26,7 @@ public class BanknoteFactory extends CurrencyFactory {
 		CurrencyFactoryParams params = (CurrencyFactoryParams)args;
 		ValidationResult vr = BanknoteValidator.validateBanknote(params.name, params.id);
 		if(vr.isValid){
-			currency = new Banknote(params.id,0, params.name);
+			currency = new Banknote(params.id,params.name);
 		}
 		else if(vr.messages.contains("Id is not validated.") && vr.messages.length() == 20)
 		{
@@ -30,7 +36,7 @@ public class BanknoteFactory extends CurrencyFactory {
 				new_id = RandomFactory.randomId();
 			}
 			
-			currency = new Banknote(new_id,0, params.name);
+			currency = new Banknote(new_id,params.name);
 		}
 	
 		return currency;

@@ -1,8 +1,14 @@
 package model;
 
-public class Banknote extends Currency{
+import java.util.Dictionary;
 
-	public Banknote(String id, float value, String name) {
+public class Banknote extends Currency{
+	
+	public Banknote(String id, String name) {
+		super(id, name);
+	}
+	
+	public Banknote(String id, Dictionary<String, Float> value, String name) {
 		super(id, value, name);
 	}
 

@@ -1,28 +1,24 @@
 package app;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
-import settings.AppSettings;
+import enums.Coins;
 
 public class App {
 
-	 public static void main(String[] args) throws Exception {
-			//https://showcase.api.linx.twenty57.net/UnixTime/tounixtimestamp?datetime=now
-	        URL oracle = new URL("https://showcase.api.linx.twenty57.net/UnixTime/tounixtimestamp?datetime=now");
-//https://min-api.cryptocompare.com/data/v2/histohour?fsym=BTC&tsym=USD&limit=10&api_key="+AppSettings.CRYPTO_API_KEY);
-	        URLConnection yc = oracle.openConnection();
-	        BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
-	        String inputLine;
-	        while ((inputLine = in.readLine()) != null) 
-	            System.out.println(inputLine);
-	        in.close();
-new Thread(() -> {
-    //Do whatever
-}).start();
-	    }
+	public static void main(String[] args) throws Exception {
+
+		/*
+		 * new Thread(() -> { // Do whatever }).start();
+		 * 
+		 * Runnable helloRunnable = new Runnable() { public void run() {
+		 * System.out.println("Hello world"); } };
+		 * 
+		 * ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+		 * executor.scheduleAtFixedRate(helloRunnable, 0, 5, TimeUnit.SECONDS);
+		 */
+
+	}
 }
-
-

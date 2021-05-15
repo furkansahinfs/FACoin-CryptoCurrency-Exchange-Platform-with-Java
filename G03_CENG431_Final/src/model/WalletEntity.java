@@ -7,8 +7,8 @@ public class WalletEntity{
 		this.quantity = quantity;
 	}
 	
-	public float getTotal(){
-		return this.currency.getValue()*quantity;
+	public float getTotal(String banknoteName){
+		return this.currency.getValue().get(banknoteName)*quantity;
 	}
 	
 	public String getCurrency(){

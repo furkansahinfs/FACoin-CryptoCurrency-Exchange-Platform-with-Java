@@ -99,5 +99,7 @@ public interface IContainer<T> extends Iterable<T> {
 	 * @return array value of IContainer
 	 */
 	public T[] toArray();
+	
+	public String toString(int value);
 
 }

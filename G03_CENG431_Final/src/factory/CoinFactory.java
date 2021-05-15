@@ -10,6 +10,11 @@ import model.ICurrency;
 
 public class CoinFactory extends CurrencyFactory {
 
+	public CoinFactory() {
+		super(null);
+		super.setFactory(this);
+	}
+	
 	@Override
 	public Object createEntity(Object args) {
 		ICurrency currency = null;
@@ -20,7 +25,7 @@ public class CoinFactory extends CurrencyFactory {
 		CurrencyFactoryParams params = (CurrencyFactoryParams)args;
 		ValidationResult vr = CoinValidator.validatCoin(params.name, params.id);
 		if(vr.isValid){
-			currency = new Coin(params.id,0,params.name);
+			currency = new Coin(params.id,params.name);
 		}
 		else if(vr.messages.contains("Id is not validated.") && vr.messages.length() == 20)
 		{
@@ -30,7 +35,7 @@ public class CoinFactory extends CurrencyFactory {
 				new_id = RandomFactory.randomId();
 			}
 			
-			currency = new Coin(new_id,0, params.name);
+			currency = new Coin(new_id,params.name);
 		}
 		
 		return currency;

@@ -5,9 +5,13 @@ public class AbstractFactory{
 	public AbstractFactory(AbstractFactory factory){
 		this.factory = factory;
 	}
-	
+		
 	public Object createEntity(Object args){
 		return factory.createEntity(args);
+	}
+	
+	protected void setFactory(AbstractFactory factory){
+		this.factory = factory;
 	}
 }
 

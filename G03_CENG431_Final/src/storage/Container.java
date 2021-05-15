@@ -122,6 +122,9 @@ public abstract class Container<T> implements IContainer<T> {
 		return string;
 	}
 
+	public String toString(int value){
+		return "";
+	}
 	
 	@SuppressWarnings("unchecked")
 	public T[] toArray(){

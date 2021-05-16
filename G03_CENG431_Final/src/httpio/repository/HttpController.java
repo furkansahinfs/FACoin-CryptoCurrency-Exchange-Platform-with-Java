@@ -21,7 +21,7 @@ public class HttpController {
 		
 	}
 	
-	public static Date getDate(){
+	protected static Date updateDate(){
 		Date date = null;
 		date = httpIO.getTime(AppSettings.DATE_ENDPOINT); 
 		return date;

@@ -4,7 +4,7 @@ import java.util.Date;
 
 import factory.validator.CandleValidator;
 import factory.validator.ValidationResult;
-import httpio.repository.HttpController;
+import httpio.repository.SystemProperties;
 import model.Candle;
 import model.CandleParams;
 import model.DayCandle;
@@ -21,7 +21,7 @@ public class DayCandleFactory extends CandleFactory {
 		if (!(args instanceof CandleParams))
 			return result;
 		CandleParams tempArgs = (CandleParams) args;
-		Date nowDate = HttpController.getDate();
+		Date nowDate = SystemProperties.SYSTEM_DATE();
 		tempArgs.nowDate = nowDate;
 		ValidationResult vr = CandleValidator.validateDayCandle(tempArgs);
 		if (!vr.isValid)

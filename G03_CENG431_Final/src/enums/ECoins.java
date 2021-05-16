@@ -1,11 +1,11 @@
 package enums;
 
-public enum Coins {
+public enum ECoins {
 	BTC, LTC, DOGE;
 
 	public static boolean isCoin(String value) {
 		try {
-			Coins.valueOf(value);
+			ECoins.valueOf(value);
 			return true;
 		} catch (IllegalArgumentException e) {
 			return false;

@@ -1,6 +1,6 @@
 package factory.validator;
 
-import enums.Banknotes;
+import enums.EBanknotes;
 import fileio.repository.CoinRepository;
 import fileio.repository.DatabaseResult;
 import fileio.repository.IRestrictedRepository;
@@ -26,7 +26,7 @@ public class BanknoteValidator {
 	private static ValidationResult validateCurrencyName(String currencyName)
 	{
 		ValidationResult validationResult = new ValidationResult("Given currency is not a banknote");
-		boolean isBanknote = Banknotes.isBanknote(currencyName);
+		boolean isBanknote = EBanknotes.isBanknote(currencyName);
 		if(isBanknote)
 		{
 			validationResult = new ValidationResult(true,"Name is validated.");

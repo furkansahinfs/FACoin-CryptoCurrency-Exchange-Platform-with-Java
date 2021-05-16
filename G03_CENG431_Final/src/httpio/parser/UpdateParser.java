@@ -3,8 +3,8 @@ package httpio.parser;
 import java.util.Iterator;
 import org.json.JSONException;
 import org.json.JSONObject;
-import enums.Banknotes;
-import enums.Coins;
+import enums.EBanknotes;
+import enums.ECoins;
 import exception.FileFormatException;
 import fileio.parser.JSONParser;
 import fileio.repository.UpdateData;
@@ -76,8 +76,8 @@ public class UpdateParser {
 	}
 
 	private boolean validateResult(String coinName, String banknoteName, Object banknoteValue) {
-		boolean isValidCoin = Coins.isCoin(coinName);
-		boolean isValidBanknote = Banknotes.isBanknote(banknoteName);
+		boolean isValidCoin = ECoins.isCoin(coinName);
+		boolean isValidBanknote = EBanknotes.isBanknote(banknoteName);
 		boolean isValidFloat;
 		try {
 			Float.valueOf((String) banknoteValue);

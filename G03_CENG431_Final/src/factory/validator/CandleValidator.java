@@ -2,7 +2,7 @@ package factory.validator;
 
 import java.util.Date;
 
-import enums.CandleStatus;
+import enums.ECandleStatus;
 import model.CandleParams;
 
 public class CandleValidator {
@@ -13,11 +13,11 @@ public class CandleValidator {
 		boolean isValid = highLowResult.isValid && hourDateResult.isValid;
 		if(hourDateResult.isValid)
 		{
-			params.status = CandleStatus.CLOSED;
+			params.status = ECandleStatus.CLOSED;
 		}
 		else
 		{
-			params.status = CandleStatus.IN_PROGRESS;
+			params.status = ECandleStatus.IN_PROGRESS;
 		}
 
 		if (isValid) {
@@ -37,11 +37,11 @@ public class CandleValidator {
 		
 		if(dayDateResult.isValid)
 		{
-			params.status = CandleStatus.CLOSED;
+			params.status = ECandleStatus.CLOSED;
 		}
 		else
 		{
-			params.status = CandleStatus.IN_PROGRESS;
+			params.status = ECandleStatus.IN_PROGRESS;
 		}
 		
 		if (isValid) {

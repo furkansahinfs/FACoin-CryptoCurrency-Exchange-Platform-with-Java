@@ -2,8 +2,8 @@ package httpio;
 
 import java.util.Date;
 import org.json.JSONException;
-import enums.Coins;
-import enums.RequestType;
+import enums.ECoins;
+import enums.ERequestType;
 import exception.HttpRequestException;
 import fileio.repository.UpdateData;
 import httpio.parser.Parser;
@@ -20,7 +20,7 @@ public class HttpIO implements IHttpIO{
 	}
 
 	public UpdateData[] getValues(String endpointPath){
-		httpRequest.setParams(endpointPath, RequestType.GET);
+		httpRequest.setParams(endpointPath, ERequestType.GET);
 		String httpContext = httpRequest.getRequest();
 		UpdateData[] updateDataList = parser.parseUpdatedValues(httpContext);
 		return updateDataList;
@@ -34,7 +34,7 @@ public class HttpIO implements IHttpIO{
 
 	@Override
 	public Date getTime(String endpointPath) {
-		httpRequest.setParams(endpointPath, RequestType.GET);
+		httpRequest.setParams(endpointPath, ERequestType.GET);
 		String httpContext = httpRequest.getRequest();
 		Date date = parser.parseDate(httpContext);
 		return date;
@@ -42,7 +42,7 @@ public class HttpIO implements IHttpIO{
 
 	@Override
 	public void readDayCandles(String endpointPath) throws HttpRequestException {
-		httpRequest.setParams(endpointPath, RequestType.GET);
+		httpRequest.setParams(endpointPath, ERequestType.GET);
 		String httpContext = httpRequest.getRequest();
 		String coinName = extractCoinName(endpointPath).name();
 		try {
@@ -55,7 +55,7 @@ public class HttpIO implements IHttpIO{
 
 	@Override
 	public void readHourCandles(String endpointPath) throws HttpRequestException{
-		httpRequest.setParams(endpointPath, RequestType.GET);
+		httpRequest.setParams(endpointPath, ERequestType.GET);
 		String httpContext = httpRequest.getRequest();
 		String coinName = extractCoinName(endpointPath).name();
 		try {
@@ -65,11 +65,11 @@ public class HttpIO implements IHttpIO{
 		}
 	}
 
-	private Coins extractCoinName(String url){
+	private ECoins extractCoinName(String url){
 		int eqIndex = url.indexOf("=")+1;
 		int andIndex = url.indexOf("&");
 		String coinName = url.substring(eqIndex, andIndex);
-		return Coins.valueOf(coinName);
+		return ECoins.valueOf(coinName);
 	}
 
 }

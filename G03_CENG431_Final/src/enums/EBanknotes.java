@@ -1,11 +1,11 @@
 package enums;
 
-public enum Banknotes {
+public enum EBanknotes {
 	USD;
 
 	public static boolean isBanknote(String value) {
 		try {
-			Banknotes.valueOf(value);
+			EBanknotes.valueOf(value);
 			return true;
 		} catch (IllegalArgumentException e) {
 			return false;

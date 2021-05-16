@@ -6,27 +6,27 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
-import enums.RequestType;
+import enums.ERequestType;
 
 public class HttpRequest {
 
 	private String endpoint;
-	private RequestType type;
+	private ERequestType type;
 
-	public HttpRequest(String endpoint, RequestType type) {
+	public HttpRequest(String endpoint, ERequestType type) {
 		this.endpoint = endpoint;
 		this.type = type;
 	}
 	
 	public HttpRequest(){}
 	
-	public void setParams(String endpoint,RequestType type){
+	public void setParams(String endpoint,ERequestType type){
 		this.endpoint = endpoint;
 		this.type = type;
 	}
 
 	public String getRequest() {
-		if (type.equals("GET"))
+		if (type.equals(ERequestType.GET))
 			return "";
 
 		try {

@@ -2,19 +2,19 @@ package model;
 
 import java.util.Date;
 
-import enums.CandleStatus;
+import enums.ECandleStatus;
 
 public abstract class Candle{
 	private Date candleDate, nowDate;
 	private String coinName, high,low,open,close,volume;
-	private CandleStatus status;
+	private ECandleStatus status;
 	
 	public Candle(CandleParams params){
 		this(params.coinName,params.candleDate, params.nowDate,params.high,params.low, params.open, params.close,params.volume, params.status);
 	}
 	
 
-	public Candle(String coinName, Date candleDate, Date nowDate, String high, String low, String open, String close, String volume, CandleStatus status){
+	public Candle(String coinName, Date candleDate, Date nowDate, String high, String low, String open, String close, String volume, ECandleStatus status){
 		this.coinName = coinName;
 		this.candleDate =candleDate;
 		this.nowDate = nowDate;
@@ -26,12 +26,12 @@ public abstract class Candle{
 		this.status = status;
 	}
 	
-	public CandleStatus getStatus() {
+	public ECandleStatus getStatus() {
 		return status;
 	}
 
 
-	public void setStatus(CandleStatus status) {
+	public void setStatus(ECandleStatus status) {
 		this.status = status;
 	}
 

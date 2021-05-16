@@ -4,7 +4,7 @@ import java.util.Date;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import enums.CandleStatus;
+import enums.ECandleStatus;
 import factory.AbstractFactory;
 import factory.HourCandleFactory;
 import fileio.parser.JSONParser;
@@ -59,7 +59,7 @@ public class HourCandleParser {
 				close = candleData.getString("close");
 				volume = candleData.getString("volumeTo");
 				Date date = new Date(Long.valueOf(time));
-				CandleParams params = new CandleParams(coinName, date, null, high, low,open, close, volume, CandleStatus.CLOSED);
+				CandleParams params = new CandleParams(coinName, date, null, high, low,open, close, volume, ECandleStatus.CLOSED);
 				Candle candle = createCandle(params);
 				if(candle != null)
 				{

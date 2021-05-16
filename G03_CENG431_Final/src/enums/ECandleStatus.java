@@ -1,4 +1,4 @@
 package enums;
-public enum CandleStatus{
+public enum ECandleStatus{
 	CLOSED,IN_PROGRESS;
 }

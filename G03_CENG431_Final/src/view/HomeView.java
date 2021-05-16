@@ -7,6 +7,8 @@ import view.color.DarkTheme;
 
 import javax.swing.JButton;
 import java.awt.Font;
+import javax.swing.JList;
+import java.awt.Color;
 
 public class HomeView extends JPanel {
 
@@ -29,6 +31,11 @@ public class HomeView extends JPanel {
 		btnNewButton.setForeground(palette.BACKGROUND);
 		btnNewButton.setBounds(628, 11, 82, 23);
 		add(btnNewButton);
+		
+		JList list = new JList();
+		list.setBackground(palette.BACKGROUND);
+		list.setBounds(174, 59, 363, 350);
+		add(list);
 
 	}
 }

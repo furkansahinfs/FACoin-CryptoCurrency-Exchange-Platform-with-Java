@@ -1,7 +1,9 @@
 package fileio.repository;
 
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Enumeration;
+import java.util.List;
 
 import exception.HttpRequestException;
 import httpio.HttpIO;
@@ -20,7 +22,7 @@ public class UpdateMediator {
 
 	public void updateValues() {
 		String getUrl = setEndpoint();
-		UpdateData[] datas = {};
+		List<UpdateData> datas = new ArrayList<UpdateData>();
 		try {
 			datas = httpIO.getValues(getUrl);
 		} catch (HttpRequestException e) {
@@ -37,12 +39,14 @@ public class UpdateMediator {
 		return url;
 	}
 
-	private void updateCoinValues(UpdateData[] values) {
+	private void updateCoinValues(List<UpdateData> values) {
 		for (UpdateData data : values) {
+			
 			DatabaseResult dr = coins.getByName(data.name);
 			if (dr.getObject() == null)
 				continue;
 			Currency coin = (Currency) dr.getObject();
+			System.out.println("UpdateMediator : "+ data.getValues());
 			setValues(coin, data.values);
 		}
 	}
@@ -53,7 +57,11 @@ public class UpdateMediator {
 		while (iterator.hasMoreElements()) {
 			key = iterator.nextElement();
 			Float value = values.get(key);
-			coin.addValue(key, value);
+			Float oldValue = (float) 0;
+			oldValue = coin.addValue(key, value);
+			if(oldValue==null)
+				oldValue = value;
+			coin.addOldValue(key, oldValue);
 		}
 	}
 

@@ -15,7 +15,7 @@ public class HomeController {
 	public HomeController(HomeView view) {
 		this.homeService = new HomeService(); // to show up outfits
 		this.view = view;
-		this.view.addSelectCoinListener((new SelectCoinListener()));
+		//this.view.addSelectCoinListener((new SelectCoinListener()))
 	}
 
 

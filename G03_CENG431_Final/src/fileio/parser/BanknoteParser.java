@@ -7,9 +7,9 @@ import exception.FileFormatException;
 import factory.AbstractFactory;
 import factory.BanknoteFactory;
 import factory.CurrencyFactoryParams;
-import fileio.repository.CoinRepository;
+import fileio.repository.BanknoteRepository;
 import fileio.repository.IRepository;
-import model.Coin;
+import model.Banknote;
 import model.Currency;
 
 public class BanknoteParser {
@@ -31,7 +31,7 @@ public class BanknoteParser {
 	 * @throws FileFormatException
 	 */
 	protected void parseCurrencies(String fileAll) throws FileFormatException {
-		IRepository<Currency> banknoteRepository = new CoinRepository();
+		IRepository<Currency> banknoteRepository = new BanknoteRepository();
 		try {
 			JSONObject jsonCurrencies;
 			jsonCurrencies = (new JSONParser()).parse(fileAll); // get json object of file content
@@ -47,27 +47,27 @@ public class BanknoteParser {
 		while (keys.hasNext()) {
 			Object keyTemp = keys.next();
 			if (!(keyTemp instanceof String))
-				throw new JSONException("WalletParser.parse::Key is not a string");
+				throw new JSONException("BanknoteParser.parse::Key is not a string");
 			// get the banknote values and invoke createCurrency()
 			// to get created banknotes
 			String key = (String) keyTemp;
 			val = jsonObject.get(key);
-			Coin coin = createCurrency(key, (String) val);
-			banknoteRepository.addEntity(coin);
+			Banknote banknote = createCurrency(key, (String) val);
+			banknoteRepository.addEntity(banknote);
 		}
 	}
 
-	private Coin createCurrency(String currencyId, String currencyName) throws FileFormatException
+	private Banknote createCurrency(String currencyId, String currencyName) throws FileFormatException
 	{
 		CurrencyFactoryParams params = new CurrencyFactoryParams(currencyName, currencyId);
-		Coin createdCurrency = 	(Coin) abstractFactory.createEntity(params);
+		Banknote createdCurrency = 	(Banknote) abstractFactory.createEntity(params);
 		if(createdCurrency != null)
 		{
 			return createdCurrency;
 		}
 		else
 		{
-			throw new FileFormatException("Wrong Format for crypto_wallet.json");
+			throw new FileFormatException("Wrong Format for banknotes.json");
 		}		
 	}
 

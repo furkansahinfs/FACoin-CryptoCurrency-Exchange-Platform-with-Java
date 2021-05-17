@@ -96,8 +96,8 @@ public class UserParser {
 		userId = userNodeElement.getAttribute("id");
 		userName = getTagValue("username", userNodeElement);
 		password = getTagValue("password", userNodeElement);
-		cryptoWalletId = getTagValue("cryptoWallet", userNodeElement);
-		bankWalletId = getTagValue("bankWallet", userNodeElement);	
+		cryptoWalletId = getTagValue("crypto_wallet", userNodeElement);
+		bankWalletId = getTagValue("bank_wallet", userNodeElement);	
 
 		User user = null;
 		user = userFactory.createUser(userId, userName, password, cryptoWalletId, bankWalletId);

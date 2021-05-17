@@ -40,11 +40,12 @@ public class FileController {
 	 */
 	protected void readAll() throws FileFormatException {
 		try {
+			fileIO.readBanknotes("data\\banknotes.json");
+			fileIO.readCoins("data\\coins.json");
 			fileIO.readCryptoWallets("data\\crypto_wallets.json");
 			fileIO.readBankWallets("data\\bank_wallets.json");
 			fileIO.readUsers("data\\users.xml");
-			fileIO.readBanknotes("data\\banknotes.json");
-			fileIO.readCoins("data\\coins.json");
+			
 		} catch (Exception e) {
 			throw new FileFormatException(e.getMessage());
 		}
@@ -61,7 +62,7 @@ public class FileController {
 			fileIO.writeCryptoWallets(cryptoWallets, "data\\crypto_wallets.json");
 			fileIO.writeBankWallets(bankWallets, "data\\bank_wallets.json");
 			fileIO.writeCoins(coins,"data\\coins.json");
-			fileIO.writeBanknotes(coins,"data\\banknotes.json");
+			fileIO.writeBanknotes(banknotes,"data\\banknotes.json");
 		} catch (Exception e) {
 			throw new FileFormatException(e.getMessage());
 		}

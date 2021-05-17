@@ -4,6 +4,7 @@ import java.util.Dictionary;
 
 import factory.validator.ValidationResult;
 import factory.validator.WalletEntityValidator;
+import fileio.repository.BanknoteRepository;
 import fileio.repository.CoinRepository;
 import fileio.repository.DatabaseResult;
 import model.ICurrency;
@@ -18,8 +19,19 @@ public abstract class WalletFactory {
 		ValidationResult vr = WalletEntityValidator.validateWalletEntity(currencyId, quantity);
 		WalletEntity entityResult = null;
 		if(!vr.isValid)
+		{
 			return entityResult;
-		DatabaseResult result = (new CoinRepository()).getById(currencyId);
+		}
+		DatabaseResult result = null;
+		if(Integer.valueOf(currencyId)<4)
+		{
+			result = (new CoinRepository()).getById(currencyId);
+		}
+		else
+		{
+			result = (new BanknoteRepository()).getById(currencyId);
+		}
+		
 		Object resultObject = result.getObject();
 		if(resultObject!=null){
 			entityResult = new WalletEntity((ICurrency) resultObject,Float.valueOf(quantity));

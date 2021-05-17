@@ -15,6 +15,13 @@ public abstract class Theme {
 	}
 	
 	protected Theme() {
-		this(Color.WHITE,Color.WHITE,Color.WHITE);
+		SetDefaultTheme();
 	}	
+	
+	private void SetDefaultTheme(){
+		Theme theme = new DefaultTheme();
+		this.secondColor = theme.secondColor;
+		this.background = theme.background;
+		this.firstColor = theme.firstColor;
+	}
 }

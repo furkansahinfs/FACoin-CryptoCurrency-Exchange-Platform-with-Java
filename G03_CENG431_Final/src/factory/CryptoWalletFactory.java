@@ -20,14 +20,21 @@ public class CryptoWalletFactory extends WalletFactory{
 		if(!vr.isValid){
 			walletId = vr.messages;
 		}
-		boolean isNotEligible = false;
-		if(params.isEmpty())
-			return walletResult;
+		boolean isNotEligible = false;		
+
 		IContainer<WalletEntity> entities = new WalletEntityContainer();
+		if(params.isEmpty())
+		{
+			//If there is no coin in wallet, create empty wallet.
+			walletResult = new CryptoWallet(walletId,entities);
+			return walletResult;
+		}
 		Enumeration<String> keys = params.keys();
 		String key = "";
 		while(keys.hasMoreElements()){
+			
 			key = keys.nextElement();
+		
 			WalletEntity result = super.createWalletEntity(key,params.get(key));
 			if(result==null){
 				isNotEligible = true;
@@ -38,15 +45,15 @@ public class CryptoWalletFactory extends WalletFactory{
 				isNotEligible = true;
 				break;
 			}
-			
 			entities.add(result);	
 		}
 		if(isNotEligible)
+		{
 			return walletResult;
-		
-		//  validator ekle, factory düzenle, HTTP get
+		}
 		walletResult = new CryptoWallet(walletId,entities);
-		return walletResult;	
+		return walletResult;
+				
 	}
 	
 }

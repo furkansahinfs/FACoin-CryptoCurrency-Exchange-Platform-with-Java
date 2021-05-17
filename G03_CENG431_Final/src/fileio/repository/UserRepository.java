@@ -1,5 +1,7 @@
 package fileio.repository;
 
+import java.util.Iterator;
+
 import exception.FileFormatException;
 import exception.ItemNotFoundException;
 import exception.NotSupportedException;
@@ -98,5 +100,10 @@ public class UserRepository implements IRepository<User>,IRestrictedRepository<U
 	public DatabaseResult getByName(String name) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+		@Override
+	public Iterator<User> getAll() {
+		return BaseRepository.users().iterator();
 	}
 }

@@ -1,6 +1,7 @@
 package httpio.parser;
 
 import java.util.Date;
+import java.util.List;
 
 import org.json.JSONException;
 
@@ -31,21 +32,21 @@ public class Parser {
 	 * @return User Container
 	 * @throws XMLException
 	 */
-	public UpdateData[] parseUpdatedValues(String fileAll) {
-		UpdateData[] datas = updateParser.parseValues(fileAll);
+	public List<UpdateData> parseUpdatedValues(String fileAll) {
+		List<UpdateData> datas = updateParser.parseValues(fileAll);
 		return datas;
 	}
-	
-	public Date parseDate(String fileAll){
+
+	public Date parseDate(String fileAll) {
 		Date date = dateParser.parseDate(fileAll);
 		return date;
 	}
-	
-	public void parseDayCandles(String fileAll, String coinName) throws JSONException{
+
+	public void parseDayCandles(String fileAll, String coinName) throws JSONException {
 		dayParser.parseDayCandles(fileAll, coinName);
 	}
-	
-	public void parseHourCandles(String fileAll,  String coinName) throws JSONException{
+
+	public void parseHourCandles(String fileAll, String coinName) throws JSONException {
 		hourParser.parseHourCandles(fileAll, coinName);
 	}
 

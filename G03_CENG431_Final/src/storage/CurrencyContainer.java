@@ -25,9 +25,10 @@ public class CurrencyContainer extends Container<Currency> {
 	@Override
 	public Currency getByName(String name) throws ItemNotFoundException, NotSupportedException {
 		Currency found = null;
-		Name Name = new Name(name);
+		Name nameObject = new Name(name);
 		for (Currency currency : this.getContainer()) {
-			if (currency.equals(Name)) {
+			
+			if (currency.equals(nameObject)) {
 				found = currency;
 				break;
 			}

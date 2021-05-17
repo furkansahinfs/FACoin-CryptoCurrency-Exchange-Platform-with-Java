@@ -1,5 +1,7 @@
 package fileio.repository;
 
+import java.util.Iterator;
+
 import exception.FileFormatException;
 import exception.ItemNotFoundException;
 import exception.NotSupportedException;
@@ -69,9 +71,22 @@ public class CoinRepository implements IRepository<Currency>,IRestrictedReposito
 	}
 
 	@Override
-	public DatabaseResult getByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+	public DatabaseResult getByName(String name)  {
+		
+		final IContainer<Currency> currencies = BaseRepository.coins();
+		String message = "";
+		Object result = null;
+		try {
+			// try to find the user
+			result = currencies.getByName(name);
+		} catch (ItemNotFoundException | NotSupportedException e) {
+			message += e.getMessage();
+		}
+		return new DatabaseResult(result, message); 
 	}
 	
+	@Override
+	public final Iterator<Currency> getAll() {
+		return BaseRepository.coins().iterator();
+	}
 }

@@ -27,8 +27,8 @@ public class UserValidator {
 		ValidationResult validationResult = new ValidationResult("Username is already in User Repository");
 		IRestrictedRepository<User> userRepository = new UserRepository();
 		
-		DatabaseResult resultUserName; resultUserName = userRepository.getByName(userName);
-		if (resultUserName.getObject() == null) {
+		DatabaseResult resultUserName = userRepository.getByName(userName);
+		if (resultUserName == null) {
 			validationResult = new ValidationResult(true, "");
 		}
 

@@ -26,8 +26,11 @@ public class HttpRequest {
 	}
 
 	public String getRequest() {
-		if (type.equals(ERequestType.GET))
+		if (!type.equals(ERequestType.GET))
+		{
 			return "";
+		}
+			
 
 		try {
 			URL url = new URL(this.endpoint);
@@ -38,6 +41,7 @@ public class HttpRequest {
 			while ((inputLine = reader.readLine()) != null)
 				result += inputLine;
 			reader.close();
+			
 			return result;
 		}
 

@@ -41,14 +41,14 @@ public class BankWalletParser {
 		try {
 			JSONObject jsonContracts;
 			jsonContracts = (new JSONParser()).parse(fileAll); // get json object of file content
-			 parse(jsonContracts,bankWalletRepository); // parse wallets
+			parse(jsonContracts, bankWalletRepository); // parse wallets
 		} catch (JSONException e) {
 		}
 
-
 	}
 
-	private void parse(JSONObject jsonObject, IRepository<BankWallet> bankWalletRepository) throws JSONException, FileFormatException {
+	private void parse(JSONObject jsonObject, IRepository<BankWallet> bankWalletRepository)
+			throws JSONException, FileFormatException {
 
 		// iterate json object
 		Iterator<?> keys = jsonObject.keys();
@@ -56,7 +56,7 @@ public class BankWalletParser {
 		while (keys.hasNext()) {
 			Object keyTemp = keys.next();
 			if (!(keyTemp instanceof String))
-				throw new JSONException("WalletParser.parse::Key is not a string");
+				throw new JSONException("BankWalletParser.parse::Key is not a string");
 			// get the coin values and invoke createWallet()
 			// to get created wallet
 			String key = (String) keyTemp;
@@ -66,10 +66,10 @@ public class BankWalletParser {
 
 				Dictionary<String, String> banknote = new Hashtable<String, String>();
 				for (int i = 0; i < banknotes.length(); i++) {
-					JSONObject coinJson = (JSONObject) banknotes.get(i);
-					String coinId = coinJson.getString("id");
-					String quantity = coinJson.getString("quantity");
-					banknote.put(coinId, quantity);
+					JSONObject banknoteJson = (JSONObject) banknotes.get(i);
+					String banknoteId = banknoteJson.getString("id");
+					String quantity = banknoteJson.getString("quantity");
+					banknote.put(banknoteId, quantity);
 				}
 				BankWallet wallet = createWallet(key, banknote);
 				bankWalletRepository.addEntity(wallet);
@@ -77,8 +77,8 @@ public class BankWalletParser {
 		}
 	}
 
-	private BankWallet createWallet(String walletId, Dictionary<String, String> coins) throws FileFormatException {
-		BankWallet createdWallet = (BankWallet) bankWalletFactory.createWallet(walletId, coins);
+	private BankWallet createWallet(String walletId, Dictionary<String, String> banknotes) throws FileFormatException {
+		BankWallet createdWallet = (BankWallet) bankWalletFactory.createWallet(walletId, banknotes);
 		if (createdWallet != null) {
 			return createdWallet;
 		} else {

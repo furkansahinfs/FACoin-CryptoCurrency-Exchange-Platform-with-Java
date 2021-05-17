@@ -1,6 +1,9 @@
 package httpio.parser;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import enums.EBanknotes;
@@ -25,24 +28,25 @@ public class UpdateParser {
 	 * @throws FileFormatException
 	 */
 
-	protected UpdateData[] parseValues(String endpointResult) {
+	protected List<UpdateData> parseValues(String endpointResult) {
 		JSONObject jsonValues;
 
-		UpdateData[] newValues;
+		List<UpdateData> updateDataList = null;
 		try {
 			jsonValues = (new JSONParser()).parse(endpointResult); // get json object of file content
-			newValues = parse(jsonValues);
+			updateDataList = parse(jsonValues);
 		} catch (JSONException e) {
-			newValues = null;
+			updateDataList = null;
 		}
-		return newValues;
+		return updateDataList;
 	}
 
-	private UpdateData[] parse(JSONObject jsonObject) throws JSONException {
+	private List<UpdateData> parse(JSONObject jsonObject) throws JSONException {
 		// iterate json object
-		UpdateData[] updateDataList = {};
+		List<UpdateData> updateDataList = new ArrayList<UpdateData>();
+		// UpdateData[] updateDataList = {};
 		Iterator<?> coinsIterator = jsonObject.keys();
-		Object currencyValues = null;
+		JSONObject currencyValues = null;
 		while (coinsIterator.hasNext()) {
 			Object coinKey = coinsIterator.next();
 			if (!(coinKey instanceof String))
@@ -53,25 +57,27 @@ public class UpdateParser {
 			String coinName = (String) coinKey;
 			if (!coinName.equals("Error")) {
 
-				currencyValues = jsonObject.get(coinName);
+				currencyValues = (JSONObject) jsonObject.get(coinName);
 				Iterator<?> valuesIterator = ((JSONObject) currencyValues).keys();
 				Object banknoteValue = null;
 				UpdateData updateData = new UpdateData(coinName);
 				while (valuesIterator.hasNext()) {
 					Object valueKey = valuesIterator.next();
 					if (!(valueKey instanceof String))
-						throw new JSONException("WalletParser.parse::Key is not a string");
+						throw new JSONException("UpdateParser.parse::Key is not a string");
 					// get the banknote values and invoke createCurrency()
 					// to get created banknotes
 					String banknoteName = (String) valueKey;
-					banknoteValue = jsonObject.get(banknoteName);
+					banknoteValue = currencyValues.get(banknoteName);
 					if (validateResult(coinName, banknoteName, banknoteValue)) {
-						updateData.addKeyValue(banknoteName, Float.valueOf((String) banknoteValue));
+						updateData.addKeyValue(banknoteName, ((Double) banknoteValue).floatValue());
+						System.out.println("UpdateParser : "+ updateData.values);
 					}
 				}
-				updateDataList[updateDataList.length] = updateData;
+				updateDataList.add(updateData);
 			}
 		}
+
 		return updateDataList;
 	}
 
@@ -80,7 +86,7 @@ public class UpdateParser {
 		boolean isValidBanknote = EBanknotes.isBanknote(banknoteName);
 		boolean isValidFloat;
 		try {
-			Float.valueOf((String) banknoteValue);
+			((Double) banknoteValue).floatValue();
 			isValidFloat = true;
 		} catch (Exception e) {
 			isValidFloat = false;

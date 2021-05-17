@@ -1,5 +1,7 @@
 package fileio.repository;
 
+import java.util.Iterator;
+
 import exception.FileFormatException;
 import exception.ItemNotFoundException;
 import exception.NotSupportedException;
@@ -78,6 +80,11 @@ public class BankWalletRepository implements IRepository<BankWallet>,IRestricted
 
 	@Override
 	public DatabaseResult getByName(String name)  {
+		return null;
+	}
+
+	@Override
+	public Iterator<BankWallet> getAll() {
 		return null;
 	}
 

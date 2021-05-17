@@ -1,16 +1,20 @@
 package view;
 
-import javax.swing.JPanel;
 
 import view.color.ColorPalette;
-import view.color.DarkTheme;
+import view.list.CoinList;
+import view.list.List;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import java.awt.Font;
+import javax.swing.JLabel;
 import javax.swing.JList;
-import java.awt.Color;
 
-public class HomeView extends JPanel {
+import java.awt.Font;
+
+
+
+public class HomeView extends AppView {
 
 	/**
 	 * 
@@ -20,22 +24,60 @@ public class HomeView extends JPanel {
 	/**
 	 * Create the panel.
 	 */
+	private List coinList;
+	private ColorPalette palette;
+
 	public HomeView() {
-		ColorPalette palette = new ColorPalette(new DarkTheme());
-		setBackground(palette.BACKGROUND);
+
 		setLayout(null);
+		//new FRAME(new HomeView(new CoinList()))
 		
 		JButton btnNewButton = new JButton("Logout");
 		btnNewButton.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnNewButton.setBackground(palette.FIRST_COLOR);
-		btnNewButton.setForeground(palette.BACKGROUND);
+		//btnNewButton.setBackground(palette.FIRST_COLOR);
+		//btnNewButton.setForeground(palette.BACKGROUND);
 		btnNewButton.setBounds(628, 11, 82, 23);
 		add(btnNewButton);
 		
-		JList list = new JList();
-		list.setBackground(palette.BACKGROUND);
-		list.setBounds(174, 59, 363, 350);
-		add(list);
+		//add(coinList);
+	
+		
+		
 
 	}
+
+	/**
+	 * The function returns the selected coin.
+	 * 
+	 * @param String of selected user name
+	 */
+	public String getListSelected() {
+		return coinList.getSelectedValue().getText();
+	}
+
+	
+
+	@Override
+	public void setPalette(ColorPalette palette) {
+		this.palette = palette;
+		setBackground(palette.BACKGROUND);
+		
+	}
+
+	@Override
+	public void setList(List list) {
+		JList<JLabel> a = new JList<JLabel>(list.getList());
+		
+		add(a);
+		a.setBounds(100,100,200,300);
+		updateUI();
+	}
+
+	
+
+	
+
+	
+
+
 }

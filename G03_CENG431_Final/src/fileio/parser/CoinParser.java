@@ -47,7 +47,7 @@ public class CoinParser {
 		while (keys.hasNext()) {
 			Object keyTemp = keys.next();
 			if (!(keyTemp instanceof String))
-				throw new JSONException("WalletParser.parse::Key is not a string");
+				throw new JSONException("CoinParser.parse::Key is not a string");
 			// get the coin values and invoke createCurrency()
 			// to get created currency
 			String key = (String) keyTemp;
@@ -59,6 +59,7 @@ public class CoinParser {
 
 	private Coin createCurrency(String currencyId, String currencyName) throws FileFormatException
 	{
+	
 		CurrencyFactoryParams params = new CurrencyFactoryParams(currencyName, currencyId);
 		Coin createdCurrency = 	(Coin) abstractFactory.createEntity(params);
 		if(createdCurrency != null)
@@ -67,7 +68,7 @@ public class CoinParser {
 		}
 		else
 		{
-			throw new FileFormatException("Wrong Format for crypto_wallet.json");
+			throw new FileFormatException("Wrong Format for coins.json");
 		}		
 	}
 

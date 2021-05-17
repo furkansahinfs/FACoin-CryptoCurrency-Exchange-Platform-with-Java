@@ -2,7 +2,6 @@ package factory;
 
 import java.util.Dictionary;
 import java.util.Enumeration;
-
 import factory.validator.BankWalletValidator;
 import factory.validator.ValidationResult;
 import model.BankWallet;
@@ -22,13 +21,19 @@ public class BankWalletFactory extends WalletFactory {
 			walletId = vr.messages;
 		}
 		boolean isNotEligible = false;
-		if (params.isEmpty())
-			return walletResult;
+
 		IContainer<WalletEntity> entities = new WalletEntityContainer();
+		if (params.isEmpty()) {
+			// If there is no banknotes in wallet, create empty wallet.
+			walletResult = new BankWallet(walletId, entities);
+			return walletResult;
+		}
+		
 		Enumeration<String> keys = params.keys();
 		String key = "";
 		while (keys.hasMoreElements()) {
 			key = keys.nextElement();
+			
 			WalletEntity result = super.createWalletEntity(key, params.get(key));
 			if (result == null) {
 				isNotEligible = true;

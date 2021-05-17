@@ -1,5 +1,7 @@
 package fileio.repository;
 
+import java.util.Iterator;
+
 import exception.FileFormatException;
 import exception.ItemNotFoundException;
 import exception.NotSupportedException;
@@ -49,7 +51,7 @@ public class BanknoteRepository implements IRepository<Currency>,IRestrictedRepo
 		return new DatabaseResult(result, message);
 	}
 	
-	public IContainer<Currency> banknotes()
+	public IContainer<Currency> getBanknotes()
 	{
 		return BaseRepository.banknotes();
 	}
@@ -71,6 +73,11 @@ public class BanknoteRepository implements IRepository<Currency>,IRestrictedRepo
 	@Override
 	public DatabaseResult getByName(String name) {
 		return null;
+	}
+
+	@Override
+	public Iterator<Currency> getAll() {
+		return BaseRepository.banknotes().iterator();
 	}
 	
 }

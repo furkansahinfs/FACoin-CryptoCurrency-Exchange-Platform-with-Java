@@ -46,15 +46,16 @@ public class CryptoWalletParser {
 		}
 	}
 
-	private void parse(JSONObject jsonObject,IRepository<CryptoWallet> cryptoWalletRepository) throws JSONException, FileFormatException {
-		
+	private void parse(JSONObject jsonObject, IRepository<CryptoWallet> cryptoWalletRepository)
+			throws JSONException, FileFormatException {
+
 		// iterate json object
 		Iterator<?> keys = jsonObject.keys();
 		Object val = null;
 		while (keys.hasNext()) {
 			Object keyTemp = keys.next();
 			if (!(keyTemp instanceof String))
-				throw new JSONException("WalletParser.parse::Key is not a string");
+				throw new JSONException("CryptoWalletParser.parse::Key is not a string");
 			// get the coin values and invoke createWallet()
 			// to get created wallet
 			String key = (String) keyTemp;
@@ -62,20 +63,21 @@ public class CryptoWalletParser {
 			if (val instanceof JSONObject) {
 				JSONArray coins = (JSONArray) ((JSONObject) val).get("coins");
 
-				Dictionary<String, String> coin = new Hashtable<String, String>();
+				Dictionary<String, String> coinDictionary = new Hashtable<String, String>();
 				for (int i = 0; i < coins.length(); i++) {
 					JSONObject coinJson = (JSONObject) coins.get(i);
 					String coinId = coinJson.getString("id");
 					String quantity = coinJson.getString("quantity");
-					coin.put(coinId, quantity);
+					coinDictionary.put(coinId, quantity);
 				}
-				CryptoWallet wallet = createWallet(key, coin);
+				CryptoWallet wallet = createWallet(key, coinDictionary);
 				cryptoWalletRepository.addEntity(wallet);
 			}
 		}
 	}
 
 	private CryptoWallet createWallet(String walletId, Dictionary<String, String> coins) throws FileFormatException {
+
 		CryptoWallet createdWallet = (CryptoWallet) cryptoWalletFactory.createWallet(walletId, coins);
 		if (createdWallet != null) {
 			return createdWallet;

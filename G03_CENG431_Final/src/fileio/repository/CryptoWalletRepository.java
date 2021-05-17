@@ -1,5 +1,7 @@
 package fileio.repository;
 
+import java.util.Iterator;
+
 import exception.FileFormatException;
 import exception.ItemNotFoundException;
 import exception.NotSupportedException;
@@ -44,6 +46,7 @@ public class CryptoWalletRepository implements IRepository<CryptoWallet>,IRestri
 		try {
 			// try to find the user
 			result = cryptoWallets.getById(id);
+			
 		} catch (ItemNotFoundException | NotSupportedException e) {
 			message += e.getMessage();
 		}
@@ -81,7 +84,10 @@ public class CryptoWalletRepository implements IRepository<CryptoWallet>,IRestri
 		return null;
 	}
 
-	
+	@Override
+	public final Iterator<CryptoWallet> getAll() {
+		return null;
+	}
 	
 
 }

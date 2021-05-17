@@ -3,7 +3,7 @@ package factory.validator;
 import java.util.Date;
 
 import enums.ECandleStatus;
-import model.CandleParams;
+import factory.objects.CandleParams;
 
 public class CandleValidator {
 

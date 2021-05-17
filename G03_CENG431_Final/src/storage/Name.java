@@ -1,4 +1,4 @@
-package model;
+package storage;
 public class Name{
 	
 	public String name;

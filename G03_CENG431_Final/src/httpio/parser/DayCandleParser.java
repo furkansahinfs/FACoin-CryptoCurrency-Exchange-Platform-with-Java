@@ -7,11 +7,11 @@ import org.json.JSONObject;
 import enums.ECandleStatus;
 import factory.AbstractFactory;
 import factory.DayCandleFactory;
+import factory.objects.CandleParams;
 import fileio.parser.JSONParser;
 import fileio.repository.IRepository;
 import httpio.repository.DayCandleRepository;
 import model.Candle;
-import model.CandleParams;
 
 public class DayCandleParser {
 

@@ -3,6 +3,8 @@ package model;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
+import storage.Name;
+
 public abstract class Currency extends AbstractEntity implements ICurrency {
 
 	private Dictionary<String,Float> value;

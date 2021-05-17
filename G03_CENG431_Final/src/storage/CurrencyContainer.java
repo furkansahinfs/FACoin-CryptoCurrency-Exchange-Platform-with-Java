@@ -3,7 +3,6 @@ package storage;
 import exception.ItemNotFoundException;
 import exception.NotSupportedException;
 import model.Currency;
-import model.Name;
 
 public class CurrencyContainer extends Container<Currency> {
 

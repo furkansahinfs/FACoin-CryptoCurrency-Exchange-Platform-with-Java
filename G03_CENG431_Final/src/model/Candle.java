@@ -3,6 +3,7 @@ package model;
 import java.util.Date;
 
 import enums.ECandleStatus;
+import factory.objects.CandleParams;
 
 public abstract class Candle{
 	private Date candleDate, nowDate;

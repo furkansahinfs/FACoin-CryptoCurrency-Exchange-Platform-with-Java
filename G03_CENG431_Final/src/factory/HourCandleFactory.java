@@ -2,11 +2,11 @@ package factory;
 
 import java.util.Date;
 
+import factory.objects.CandleParams;
 import factory.validator.CandleValidator;
 import factory.validator.ValidationResult;
 import httpio.repository.SystemProperties;
 import model.Candle;
-import model.CandleParams;
 import model.HourCandle;
 
 public class HourCandleFactory extends CandleFactory{

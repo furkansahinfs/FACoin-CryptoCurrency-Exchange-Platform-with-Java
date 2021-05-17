@@ -1,4 +1,4 @@
-package model;
+package factory.objects;
 
 import java.util.Date;
 

@@ -25,7 +25,11 @@ public class DayCandleFactory extends CandleFactory {
 		tempArgs.nowDate = nowDate;
 		ValidationResult vr = CandleValidator.validateDayCandle(tempArgs);
 		if (!vr.isValid)
+		{
+			System.out.println(vr.messages);
 			return result;
+		}
+			
 		result = new DayCandle(tempArgs);
 		return result;
 	}

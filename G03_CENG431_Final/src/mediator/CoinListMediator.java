@@ -1,6 +1,7 @@
 package mediator;
 
 import java.awt.Color;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -10,6 +11,9 @@ import fileio.repository.BanknoteRepository;
 import fileio.repository.CoinRepository;
 import fileio.repository.IRestrictedRepository;
 import model.Currency;
+import view.LabelInfo;
+import view.color.ColorPalette;
+import view.color.DarkTheme;
 
 
 public class CoinListMediator {
@@ -42,20 +46,28 @@ public class CoinListMediator {
 			Float howMuch;
 			if(value!=0)
 			{
-				howMuch = (value * 100 / oldValue) - 100;
+				howMuch = (value * 100 / oldValue);
 			}
 			else
 			{
-				howMuch = (float) 1;
+				howMuch = (float) 100;
 			}
 			
 
 			Color result = null;
-
-			if (howMuch > 0)
-				result = Color.GREEN;
-			else
-				result = Color.RED;
+			ColorPalette palette = new ColorPalette(new DarkTheme());
+			if (howMuch > 100){
+				howMuch = howMuch - 100;
+				result = Color.GREEN;}
+			else if (howMuch == 100 ){
+				howMuch = (float) 0;			
+				result = palette.FIRST_COLOR;}
+			
+			else{			
+				howMuch = 100 - howMuch;
+				result = Color.RED;}
+			
+				
 
 			LabelInfo newLabel = new LabelInfo(result, howMuch, currency.getName(), value, banknote.name);
 			labels.add(newLabel);
@@ -83,22 +95,24 @@ public class CoinListMediator {
 		int index=0;
 		for (LabelInfo labelInfo : labels) {
 			JLabel label = createJLabel(labelInfo);
-			System.out.println("CoinListMediator : " +labelInfo.toString());
 			listModel.add(index, label);
 			index++;
 		}
 	}
 
 	public JLabel createJLabel(LabelInfo label) {
-		JLabel jLabel = new JLabel();
+		
+		DecimalFormat df = new DecimalFormat();
+		df.setMaximumFractionDigits(4);
+		String text =  label.coinName + "/" + label.banknote + " : " + label.value + " (" + df.format(label.percent) + "%)";
+		
+		JLabel jLabel = new JLabel(text);
 		jLabel.setForeground(label.color);
-
-		String text = label.coinName + "/" + label.banknote + " : " + label.value + " (" + label.percent + "%)";
-		jLabel.setText(text);
+		
 		return jLabel;
 	}
 
-	class LabelInfo {
+	/*class LabelInfo {
 		private Color color;
 		private Float percent;
 		private String coinName;
@@ -116,6 +130,6 @@ public class CoinListMediator {
 		public String toString(){
 			return this.coinName + "/" + this.banknote + " : " + this.value + " (" + this.percent + "%)";
 		}
-	}
+	}*/
 
 }

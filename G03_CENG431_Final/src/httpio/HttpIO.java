@@ -28,12 +28,6 @@ public class HttpIO implements IHttpIO {
 	}
 
 	@Override
-	public void getHourCandles() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public Date getTime(String endpointPath) {
 		httpRequest.setParams(endpointPath, ERequestType.GET);
 		String httpContext = httpRequest.getRequest();

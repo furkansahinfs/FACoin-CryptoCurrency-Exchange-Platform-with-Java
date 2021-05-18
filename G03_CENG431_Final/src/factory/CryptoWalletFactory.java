@@ -2,10 +2,13 @@ package factory;
 
 import java.util.Dictionary;
 import java.util.Enumeration;
-
 import factory.validator.ValidationResult;
+import factory.validator.WalletEntityValidator;
+import fileio.repository.CoinRepository;
+import fileio.repository.DatabaseResult;
 import factory.validator.CryptoWalletValidator;
 import model.CryptoWallet;
+import model.ICurrency;
 import model.Wallet;
 import model.WalletEntity;
 import storage.IContainer;
@@ -35,7 +38,7 @@ public class CryptoWalletFactory extends WalletFactory{
 			
 			key = keys.nextElement();
 		
-			WalletEntity result = super.createWalletEntity(key,params.get(key));
+			WalletEntity result = createWalletEntity(key,params.get(key));
 			if(result==null){
 				isNotEligible = true;
 				break;
@@ -54,6 +57,24 @@ public class CryptoWalletFactory extends WalletFactory{
 		walletResult = new CryptoWallet(walletId,entities);
 		return walletResult;
 				
+	}
+
+	@Override
+	protected WalletEntity createWalletEntity(String currencyId, String quantity) {
+		ValidationResult vr = WalletEntityValidator.validateWalletEntity(currencyId, quantity);
+		WalletEntity entityResult = null;
+		if(!vr.isValid)
+		{
+			return entityResult;
+		}
+		DatabaseResult result = null;
+		result = (new CoinRepository()).getById(currencyId);
+		
+		Object resultObject = result.getObject();
+		if(resultObject!=null){
+			entityResult = new WalletEntity((ICurrency) resultObject,Float.valueOf(quantity));
+		}
+		return entityResult;
 	}
 	
 }

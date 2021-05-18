@@ -1,7 +1,7 @@
 package enums;
 
 public enum EBanknotes {
-	USD;
+	USD,TRY;
 
 	public static boolean isBanknote(String value) {
 		try {

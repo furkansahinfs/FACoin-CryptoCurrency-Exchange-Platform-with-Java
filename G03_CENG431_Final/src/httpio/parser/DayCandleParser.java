@@ -52,15 +52,17 @@ public class DayCandleParser {
 			for (int i=0;i<data.length();i++)
 			{
 				JSONObject candleData = (JSONObject) data.get(i);
-				String time,high,low,open,close,volume;
-				time = candleData.getString("time");
-				high = candleData.getString("high");
-				low = candleData.getString("low");
-				open = candleData.getString("open");
-				close = candleData.getString("close");
-				volume = candleData.getString("volumeTo");
+				Double high,low,open,close,volume;
+				Long time;
+				time = candleData.getLong("time");
+				high = candleData.getDouble("high");
+				low = candleData.getDouble("low");
+				open = candleData.getDouble("open");
+				close = candleData.getDouble("close");
+				volume = candleData.getDouble("volumeto");
 				Date date = new Date(Long.valueOf(time));
-				CandleParams params = new CandleParams(coinName, date, null, high, low, open, close, volume, ECandleStatus.CLOSED);
+				CandleParams params = new CandleParams(coinName, date, null, String.valueOf(high),String.valueOf(low), String.valueOf(open), String.valueOf(close), String.valueOf(volume), ECandleStatus.CLOSED);
+	
 				Candle candle = createDayCandle(params);
 				if(candle != null)
 				{

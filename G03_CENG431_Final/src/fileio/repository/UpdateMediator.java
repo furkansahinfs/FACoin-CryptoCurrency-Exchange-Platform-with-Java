@@ -46,7 +46,6 @@ public class UpdateMediator {
 			if (dr.getObject() == null)
 				continue;
 			Currency coin = (Currency) dr.getObject();
-			System.out.println("UpdateMediator : "+ data.getValues());
 			setValues(coin, data.values);
 		}
 	}

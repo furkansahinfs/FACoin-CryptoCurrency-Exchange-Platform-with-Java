@@ -8,7 +8,6 @@ import fileio.repository.UpdateData;
 
 public interface IHttpIO {
 
-	public void getHourCandles();
 	public List<UpdateData> getValues(String endpointPath) throws HttpRequestException;
 	public Date getTime(String endpointPath);
 	public void readDayCandles(String endpointPath) throws HttpRequestException;

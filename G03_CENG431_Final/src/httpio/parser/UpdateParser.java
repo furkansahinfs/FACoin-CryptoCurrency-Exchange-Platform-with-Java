@@ -71,7 +71,6 @@ public class UpdateParser {
 					banknoteValue = currencyValues.get(banknoteName);
 					if (validateResult(coinName, banknoteName, banknoteValue)) {
 						updateData.addKeyValue(banknoteName, ((Double) banknoteValue).floatValue());
-						System.out.println("UpdateParser : "+ updateData.values);
 					}
 				}
 				updateDataList.add(updateData);

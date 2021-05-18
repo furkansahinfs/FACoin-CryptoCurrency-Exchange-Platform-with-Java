@@ -2,6 +2,7 @@
 
 import java.util.Date;
 
+import exception.HttpRequestException;
 import httpio.HttpIO;
 import httpio.IHttpIO;
 import model.Candle;
@@ -19,6 +20,17 @@ public class HttpController {
 		dayCandles = new CandleContainer();
 		hourCandles = new CandleContainer();
 		
+	}
+	
+	public void readDayCandles()
+	{
+		String endpoint = "https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=30";
+		try {
+			httpIO.readDayCandles(endpoint);
+		} catch (HttpRequestException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	protected static Date updateDate(){

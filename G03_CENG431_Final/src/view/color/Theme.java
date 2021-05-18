@@ -15,13 +15,7 @@ public abstract class Theme {
 	}
 	
 	protected Theme() {
-		SetDefaultTheme();
+		
 	}	
 	
-	private void SetDefaultTheme(){
-		Theme theme = new DefaultTheme();
-		this.secondColor = theme.secondColor;
-		this.background = theme.background;
-		this.firstColor = theme.firstColor;
-	}
 }

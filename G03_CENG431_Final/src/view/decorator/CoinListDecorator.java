@@ -18,7 +18,6 @@ public class CoinListDecorator extends JListDecorator{
 	public void setList() {
 		CoinListMediator mediator = new CoinListMediator();
 		DefaultListModel<JLabel> listModel = mediator.getList();
-		System.out.println("CLDeco:"+listModel.getSize());
 		view.setList(new CoinList(listModel));
 	}
 

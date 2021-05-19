@@ -53,11 +53,5 @@ public class UserContainer extends Container<User> {
 			return found;
 		}
 	}
-	
-	@Override 
-	//modified to write in a xml file
-	public String toString(){
-		return "<users>\n"+super.toString()+"</users>";
-	}
 
 }

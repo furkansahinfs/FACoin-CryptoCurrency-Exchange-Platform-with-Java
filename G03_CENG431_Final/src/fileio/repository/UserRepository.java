@@ -2,7 +2,8 @@ package fileio.repository;
 
 import java.util.Iterator;
 
-import exception.FileFormatException;
+import exception.FileReadException;
+import exception.FileWriteException;
 import exception.ItemNotFoundException;
 import exception.NotSupportedException;
 import storage.IContainer;
@@ -23,7 +24,7 @@ public class UserRepository implements IRepository<User>,IRestrictedRepository<U
 		String message = "";
 		try {
 			BaseRepository.saveChanges();
-		} catch (FileFormatException e) {
+		} catch (FileWriteException e) {
 			message += e.getMessage();
 		}
 		return new DatabaseResult(null, message);

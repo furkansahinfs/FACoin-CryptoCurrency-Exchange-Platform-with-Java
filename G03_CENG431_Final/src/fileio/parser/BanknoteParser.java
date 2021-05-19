@@ -3,7 +3,7 @@ package fileio.parser;
 import java.util.Iterator;
 import org.json.JSONException;
 import org.json.JSONObject;
-import exception.FileFormatException;
+import exception.FileReadException;
 import factory.AbstractFactory;
 import factory.BanknoteFactory;
 import factory.CurrencyFactoryParams;
@@ -28,19 +28,18 @@ public class BanknoteParser {
 	 * The function parses gotten file content creates banknote objects.
 	 * 
 	 * @param fileAll    = banknotes.json file content	
-	 * @throws FileFormatException
+	 * @throws FileReadException
+	 * @throws JSONException 
 	 */
-	protected void parseCurrencies(String fileAll) throws FileFormatException {
+	protected void parseCurrencies(String fileAll) throws FileReadException, JSONException {
 		IRepository<Currency> banknoteRepository = new BanknoteRepository();
-		try {
-			JSONObject jsonCurrencies;
-			jsonCurrencies = (new JSONParser()).parse(fileAll); // get json object of file content
-			parse(jsonCurrencies, banknoteRepository); // parse banknotes
-		} catch (JSONException e) {
-		}
+		JSONObject jsonCurrencies;
+		jsonCurrencies = (new JSONParser()).parse(fileAll); // get json object of file content
+		parse(jsonCurrencies, banknoteRepository); // parse banknotes
+
 	}
 
-	private void parse(JSONObject jsonObject, IRepository<Currency> banknoteRepository) throws JSONException, FileFormatException {
+	private void parse(JSONObject jsonObject, IRepository<Currency> banknoteRepository) throws JSONException, FileReadException {
 		// iterate json object
 		Iterator<?> keys = jsonObject.keys();
 		Object val = null;
@@ -57,7 +56,7 @@ public class BanknoteParser {
 		}
 	}
 
-	private Banknote createCurrency(String currencyId, String currencyName) throws FileFormatException
+	private Banknote createCurrency(String currencyId, String currencyName) throws FileReadException
 	{
 		CurrencyFactoryParams params = new CurrencyFactoryParams(currencyName, currencyId);
 		Banknote createdCurrency = 	(Banknote) abstractFactory.createEntity(params);
@@ -67,7 +66,7 @@ public class BanknoteParser {
 		}
 		else
 		{
-			throw new FileFormatException("Wrong Format for banknotes.json");
+			throw new FileReadException("Wrong Format for banknotes.json");
 		}		
 	}
 

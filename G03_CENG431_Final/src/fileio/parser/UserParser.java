@@ -1,7 +1,10 @@
 package fileio.parser;
 
+import java.io.IOException;
 import java.io.StringReader;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.json.JSONException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -9,7 +12,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import exception.FileFormatException;
+import exception.FileReadException;
 import factory.UserFactory;
 import fileio.repository.IRepository;
 import fileio.repository.UserRepository;
@@ -34,10 +37,15 @@ public class UserParser {
 	 * @param creator = creator object
 	 * @param outfits = outfit container which holds all outfits
 	 * @return User Container
+	 * @throws ParserConfigurationException 
+	 * @throws IOException 
+	 * @throws SAXException 
+	 * @throws FileReadException 
+	 * @throws Exception 
 	 * @throws XMLException
 	 */
-	protected void parseUsers(String fileAll)
-			throws Exception {
+	protected void parseUsers(String fileAll) throws SAXException, IOException, ParserConfigurationException, FileReadException 
+			 {
 		
 		Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
 				.parse(new InputSource(new StringReader(fileAll)));
@@ -51,13 +59,15 @@ public class UserParser {
 	 * 
 	 * @param doc   = Document object of file content
 	 * @param users = contract container
+	 * @throws FileReadException 
+	 * @throws SAXException 
 	 * @throws JSONException
 	 */
-	private void parse(Document doc, IRepository<User> userRepository) throws Exception {
+	private void parse(Document doc, IRepository<User> userRepository) throws FileReadException, SAXException  {
 
 		doc.getDocumentElement().normalize();
 		if (!doc.getDocumentElement().getNodeName().equals("users"))
-			throw new FileFormatException("File is not in initial format");
+			throw new FileReadException("File is not in initial format");
 		// get user nodes of xml.
 		NodeList nodeListOfUsers = doc.getElementsByTagName("user");
 

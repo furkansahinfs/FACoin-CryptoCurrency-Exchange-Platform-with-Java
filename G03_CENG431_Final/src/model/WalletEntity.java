@@ -11,7 +11,15 @@ public class WalletEntity{
 		return this.currency.getValue().get(banknoteName)*quantity;
 	}
 	
-	public String getCurrency(){
+	public ICurrency getCurrency() {
+		return this.currency;
+	}
+	
+	public float getQuantity() {
+		return this.quantity;
+	}
+	
+	public String getCurrencyName(){
 		return currency.getClass().getSimpleName();
 	}
 }

@@ -1,6 +1,7 @@
 package fileio.repository;
 
-import exception.FileFormatException;
+import exception.FileReadException;
+import exception.FileWriteException;
 import model.Currency;
 import model.User;
 import model.Wallet;
@@ -18,9 +19,9 @@ public class BaseRepository {
 	/**
 	 * The function reads all files and initialises containers.
 	 * 
-	 * @throws FileFormatException
+	 * @throws FileReadException
 	 */
-	public void initDatabase() throws FileFormatException {
+	public void initDatabase() throws FileReadException {
 		fileController.readAll();
 	}
 
@@ -72,7 +73,7 @@ public class BaseRepository {
 	/**
 	 * The function writes all data to necessary files.
 	 */
-	protected static void saveChanges() throws FileFormatException {
+	protected static void saveChanges() throws FileWriteException {
 		fileController.writeAll();
 	}
 }

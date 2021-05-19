@@ -3,7 +3,7 @@ package fileio.parser;
 import java.util.Iterator;
 import org.json.JSONException;
 import org.json.JSONObject;
-import exception.FileFormatException;
+import exception.FileReadException;
 import factory.AbstractFactory;
 import factory.CoinFactory;
 import factory.CurrencyFactoryParams;
@@ -28,19 +28,18 @@ public class CoinParser {
 	 * The function parses gotten file content and creates coin objects
 	 * 
 	 * @param fileAll    = banknotes.json file content	
-	 * @throws FileFormatException
+	 * @throws FileReadException
+	 * @throws JSONException 
 	 */
-	protected void parseCurrencies(String fileAll) throws FileFormatException {
+	protected void parseCurrencies(String fileAll) throws FileReadException, JSONException {
 		IRepository<Currency> currencyRepository = new CoinRepository();
-		try {
-			JSONObject jsonCurrencies;
-			jsonCurrencies = (new JSONParser()).parse(fileAll); // get json object of file content
-			parse(jsonCurrencies, currencyRepository); // parse coins
-		} catch (JSONException e) {
-		}
+		JSONObject jsonCurrencies;
+		jsonCurrencies = (new JSONParser()).parse(fileAll); // get json object of file content
+		parse(jsonCurrencies, currencyRepository); // parse coins
+
 	}
 
-	private void parse(JSONObject jsonObject, IRepository<Currency> currencyRepository) throws JSONException, FileFormatException {
+	private void parse(JSONObject jsonObject, IRepository<Currency> currencyRepository) throws JSONException, FileReadException {
 		// iterate json object
 		Iterator<?> keys = jsonObject.keys();
 		Object val = null;
@@ -57,7 +56,7 @@ public class CoinParser {
 		}
 	}
 
-	private Coin createCurrency(String currencyId, String currencyName) throws FileFormatException
+	private Coin createCurrency(String currencyId, String currencyName) throws FileReadException
 	{
 	
 		CurrencyFactoryParams params = new CurrencyFactoryParams(currencyName, currencyId);
@@ -68,7 +67,7 @@ public class CoinParser {
 		}
 		else
 		{
-			throw new FileFormatException("Wrong Format for coins.json");
+			throw new FileReadException("Wrong Format for coins.json");
 		}		
 	}
 

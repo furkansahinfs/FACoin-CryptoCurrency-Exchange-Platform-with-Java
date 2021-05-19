@@ -6,7 +6,7 @@ import java.util.Iterator;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import exception.FileFormatException;
+import exception.FileReadException;
 import factory.CryptoWalletFactory;
 import factory.WalletFactory;
 import fileio.repository.CryptoWalletRepository;
@@ -33,21 +33,19 @@ public class CryptoWalletParser {
 	 * @param users   = user container which holds all users
 	 * @param wallets = wallet container which holds all wallets of users
 	 * @return Wallet Container
-	 * @throws FileFormatException
+	 * @throws FileReadException
 	 * @throws JSONException
 	 */
-	protected void parseWallets(String fileAll) throws FileFormatException {
+	protected void parseWallets(String fileAll) throws FileReadException, JSONException {
 		IRepository<CryptoWallet> cryptoWalletRepository = new CryptoWalletRepository();
-		try {
-			JSONObject jsonContracts;
-			jsonContracts = (new JSONParser()).parse(fileAll); // get json object of file content
-			parse(jsonContracts, cryptoWalletRepository); // parse wallets
-		} catch (JSONException e) {
-		}
+		JSONObject jsonContracts;
+		jsonContracts = (new JSONParser()).parse(fileAll); // get json object of file content
+		parse(jsonContracts, cryptoWalletRepository); // parse wallets
+
 	}
 
 	private void parse(JSONObject jsonObject, IRepository<CryptoWallet> cryptoWalletRepository)
-			throws JSONException, FileFormatException {
+			throws JSONException, FileReadException {
 
 		// iterate json object
 		Iterator<?> keys = jsonObject.keys();
@@ -76,13 +74,13 @@ public class CryptoWalletParser {
 		}
 	}
 
-	private CryptoWallet createWallet(String walletId, Dictionary<String, String> coins) throws FileFormatException {
+	private CryptoWallet createWallet(String walletId, Dictionary<String, String> coins) throws FileReadException {
 
 		CryptoWallet createdWallet = (CryptoWallet) cryptoWalletFactory.createWallet(walletId, coins);
 		if (createdWallet != null) {
 			return createdWallet;
 		} else {
-			throw new FileFormatException("Wrong Format for crypto_wallet.json");
+			throw new FileReadException("Wrong Format for crypto_wallet.json");
 		}
 	}
 

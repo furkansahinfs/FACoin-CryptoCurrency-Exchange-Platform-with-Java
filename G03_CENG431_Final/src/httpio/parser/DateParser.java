@@ -3,7 +3,7 @@ package httpio.parser;
 import java.util.Date;
 import org.json.JSONException;
 import org.json.JSONObject;
-import exception.FileFormatException;
+import exception.FileReadException;
 import fileio.parser.JSONParser;
 
 public class DateParser {
@@ -19,7 +19,7 @@ public class DateParser {
 	 * The function parses gotten file content creates banknote objects.
 	 * 
 	 * @param fileAll = banknotes.json file content
-	 * @throws FileFormatException
+	 * @throws FileReadException
 	 */
 
 	protected Date parseDate(String endpointResult) {

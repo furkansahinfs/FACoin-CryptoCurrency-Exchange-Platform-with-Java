@@ -1,5 +1,14 @@
 package fileio.parser;
 
+import java.io.IOException;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.json.JSONException;
+import org.xml.sax.SAXException;
+
+import exception.FileReadException;
+
 /**
  * This function is a middleware for parser classes
  *
@@ -25,11 +34,17 @@ public class Parser {
 	 * 
 	 * @param fileAll = users.xml file content
 	 * @return User Container
+	 * @throws FileReadException 
+	 * @throws Exception 
 	 * @throws XMLException
 	 */
-	public void parseUsers(String fileAll)
-			throws Exception {
-		userParser.parseUsers(fileAll);
+	public void parseUsers(String fileAll) throws FileReadException 
+			  {
+		try {
+			userParser.parseUsers(fileAll);
+		} catch (SAXException | IOException | ParserConfigurationException e) {
+			throw new FileReadException(e.getMessage());
+		}
 	}
 	
 	/**
@@ -38,11 +53,16 @@ public class Parser {
 	 * 
 	 * @param fileAll = crypto_wallets.json file content
 	 * @return Wallet Container
+	 * @throws FileReadException 
 	 * @throws JSONException
 	 */
-	public void parseCryptoWallets(String fileAll)
-			throws Exception {
-		cryptoWalletParser.parseWallets(fileAll);
+	public void parseCryptoWallets(String fileAll) throws FileReadException
+			 {
+		try {
+			cryptoWalletParser.parseWallets(fileAll);
+		} catch (JSONException e) {
+			throw new FileReadException(e.getMessage());
+		}
 	}
 	
 	/**
@@ -51,11 +71,16 @@ public class Parser {
 	 * 
 	 * @param fileAll = bank_wallets.json file content
 	 * @return Wallet Container
+	 * @throws FileReadException 
 	 * @throws JSONException
 	 */
-	public void parseBankWallets(String fileAll)
-			throws Exception {
-		bankWalletParser.parseWallets(fileAll);
+	public void parseBankWallets(String fileAll) throws FileReadException
+			 {
+		try {
+			bankWalletParser.parseWallets(fileAll);
+		} catch (JSONException e) {
+			throw new FileReadException(e.getMessage());
+		}
 	}
 	
 	
@@ -65,11 +90,16 @@ public class Parser {
 	 * 
 	 * @param fileAll = currencies.json file content
 	 * @return Currency Container
+	 * @throws FileReadException 
 	 * @throws JSONException
 	 */
-	public void parseCoins(String fileAll)
-			throws Exception {
-		coinParser.parseCurrencies(fileAll);
+	public void parseCoins(String fileAll) throws FileReadException
+			 {
+		try {
+			coinParser.parseCurrencies(fileAll);
+		} catch (JSONException e) {
+			throw new FileReadException(e.getMessage());
+		}
 	}
 	
 	/**
@@ -78,11 +108,16 @@ public class Parser {
 	 * 
 	 * @param fileAll = currencies.json file content
 	 * @return Currency Container
+	 * @throws FileReadException 
 	 * @throws JSONException
 	 */
-	public void parseBanknotes(String fileAll)
-			throws Exception {
-		banknoteParser.parseCurrencies(fileAll);
+	public void parseBanknotes(String fileAll) throws FileReadException
+			 {
+		try {
+			banknoteParser.parseCurrencies(fileAll);
+		} catch (JSONException e) {
+			throw new FileReadException(e.getMessage());
+		}
 	}
 
 

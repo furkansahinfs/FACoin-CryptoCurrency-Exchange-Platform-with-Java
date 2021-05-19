@@ -6,7 +6,7 @@ import java.util.Iterator;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import exception.FileFormatException;
+import exception.FileReadException;
 import factory.BankWalletFactory;
 import factory.WalletFactory;
 import fileio.repository.BankWalletRepository;
@@ -33,22 +33,20 @@ public class BankWalletParser {
 	 * @param users   = user container which holds all users
 	 * @param wallets = wallet container which holds all wallets of users
 	 * @return Wallet Container
-	 * @throws FileFormatException
+	 * @throws FileReadException
 	 * @throws JSONException
 	 */
-	protected void parseWallets(String fileAll) throws FileFormatException {
+	protected void parseWallets(String fileAll) throws FileReadException, JSONException {
 		IRepository<BankWallet> bankWalletRepository = new BankWalletRepository();
-		try {
-			JSONObject jsonContracts;
-			jsonContracts = (new JSONParser()).parse(fileAll); // get json object of file content
-			parse(jsonContracts, bankWalletRepository); // parse wallets
-		} catch (JSONException e) {
-		}
+		JSONObject jsonContracts;
+		jsonContracts = (new JSONParser()).parse(fileAll); // get json object of file content
+		parse(jsonContracts, bankWalletRepository); // parse wallets
+
 
 	}
 
 	private void parse(JSONObject jsonObject, IRepository<BankWallet> bankWalletRepository)
-			throws JSONException, FileFormatException {
+			throws JSONException, FileReadException {
 
 		// iterate json object
 		Iterator<?> keys = jsonObject.keys();
@@ -77,12 +75,12 @@ public class BankWalletParser {
 		}
 	}
 
-	private BankWallet createWallet(String walletId, Dictionary<String, String> banknotes) throws FileFormatException {
+	private BankWallet createWallet(String walletId, Dictionary<String, String> banknotes) throws FileReadException {
 		BankWallet createdWallet = (BankWallet) bankWalletFactory.createWallet(walletId, banknotes);
 		if (createdWallet != null) {
 			return createdWallet;
 		} else {
-			throw new FileFormatException("Wrong Format for bank_wallets.json");
+			throw new FileReadException("Wrong Format for bank_wallets.json");
 		}
 	}
 

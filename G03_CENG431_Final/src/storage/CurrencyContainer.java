@@ -39,17 +39,4 @@ public class CurrencyContainer extends Container<Currency> {
 			return found;
 		}
 	}
-
-	@Override
-	public String toString(int value) {
-		String currencies = "";
-		for (Currency currency : this.getContainer()) {
-			currencies += currency.getName() + ",";
-		}
-		if (currencies.endsWith(",")) { // if ends with , ignore it
-			currencies = currencies.substring(0, currencies.length() - 1);
-		}
-		return currencies;
-	}
-
 }

@@ -15,7 +15,7 @@ public class HttpRepository {
 	/**
 	 * The function reads all files and initialises containers.
 	 * 
-	 * @throws FileFormatException
+	 * @throws FileReadException
 	 */
 	public void initDatabase()   {
 		// TODO initCandles

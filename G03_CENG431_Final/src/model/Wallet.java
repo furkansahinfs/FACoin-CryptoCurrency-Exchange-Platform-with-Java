@@ -14,4 +14,8 @@ public abstract class Wallet extends AbstractEntity {
 		return WalletHelper.getTotal(this.entities,banknoteName);
 	}
 	
+	public final IContainer<WalletEntity> getEntities(){
+		return this.entities;
+	}
+	
 }

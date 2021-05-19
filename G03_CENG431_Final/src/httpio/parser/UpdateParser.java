@@ -8,7 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import enums.EBanknotes;
 import enums.ECoins;
-import exception.FileFormatException;
+import exception.FileReadException;
 import fileio.parser.JSONParser;
 import fileio.repository.UpdateData;
 
@@ -25,7 +25,7 @@ public class UpdateParser {
 	 * The function parses gotten file content creates banknote objects.
 	 * 
 	 * @param fileAll = banknotes.json file content
-	 * @throws FileFormatException
+	 * @throws FileReadException
 	 */
 
 	protected List<UpdateData> parseValues(String endpointResult) {

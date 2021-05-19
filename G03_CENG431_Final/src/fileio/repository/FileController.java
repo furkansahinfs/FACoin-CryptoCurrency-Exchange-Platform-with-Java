@@ -6,7 +6,8 @@ import storage.IContainer;
 import storage.*;
 import model.Currency;
 
-import exception.FileFormatException;
+import exception.FileReadException;
+import exception.FileWriteException;
 import fileio.FileIO;
 import fileio.IFileIO;
 
@@ -36,36 +37,29 @@ public class FileController {
 	 * This function reads all entities from files and assign the contents to the
 	 * containers
 	 * 
-	 * @throws FileFormatException
+	 * @throws FileReadException
 	 */
-	protected void readAll() throws FileFormatException {
-		try {
-			fileIO.readBanknotes("data\\banknotes.json");
-			fileIO.readCoins("data\\coins.json");
-			fileIO.readCryptoWallets("data\\crypto_wallets.json");
-			fileIO.readBankWallets("data\\bank_wallets.json");
-			fileIO.readUsers("data\\users.xml");
+	protected void readAll() throws FileReadException {
+		fileIO.readBanknotes("data\\banknotes.json");
+		fileIO.readCoins("data\\coins.json");
+		fileIO.readCryptoWallets("data\\crypto_wallets.json");
+		fileIO.readBankWallets("data\\bank_wallets.json");
+		fileIO.readUsers("data\\users.xml");
 			
-		} catch (Exception e) {
-			throw new FileFormatException(e.getMessage());
-		}
 	}
 
 	/**
 	 * This function writes all entities to necessary files
 	 * 
-	 * @throws FileFormatException
+	 * @throws FileReadException
 	 */
-	protected void writeAll() throws FileFormatException {
-		try {
-			fileIO.writeUsers(users, "data\\users.xml");
-			fileIO.writeCryptoWallets(cryptoWallets, "data\\crypto_wallets.json");
-			fileIO.writeBankWallets(bankWallets, "data\\bank_wallets.json");
-			fileIO.writeCoins(coins,"data\\coins.json");
-			fileIO.writeBanknotes(banknotes,"data\\banknotes.json");
-		} catch (Exception e) {
-			throw new FileFormatException(e.getMessage());
-		}
+	protected void writeAll() throws FileWriteException {
+		fileIO.writeUsers(users, "data\\users.xml");
+		fileIO.writeCryptoWallets(cryptoWallets, "data\\crypto_wallets.json");
+		fileIO.writeBankWallets(bankWallets, "data\\bank_wallets.json");
+		fileIO.writeCoins(coins,"data\\coins.json");
+		fileIO.writeBanknotes(banknotes,"data\\banknotes.json");
+
 	}
 
 

@@ -11,3 +11,5 @@ public class WalletHelper{
 		return result;
 	}
 }
+
+// TODO change total calculator for dictionary mechanism

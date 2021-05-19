@@ -16,17 +16,6 @@ public class StringContainer extends Container<String> {
 				"src.storage.StringContainer.getByName() function is not supported for StringContainer.");
 	}
 
-	public String toString() {
-		String string = "";
-		for (String item : this.getContainer()) {
-			if (item != null && !item.equals(""))
-				string += item + ",";
-		}
-		if (string.endsWith(",")) { // if ends with , ignore it
-			string = string.substring(0, string.length() - 1);
-		}
-		return string;
-	}
 
 	/**
 	 * This class simply converts a StringContainer to String[]

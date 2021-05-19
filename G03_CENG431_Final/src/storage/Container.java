@@ -126,6 +126,10 @@ public abstract class Container<T> implements IContainer<T> {
 		return "";
 	}
 	
+	public void clear() {
+		this.container.clear();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public T[] toArray(){
 		return  (T[]) this.container.toArray();

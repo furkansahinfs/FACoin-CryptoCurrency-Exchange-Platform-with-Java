@@ -101,4 +101,5 @@ public interface IContainer<T> extends Iterable<T> {
 	
 	public String toString(int value);
 
+	public void clear();
 }

@@ -57,7 +57,7 @@ public class App {
 	
 		HttpController httpController = new HttpController();
 		HttpRepository httpRepo = new HttpRepository();
-		httpController.readDayCandles();
+		httpController.readDayCandles("BTC","USD");
 		JFrame frame = new JFrame();
 		CoinInfoView view = new CoinInfoView("CoinInfo");
 		view.pack();

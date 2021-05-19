@@ -25,7 +25,7 @@ public class BankWalletValidator{
 	
 	
 	public static boolean isEntityBanknote(WalletEntity entity){
-		return entity.getCurrency().equals("Banknote");
+		return entity.getCurrencyName().equals("Banknote");
 	}
 	
 }

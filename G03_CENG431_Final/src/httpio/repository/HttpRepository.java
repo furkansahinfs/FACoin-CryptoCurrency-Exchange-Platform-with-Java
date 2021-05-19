@@ -1,5 +1,6 @@
 package httpio.repository;
 
+
 import model.Candle;
 import storage.IContainer;
 
@@ -10,15 +11,6 @@ public class HttpRepository {
 
 	public HttpRepository() {
 		httpController = new HttpController();
-	}
-
-	/**
-	 * The function reads all files and initialises containers.
-	 * 
-	 * @throws FileReadException
-	 */
-	public void initDatabase()   {
-		// TODO initCandles
 	}
 
 	

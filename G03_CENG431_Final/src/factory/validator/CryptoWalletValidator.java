@@ -20,11 +20,12 @@ public class CryptoWalletValidator{
 			new_id = RandomFactory.randomId();
 		}
 		return new ValidationResult(new_id);
+		
 	}
 	
 	
 	public static boolean isEntityCoin(WalletEntity entity){
-		return entity.getCurrency().equals("Coin");
+		return entity.getCurrencyName().equals("Coin");
 	}
 	
 	

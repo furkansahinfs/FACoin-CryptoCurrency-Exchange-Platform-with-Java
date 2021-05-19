@@ -22,16 +22,19 @@ public class HttpController {
 		
 	}
 	
-	public void readDayCandles()
+	public void readDayCandles(String coinName,String banknoteName) throws HttpRequestException
 	{
-		String endpoint = "https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=30";
-		try {
-			httpIO.readDayCandles(endpoint);
-		} catch (HttpRequestException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		dayCandles.clear();
+		httpIO.readDayCandles(String.format(AppSettings.CANDLE_ENDPOINT, coinName,banknoteName));
+		
 	}
+	
+	public void readHourCandles(String coinName,String banknoteName) throws HttpRequestException
+	{
+		hourCandles.clear();
+		httpIO.readHourCandles(String.format(AppSettings.CANDLE_ENDPOINT, coinName,banknoteName));
+	} 
+	
 	
 	protected static Date updateDate(){
 		Date date = null;

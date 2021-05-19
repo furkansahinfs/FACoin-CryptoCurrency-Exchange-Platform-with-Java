@@ -32,10 +32,10 @@ public class CandleValidator {
 		return new ValidationResult(highLowResult.messages);
 	}
 
-	private static ValidationResult validateHighLowValues(String high, String low) {
+	private static ValidationResult validateHighLowValues(Double high, Double low) {
 		ValidationResult result = new ValidationResult("Invalid hig-low result.");
 	
-		if (Float.valueOf(high) >= Float.valueOf(low)) {
+		if (high >= low) {
 			result = new ValidationResult(true, "Valid high low");
 		}
 		return result;

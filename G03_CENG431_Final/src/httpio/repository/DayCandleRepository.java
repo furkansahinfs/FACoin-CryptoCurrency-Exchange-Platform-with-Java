@@ -1,5 +1,6 @@
 package httpio.repository;
 
+import exception.HttpRequestException;
 import fileio.repository.IRepository;
 import storage.IContainer;
 import model.Candle;
@@ -12,8 +13,13 @@ public class DayCandleRepository implements IRepository<Candle> {
 	}
 
 	
-	public IContainer<Candle> day_candles()
+	public IContainer<Candle> day_candles(String coinName, String banknoteName)
 	{
+		try {
+			HttpRepository.initDayCandles(coinName, banknoteName);
+		} catch (HttpRequestException e) {
+			
+		}
 		return HttpRepository.day_candles();
 	}
 	

@@ -1,12 +1,12 @@
 package view.decorator;
 
-import view.AppView;
+import view.IColorable;
 
 public abstract class ThemeDecorator extends Decorator{
 
-	protected AppView view;
+	protected IColorable view;
 	
-	public ThemeDecorator(AppView view){
+	public ThemeDecorator(IColorable view){
 		this.view = view;
 		setPalette();
 	}

@@ -32,8 +32,8 @@ public class UpdateMediator {
 	}
 
 	private String setEndpoint() {
-		String coins = BaseRepository.coins().toString(0);
-		String banknotes = BaseRepository.banknotes().toString(0);
+		String coins = UpdateHelper.toStringCurrencies(BaseRepository.coins());
+		String banknotes = UpdateHelper.toStringCurrencies(BaseRepository.banknotes());
 		String url = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=" + coins + "&tsyms=" + banknotes
 				+ "&api_key=" + AppSettings.CRYPTO_API_KEY;
 		return url;
@@ -53,7 +53,7 @@ public class UpdateMediator {
 	private void setValues(Currency coin, Dictionary<String, Float> values) {
 		Enumeration<String> iterator = values.keys();
 		String key = "";
-		while (iterator.hasMoreElements()) {
+		while (iterator.hasMoreElements()) {			
 			key = iterator.nextElement();
 			Float value = values.get(key);
 			Float oldValue = (float) 0;

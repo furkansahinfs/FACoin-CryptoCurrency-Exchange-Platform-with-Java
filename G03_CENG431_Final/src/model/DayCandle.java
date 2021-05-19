@@ -1,14 +1,12 @@
 package model;
 
 import java.util.Date;
-
-import enums.ECandleStatus;
 import factory.objects.CandleParams;
 
 public class DayCandle extends Candle{
 
-	public DayCandle(String coinName, Date candleDate, Date nowDate, String high, String low,String open, String close, String volume,ECandleStatus status) {
-		super(coinName, candleDate, nowDate, high, low, open, close, volume, status);
+	public DayCandle(Date candleDate, Double high, Double low,Double open, Double close, Double volume) {
+		super(candleDate, high, low, open, close, volume);
 	}
 	public DayCandle(CandleParams params){
 		super(params);

@@ -23,6 +23,7 @@ public class UserWriter {
 		"\t<username>"+user.getUserName()+"</username>\n\t"+
 		"\t<password>"+user.getPassword()+"</password>\n\t"+
 		"\t<crypto_wallet>"+user.getCryptoWallet().getId()+"</crypto_wallet>\n\t"+
-		"\t<bank_wallet>"+user.getBankWallet().getId()+"</bank_wallet>\n    </user>\n";
+		"\t<bank_wallet>"+user.getBankWallet().getId()+"</bank_wallet>\n\t+"+
+		"\t"+FavoritesWriter.writeFavoriteTradingPairsXml(user.getFavorites())+"    </user>\n";
 	}
 }

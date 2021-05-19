@@ -4,7 +4,6 @@ import java.util.Date;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import enums.ECandleStatus;
 import factory.AbstractFactory;
 import factory.DayCandleFactory;
 import factory.objects.CandleParams;
@@ -61,7 +60,7 @@ public class DayCandleParser {
 				close = candleData.getDouble("close");
 				volume = candleData.getDouble("volumeto");
 				Date date = new Date(Long.valueOf(time));
-				CandleParams params = new CandleParams(coinName, date, null, String.valueOf(high),String.valueOf(low), String.valueOf(open), String.valueOf(close), String.valueOf(volume), ECandleStatus.CLOSED);
+				CandleParams params = new CandleParams(date,high,low, open, close, volume);
 	
 				Candle candle = createDayCandle(params);
 				if(candle != null)

@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Dictionary;
+
 public class User  extends AbstractEntity{
 	
 	private String userId;
@@ -7,14 +9,16 @@ public class User  extends AbstractEntity{
 	private String password;
 	private Wallet cryptoWallet;
 	private Wallet bankWallet;
+	private Dictionary<String,String> favorites;
 	
-	public User(String id, String userName, String password, Wallet cryptoWallet, Wallet bankWallet)
+	public User(String id, String userName, String password, Wallet cryptoWallet, Wallet bankWallet, Dictionary<String,String> favorites)
 	{
 		super(id);
 		this.userName=userName;
 		this.password = password;
 		this.cryptoWallet=cryptoWallet;
 		this.bankWallet = bankWallet;
+		this.favorites = favorites;
 	}
 	public String getPassword() {
 		return password;
@@ -31,6 +35,11 @@ public class User  extends AbstractEntity{
 	public Wallet getBankWallet() {
 		return bankWallet;
 	}
+
+	public Dictionary<String,String> getFavorites()
+	{
+		return favorites;
+	}	
 	
 	public boolean equals(int userId)
 	{
@@ -39,7 +48,7 @@ public class User  extends AbstractEntity{
 	
 	public boolean equals(String userName)
 	{
-		return (this.userName == userName);		
+		return this.userName.equals(userName);		
 	}
 
 }

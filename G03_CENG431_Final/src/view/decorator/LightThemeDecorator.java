@@ -1,12 +1,12 @@
 package view.decorator;
 
-import view.AppView;
+import view.IColorable;
 import view.color.ColorPalette;
 import view.color.DarkTheme;
 
 public class LightThemeDecorator extends ThemeDecorator {
 
-	public LightThemeDecorator(AppView view) {
+	public LightThemeDecorator(IColorable view) {
 		super(view);
 	}
 

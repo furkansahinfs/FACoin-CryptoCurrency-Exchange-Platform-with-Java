@@ -1,72 +1,66 @@
 package model;
 
 import java.util.Date;
-
-import enums.ECandleStatus;
 import factory.objects.CandleParams;
 
 public abstract class Candle{
-	private Date candleDate, nowDate;
-	private String coinName, high,low,open,close,volume;
-	private ECandleStatus status;
+	private Date candleDate;
+	private Double high,low,open,close,volume;
 	
 	public Candle(CandleParams params){
-		this(params.coinName,params.candleDate, params.nowDate,params.high,params.low, params.open, params.close,params.volume, params.status);
+		this(params.candleDate,params.high,params.low, params.open, params.close,params.volume);
 	}
 	
 
-	public Candle(String coinName, Date candleDate, Date nowDate, String high, String low, String open, String close, String volume, ECandleStatus status){
-		this.coinName = coinName;
+	public Candle(Date candleDate, Double high, Double low, Double open, Double close, Double volume){
+	
 		this.candleDate =candleDate;
-		this.nowDate = nowDate;
 		this.high=high;
 		this.low=low;
 		this.open = open;
 		this.close = close; 
 		this.volume = volume;
-		this.status = status;
 	}
 	
-	public ECandleStatus getStatus() {
-		return status;
+	public Date getCandleDate()
+	{
+		return this.candleDate;
+	}
+	public Double getHigh()
+	{
+		return this.high;
 	}
 
 
-	public void setStatus(ECandleStatus status) {
-		this.status = status;
-	}
-
-
-	public String getCoinName() {
-		return coinName;
-	}
-	
-	public Date getCandleDate() {
-		return candleDate;
-	}
-	
-	public Date getNowDate() {
-		return nowDate;
-	}
-
-
-	public String getHigh() {
-		return high;
-	}
-
-	public String getLow() {
-		return low;
-	}
-
-	public String getOpen() {
+	/**
+	 * @return the open
+	 */
+	public Double getOpen() {
 		return open;
 	}
 
-	public String getClose() {
-		return close;
+
+	/**
+	 * @return the volume
+	 */
+	public Double getVolume() {
+		return volume;
 	}
 
-	public String getVolume() {
-		return volume;
-	} 
+
+	/**
+	 * @return the low
+	 */
+	public Double getLow() {
+		return low;
+	}
+
+
+	/**
+	 * @return the close
+	 */
+	public Double getClose() {
+		return close;
+	}
+	
 }

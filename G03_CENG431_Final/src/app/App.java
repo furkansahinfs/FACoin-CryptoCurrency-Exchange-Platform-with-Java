@@ -8,12 +8,14 @@ import fileio.repository.BaseRepository;
 import fileio.repository.UpdateMediator;
 import httpio.repository.HttpController;
 import httpio.repository.HttpRepository;
+import view.AppWindow;
 import view.CoinInfoView;
 import view.HomeView;
 import view.decorator.CoinListDecorator;
 import view.decorator.DarkThemeDecorator;
 import view.decorator.JListDecorator;
 import view.decorator.ThemeDecorator;
+import mediator.LoginMediator;
 
 public class App {
 
@@ -54,14 +56,15 @@ public class App {
 		}*/
 		BaseRepository br = new BaseRepository();
 		br.initDatabase();
-	
-		HttpController httpController = new HttpController();
 		HttpRepository httpRepo = new HttpRepository();
-		httpController.readDayCandles("BTC","USD");
-		JFrame frame = new JFrame();
-		CoinInfoView view = new CoinInfoView("CoinInfo");
-		view.pack();
-		view.setVisible(true);
+		AppWindow window = new AppWindow();
+		//UpdateMediator updateMediator = new UpdateMediator();
+		LoginMediator loginMediator = new LoginMediator();
+		
+
+		//CoinInfoView view = new CoinInfoView("CoinInfo");
+		//view.pack();
+		//view.setVisible(true);
 		
 		
 // TODO toString farklı klasslara ayır, file Write classı uzucak 

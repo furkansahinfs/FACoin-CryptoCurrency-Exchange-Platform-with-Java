@@ -1,6 +1,7 @@
 package httpio.repository;
 
 
+import exception.HttpRequestException;
 import model.Candle;
 import storage.IContainer;
 
@@ -13,6 +14,13 @@ public class HttpRepository {
 		httpController = new HttpController();
 	}
 
+	protected static void initHourCandles(String coinName, String banknoteName) throws HttpRequestException {
+		httpController.readHourCandles(coinName, banknoteName);
+	}
+	
+	protected static void initDayCandles(String coinName, String banknoteName) throws HttpRequestException {
+		httpController.readDayCandles(coinName, banknoteName);
+	}
 	
 	protected static final IContainer<Candle> day_candles() {
 		return httpController.dayCandles();

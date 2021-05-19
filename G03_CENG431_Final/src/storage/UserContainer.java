@@ -42,10 +42,12 @@ public class UserContainer extends Container<User> {
 	public User getByName(String name) throws ItemNotFoundException {
 		User found = null;
 		for (User user : this.getContainer()) {
+			
 			if (user.equals(name)) {
 				found = user;
 				break;
 			}
+			
 		}
 		if (found == null) {
 			throw new ItemNotFoundException("There is no user has name " + name);

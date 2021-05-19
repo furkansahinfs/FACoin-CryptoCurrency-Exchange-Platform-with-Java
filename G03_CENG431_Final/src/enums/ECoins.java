@@ -1,7 +1,7 @@
 package enums;
 
 public enum ECoins {
-	BTC, LTC, DOGE, AVAX, BTT, MATIC, BNB, HT, ETH, TLM, XRP, HOT, DOT, ADA, ALGO;
+	BTC, LTC, DOGE, AVAX, BTT, MATIC, LINK, HT, ETH, TLM, XRP, HOT, DOT, ADA, ALGO;
 
 	public static boolean isCoin(String value) {
 		try {

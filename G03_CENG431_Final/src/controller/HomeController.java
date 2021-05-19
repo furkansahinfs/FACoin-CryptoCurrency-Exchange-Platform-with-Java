@@ -2,20 +2,19 @@ package controller;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import service.HomeService;
-import view.HomeView;
+
+import exception.HttpRequestException;
+import mediator.HomeMediator;
 /**
  * This class handles home screen requests
  */
-public class HomeController {
+public class HomeController extends Consumable {
 
-	public HomeView view;
-	private HomeService homeService; // user set to be null
-
-	public HomeController(HomeView view) {
-		this.homeService = new HomeService(); // to show up outfits
-		this.view = view;
-		//this.view.addSelectCoinListener((new SelectCoinListener()))
+	private HomeMediator mediator;
+	
+	public HomeController(HomeMediator mediator) {
+		this.mediator = mediator;
+		mediator.getView().addSelectCoinListener((new SelectCoinListener()));
 	}
 
 
@@ -25,8 +24,12 @@ public class HomeController {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			if (e.getClickCount() > 1) {
-				String selectedItemName = ((HomeView) view).getListSelected();
-				System.out.println(selectedItemName);
+				try {
+					mediator.getSelectedCoinView();
+				} catch (HttpRequestException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		}
 

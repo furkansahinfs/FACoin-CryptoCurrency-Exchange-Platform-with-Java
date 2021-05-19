@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import java.awt.Font;
 import java.awt.event.MouseListener;
-
+import view.AppWindow;
 
 public class HomeView extends AppView {
 
@@ -40,6 +40,7 @@ public class HomeView extends AppView {
 		scrollPane.setViewportView(coinList);
 		add(scrollPane);
 		// add(coinList);
+		AppWindow.FRAME.getContentPane().add(this);
 	}
 
 	/**

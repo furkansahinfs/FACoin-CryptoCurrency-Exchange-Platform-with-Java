@@ -100,7 +100,7 @@ public class UserParser {
 	 * @throws SAXException
 	 */
 	private User createUser(Element userNodeElement) throws SAXException {
-		String userId, userName, cryptoWalletId, bankWalletId, password = "";
+		String userId, userName, cryptoWalletId, bankWalletId, password, favorites = "";
 		
 		// get values
 		userId = userNodeElement.getAttribute("id");
@@ -108,9 +108,10 @@ public class UserParser {
 		password = getTagValue("password", userNodeElement);
 		cryptoWalletId = getTagValue("crypto_wallet", userNodeElement);
 		bankWalletId = getTagValue("bank_wallet", userNodeElement);	
+		favorites = getTagValue("favorites", userNodeElement);
 
 		User user = null;
-		user = userFactory.createUser(userId, userName, password, cryptoWalletId, bankWalletId);
+		user = userFactory.createUser(userId, userName, password, cryptoWalletId, bankWalletId, favorites);
 		return user;
 	}
 	

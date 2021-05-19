@@ -4,7 +4,6 @@ import java.util.Date;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import enums.ECandleStatus;
 import factory.AbstractFactory;
 import factory.HourCandleFactory;
 import factory.objects.CandleParams;
@@ -51,15 +50,16 @@ public class HourCandleParser {
 			for (int i=0;i<data.length();i++)
 			{
 				JSONObject candleData = (JSONObject) data.get(i);
-				String time,high,low,open,close,volume;
-				time = candleData.getString("time");
-				high = candleData.getString("high");
-				low = candleData.getString("low");
-				open = candleData.getString("open");
-				close = candleData.getString("close");
-				volume = candleData.getString("volumeTo");
+				Double high,low,open,close,volume;
+				Long time;
+				time = candleData.getLong("time");
+				high = candleData.getDouble("high");
+				low = candleData.getDouble("low");
+				open = candleData.getDouble("open");
+				close = candleData.getDouble("close");
+				volume = candleData.getDouble("volumeTo");
 				Date date = new Date(Long.valueOf(time));
-				CandleParams params = new CandleParams(coinName, date, null, high, low,open, close, volume, ECandleStatus.CLOSED);
+				CandleParams params = new CandleParams(date,high, low,open, close, volume);
 				Candle candle = createCandle(params);
 				if(candle != null)
 				{

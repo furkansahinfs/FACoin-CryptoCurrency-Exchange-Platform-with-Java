@@ -37,6 +37,12 @@ public class HomeMediator {
 		return view;
 	}
 
+	
+	public void logout() {
+		view.setVisible(false);
+		LoginMediator mediator = new LoginMediator();
+	}
+	
 	public void runService() {
 		ScheduledExecutorService executor = null;
 		try {

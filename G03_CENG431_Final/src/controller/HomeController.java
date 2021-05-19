@@ -1,5 +1,7 @@
 package controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -15,6 +17,7 @@ public class HomeController extends Consumable {
 	public HomeController(HomeMediator mediator) {
 		this.mediator = mediator;
 		mediator.getView().addSelectCoinListener((new SelectCoinListener()));
+		mediator.getView().addLogoutButtonListener(new LogoutButtonListener());
 	}
 
 
@@ -48,6 +51,15 @@ public class HomeController extends Consumable {
 		@Override
 		public void mouseExited(MouseEvent e) {
 		}
+	}
+	
+	class LogoutButtonListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			mediator.logout();
+		}
+
 	}
 
 

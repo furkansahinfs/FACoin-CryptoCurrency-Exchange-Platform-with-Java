@@ -10,8 +10,6 @@ import settings.AppSettings;
 public class Frame extends JFrame {
 
 	private static final long serialVersionUID = -8368745851825149744L;
-	private int X = 0;
-	private int Y = 0;
 	
 	/**
 	 * It is the constructor of main frame
@@ -21,7 +19,7 @@ public class Frame extends JFrame {
 		super(name);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUpScreenBounds();
-		setBounds(X, Y, AppSettings.WIDTH, AppSettings.HEIGHT);
+		setBounds(AppSettings.SCREEN_X, AppSettings.SCREEN_Y, AppSettings.WIDTH, AppSettings.HEIGHT);
 	}
 
 	private void setUpScreenBounds() {
@@ -29,8 +27,8 @@ public class Frame extends JFrame {
 		double width = screenSize.getWidth();
 		double height = screenSize.getHeight();
 		
-		X = (int) ((width/2)-(AppSettings.WIDTH/2));
-		Y = (int) ((height/2)-(AppSettings.HEIGHT/2));
+		AppSettings.SCREEN_X = (int) ((width/2)-(AppSettings.WIDTH/2));
+		AppSettings.SCREEN_Y = (int) ((height/2)-(AppSettings.HEIGHT/2));
 		
 	}
 	

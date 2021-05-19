@@ -1,8 +1,12 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.net.URL;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -10,6 +14,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import settings.AppSettings;
 import view.color.ColorPalette;
 import view.list.List;
 
@@ -27,6 +32,7 @@ public class LoginView extends AppView  {
 	private JTextField userName; // user name field
 	private JLabel message; // warning message according to the situation
 	private ColorPalette palette;
+	private JLabel logo;
 	
 	public LoginView() {
 		// set the observable and view elements in the view.
@@ -34,19 +40,27 @@ public class LoginView extends AppView  {
 		setLayout(null);
 		
 		loginButton = new JButton("Sign in");
-		loginButton.setBounds(300, 200, 100, 30);
+		loginButton.setBounds(300, 320, 200, 40);
+		loginButton.setFont(new Font("Arial", Font.BOLD, 20));
 		add(loginButton);
 		
-		password = new JPasswordField("Password");
-		password.setBounds(300, 150, 100, 30);
+		password = new JPasswordField("123456");
+		password.setBounds(300, 260, 200, 40);
+		password.setFont(new Font("Arial", Font.PLAIN, 20));
 		add(password);
 		
-		userName = new JTextField("Username");
-		userName.setBounds(300, 100, 100, 30);
+		userName = new JTextField("furkan");
+		userName.setBounds(300, 200, 200, 40);
+		userName.setFont(new Font("Arial", Font.PLAIN, 20));
 		add(userName);
 		
+		logo = new JLabel(AppSettings.LOGO);
+		logo.setBounds(AppSettings.WIDTH-AppSettings.SCREEN_X, 0, 200, 200);
+		add(logo);
+		
 		message = new JLabel("Incorrect login, please try again");
-		message.setBounds(275, 250, 200, 30);
+		message.setBounds(265, 400, 300, 30);
+		message.setFont(new Font("Arial", Font.PLAIN, 20));
 		add(message);
 		message.setVisible(false);
 		AppWindow.FRAME.getContentPane().add(this);

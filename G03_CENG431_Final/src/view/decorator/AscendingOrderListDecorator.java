@@ -7,6 +7,7 @@ import java.util.Comparator;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 
+import view.list.CoinList;
 import view.list.List;
 
 public class AscendingOrderListDecorator extends SortListDecorator{
@@ -18,16 +19,26 @@ public class AscendingOrderListDecorator extends SortListDecorator{
 	@Override
 	public void set() {
 		decorator.update();
-		sort(decorator.list);
-		decorator.view.updateUI();
+		List temp = sort(decorator.list);
+		decorator.view.setList(temp);
 		
 	}
 	
-	private void sort(List list) {
+	private List sort(List list) {
 		//DefaultListModel<JLabel> newList = new DefaultListModel<JLabel>();
 		DefaultListModel<JLabel> viewList = list.getList();
-		Arrays.sort(viewList.toArray(), new AscendingComparor());
-
+		Object[] listArray = viewList.toArray();
+		Arrays.sort(listArray, new AscendingComparor());
+		List listTemp=new CoinList(convert(listArray));
+		return listTemp;
+	}
+	
+	private DefaultListModel<JLabel> convert(Object[] listA) {
+		DefaultListModel<JLabel> tempL = new DefaultListModel<JLabel>();
+		for(int i=0;i<listA.length;i++) {
+			tempL.addElement((JLabel)listA[i]);
+		}
+		return tempL;
 	}
 	
 	class AscendingComparor implements Comparator<Object>{
@@ -50,6 +61,6 @@ public class AscendingOrderListDecorator extends SortListDecorator{
 	private Float value(JLabel label) {
 		String[] splitted = label.getText().split("%");
 		String[] splitted1 = splitted[0].split("\\(");
-		return Float.parseFloat(splitted1[1]); // TODO neden amk nedennn
+		return Float.parseFloat(splitted1[1].replaceAll(",",".")); // TODO neden amk nedennn
 	}
 }

@@ -34,7 +34,7 @@ public class HomeView extends AppView {
 		coinList = new CoinList(null);
 		logout = new JButton("Logout");
 		logout.setFont(new Font("Arial", Font.BOLD, 14));
-		logout.setBounds(628, 11, 90, 30);
+		logout.setBounds(628, 50, 90, 30);
 		add(logout);
 		scrollPane = new JScrollPane();
 		// coinList.setBounds(100,100,200,300);
@@ -63,8 +63,8 @@ public class HomeView extends AppView {
 		add(toHigh);
 		
 		wallet = new JButton("Wallet");
-		wallet.setBounds(125, 116, 75, 50);
-		wallet.setFont(new Font("Arial Unicode MS", Font.BOLD, 20));// TODO arial
+		wallet.setBounds(50, 50, 100, 50);
+		wallet.setFont(new Font("Arial", Font.BOLD, 20));// TODO arial
 		add(wallet);
 	}
 
@@ -118,8 +118,8 @@ public class HomeView extends AppView {
 		toLow.setForeground(palette.SECOND_COLOR);
 		toHigh.setBackground(palette.BACKGROUND);
 		toHigh.setForeground(palette.SECOND_COLOR);
-		wallet.setBackground(palette.FIRST_COLOR);
-		wallet.setForeground(palette.BACKGROUND);
+		wallet.setBackground(palette.BACKGROUND);
+		wallet.setForeground(palette.SECOND_COLOR);
 	}
 
 	public void addLogoutButtonListener(ActionListener listener) {

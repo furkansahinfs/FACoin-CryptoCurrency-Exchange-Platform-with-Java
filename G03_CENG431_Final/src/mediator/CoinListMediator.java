@@ -55,7 +55,7 @@ public class CoinListMediator {
 			ColorPalette palette = new ColorPalette(new DarkTheme());
 			DecimalFormat df = new DecimalFormat();
 			df.setMaximumFractionDigits(4);
-			Double howMuchFormatted = Double.valueOf(df.format(howMuch));
+			Double howMuchFormatted = Double.valueOf(df.format(howMuch).replaceAll(",","."));
 			if (howMuchFormatted > 100) {
 				howMuch = howMuch - 100;
 				result = Color.GREEN;

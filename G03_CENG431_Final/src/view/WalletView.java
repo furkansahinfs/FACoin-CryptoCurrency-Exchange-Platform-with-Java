@@ -33,7 +33,7 @@ public class WalletView extends AppView {
 		
 		back = new JButton("Back");
 		back.setFont(new Font("Arial", Font.BOLD, 14));
-		back.setBounds(628, 11, 90, 30);
+		back.setBounds(628, 50, 90, 30);
 		add(back);
 		
 		scrollPane = new JScrollPane();
@@ -41,12 +41,12 @@ public class WalletView extends AppView {
 		scrollPane.setViewportView(walletEntityList);
 		add(scrollPane);
 		
-		bankWallet = new JButton("BNKA");
-		bankWallet.setBounds(150, 100, 90, 30);
+		bankWallet = new JButton("BANK");
+		bankWallet.setBounds(225, 100, 90, 30);
 		add(bankWallet);
 		
 		cryptoWallet = new JButton("CRYPTO");
-		cryptoWallet.setBounds(250, 100, 90, 30);
+		cryptoWallet.setBounds(455, 100, 90, 30);
 		add(cryptoWallet);
 		
 		AppWindow.FRAME.getContentPane().removeAll();
@@ -87,6 +87,10 @@ public class WalletView extends AppView {
 		back.setForeground(palette.BACKGROUND);
 		walletEntityList.setBackground(palette.BACKGROUND);
 		scrollPane.setBackground(palette.BACKGROUND);
+		cryptoWallet.setBackground(palette.BACKGROUND);
+		cryptoWallet.setForeground(palette.SECOND_COLOR);
+		bankWallet.setBackground(palette.BACKGROUND);
+		bankWallet.setForeground(palette.SECOND_COLOR);
 	}
 
 	public void addBackButtonListener(ActionListener listener) {

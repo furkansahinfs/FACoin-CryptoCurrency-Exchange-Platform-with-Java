@@ -2,7 +2,6 @@ package view;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-
 import javax.swing.JFrame;
 
 import settings.AppSettings;
@@ -20,6 +19,7 @@ public class Frame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUpScreenBounds();
 		setBounds(AppSettings.SCREEN_X, AppSettings.SCREEN_Y, AppSettings.WIDTH, AppSettings.HEIGHT);
+		setIconImage(AppSettings.LOGO.getImage());
 	}
 
 	private void setUpScreenBounds() {

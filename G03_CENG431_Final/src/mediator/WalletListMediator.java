@@ -1,6 +1,7 @@
 package mediator;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -17,12 +18,15 @@ import model.CryptoWallet;
 import model.Currency;
 import model.WalletEntity;
 import view.LabelInfo;
+import view.color.ColorPalette;
+import view.color.DarkTheme;
 
 public class WalletListMediator {
 
 	private IRestrictedRepository<Currency> banknoteRepository;
 	private String bankId;
 	private String cryptoId;
+	private final Color COLOR = (new ColorPalette(new DarkTheme())).FIRST_COLOR;
 
 	public WalletListMediator(String cryptoId, String bankId) {
 		this.bankId = bankId;
@@ -40,11 +44,16 @@ public class WalletListMediator {
 		while (banknoteIterator.hasNext()) {
 
 			banknote = banknoteIterator.next();
-			Double value = currency.getValue().get(banknote.getName()) * quantity;
+			// TODO added check for here
+			Double price = currency.getValue().get(banknote.getName());
+			if(price.equals(null)) {
+				price = (double) 0;
+			}
+			Double value = price * quantity;
 			if (value.equals(null)) {
 				value = (double) 0;
 			}
-			LabelInfo newLabel = new LabelInfo(Color.CYAN, quantity, currency.getName(), value, banknote.name);
+			LabelInfo newLabel = new LabelInfo(COLOR, quantity, currency.getName(), value, banknote.name);
 			labels.add(newLabel);
 		}
 		return labels;
@@ -60,7 +69,7 @@ public class WalletListMediator {
 		if (value.equals(null)) {
 			value = (double) 0;
 		}
-		LabelInfo newLabel = new LabelInfo(Color.CYAN, quantity, currency.getName(), value, "");
+		LabelInfo newLabel = new LabelInfo(COLOR, quantity, currency.getName(), value, "");
 		labels.add(newLabel);
 		return labels;
 	}

@@ -19,7 +19,7 @@ public class JLabelService {
 		if(coinResult.getObject() != null)
 		{
 			ICurrency coin = (ICurrency) coinResult.getObject();			
-			label.setText(coinName + "/" + banknoteName + "\n" + coin.getValue().get(banknoteName));			
+			label.setText(coinName + "/" + banknoteName + " " + coin.getValue().get(banknoteName));			
 		}
 		return label;	
 	}

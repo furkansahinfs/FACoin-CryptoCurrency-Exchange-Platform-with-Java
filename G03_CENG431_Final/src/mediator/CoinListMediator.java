@@ -34,23 +34,23 @@ public class CoinListMediator {
 		while (banknoteIterator.hasNext()) {
 			
 			banknote = banknoteIterator.next();
-			Float oldValue = currency.getOldValue().get(banknote.getName());
+			Double oldValue = currency.getOldValue().get(banknote.getName()).doubleValue();
 			
-			Float value = currency.getValue().get(banknote.getName());
+			Double value = currency.getValue().get(banknote.getName()).doubleValue();
 			if(value==null)
-				value = (float) 0;
+				value = (double) 0;
 			if(oldValue == null)
 			{
 				oldValue =value;
 			}
-			Float howMuch;
+			Double howMuch;
 			if(value!=0)
 			{
 				howMuch = (value * 100 / oldValue);
 			}
 			else
 			{
-				howMuch = (float) 100;
+				howMuch = (double) 100;
 			}
 			
 
@@ -60,7 +60,7 @@ public class CoinListMediator {
 				howMuch = howMuch - 100;
 				result = Color.GREEN;}
 			else if (howMuch == 100 ){
-				howMuch = (float) 0;			
+				howMuch = (double) 0;			
 				result = palette.FIRST_COLOR;}
 			
 			else{			
@@ -69,7 +69,7 @@ public class CoinListMediator {
 			
 				
 
-			LabelInfo newLabel = new LabelInfo(result, howMuch, currency.getName(), value, banknote.name);
+			LabelInfo newLabel = new LabelInfo(result, howMuch, currency.getName(), value.floatValue(), banknote.name);
 			labels.add(newLabel);
 
 		}

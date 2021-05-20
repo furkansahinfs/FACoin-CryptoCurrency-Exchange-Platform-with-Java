@@ -1,5 +1,6 @@
 package view.decorator;
 
+import java.awt.Color;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -49,7 +50,7 @@ public class AscendingOrderListDecorator extends SortListDecorator{
 			JLabel temp2 = (JLabel)o2;
 			Float val1 = value(temp1);
 			Float val2 = value(temp2);
-			int result = 0;
+			int result = -1;
 			if(val1>val2) {
 				result = 1;
 			}
@@ -61,6 +62,10 @@ public class AscendingOrderListDecorator extends SortListDecorator{
 	private Float value(JLabel label) {
 		String[] splitted = label.getText().split("%");
 		String[] splitted1 = splitted[0].split("\\(");
-		return Float.parseFloat(splitted1[1].replaceAll(",",".")); // TODO neden amk nedennn
+		Float result = Float.parseFloat(splitted1[1].replaceAll(",","."));
+		if(label.getForeground()==Color.RED)
+			return result * (-1);
+		else
+			return  result;
 	}
 }

@@ -1,13 +1,13 @@
 package model;
 public class WalletEntity{
 	private ICurrency currency;
-	private float quantity;
-	public WalletEntity(ICurrency currency, float quantity){
+	private Double quantity;
+	public WalletEntity(ICurrency currency, Double quantity){
 		this.currency = currency;
 		this.quantity = quantity;
 	}
 	
-	public float getTotal(String banknoteName){
+	public double getTotal(String banknoteName){
 		return this.currency.getValue().get(banknoteName)*quantity;
 	}
 	
@@ -15,7 +15,7 @@ public class WalletEntity{
 		return this.currency;
 	}
 	
-	public float getQuantity() {
+	public Double getQuantity() {
 		return this.quantity;
 	}
 	

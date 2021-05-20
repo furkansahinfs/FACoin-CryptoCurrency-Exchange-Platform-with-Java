@@ -34,9 +34,9 @@ public class CoinListMediator {
 		while (banknoteIterator.hasNext()) {
 			
 			banknote = banknoteIterator.next();
-			Double oldValue = currency.getOldValue().get(banknote.getName()).doubleValue();
+			Double oldValue = currency.getOldValue().get(banknote.getName());
 			
-			Double value = currency.getValue().get(banknote.getName()).doubleValue();
+			Double value = currency.getValue().get(banknote.getName());
 			if(value==null)
 				value = (double) 0;
 			if(oldValue == null)
@@ -56,10 +56,13 @@ public class CoinListMediator {
 
 			Color result = null;
 			ColorPalette palette = new ColorPalette(new DarkTheme());
-			if (howMuch > 100){
+			DecimalFormat df = new DecimalFormat();
+			df.setMaximumFractionDigits(4);
+			Double howMuchFormatted = Double.valueOf(df.format(howMuch));
+			if (howMuchFormatted > 100){
 				howMuch = howMuch - 100;
 				result = Color.GREEN;}
-			else if (howMuch == 100 ){
+			else if (howMuchFormatted == 100 ){
 				howMuch = (double) 0;			
 				result = palette.FIRST_COLOR;}
 			
@@ -69,7 +72,7 @@ public class CoinListMediator {
 			
 				
 
-			LabelInfo newLabel = new LabelInfo(result, howMuch, currency.getName(), value.floatValue(), banknote.name);
+			LabelInfo newLabel = new LabelInfo(result, howMuch, currency.getName(), value, banknote.name);
 			labels.add(newLabel);
 
 		}
@@ -114,12 +117,12 @@ public class CoinListMediator {
 
 	/*class LabelInfo {
 		private Color color;
-		private Float percent;
+		private Double percent;
 		private String coinName;
-		private Float value;
+		private Double value;
 		private String banknote;
 
-		public LabelInfo(Color color, Float percent, String name, Float value, String banknote) {
+		public LabelInfo(Color color, Double percent, String name, Double value, String banknote) {
 			this.color = color;
 			this.percent = percent;
 			this.coinName = name;

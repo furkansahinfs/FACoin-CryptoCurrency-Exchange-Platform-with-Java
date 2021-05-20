@@ -70,7 +70,7 @@ public class UpdateParser {
 					String banknoteName = (String) valueKey;
 					banknoteValue = currencyValues.get(banknoteName);
 					if (validateResult(coinName, banknoteName, banknoteValue)) {
-						updateData.addKeyValue(banknoteName, ((Double) banknoteValue).floatValue());
+						updateData.addKeyValue(banknoteName, ((Double) banknoteValue));
 					}
 				}
 				updateDataList.add(updateData);
@@ -83,14 +83,14 @@ public class UpdateParser {
 	private boolean validateResult(String coinName, String banknoteName, Object banknoteValue) {
 		boolean isValidCoin = ECoins.isCoin(coinName);
 		boolean isValidBanknote = EBanknotes.isBanknote(banknoteName);
-		boolean isValidFloat;
+		boolean isValidDouble;
 		try {
-			((Double) banknoteValue).floatValue();
-			isValidFloat = true;
+			Double temp = ((Double) banknoteValue);
+			isValidDouble = true;
 		} catch (Exception e) {
-			isValidFloat = false;
+			isValidDouble = false;
 		}
 
-		return (isValidCoin && isValidBanknote && isValidFloat);
+		return (isValidCoin && isValidBanknote && isValidDouble);
 	}
 }

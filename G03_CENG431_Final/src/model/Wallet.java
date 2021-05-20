@@ -10,7 +10,7 @@ public abstract class Wallet extends AbstractEntity {
 		this.entities = entities;
 	}
 	
-	public float getTotal(String banknoteName){
+	public Double getTotal(String banknoteName){
 		return WalletHelper.getTotal(this.entities,banknoteName);
 	}
 	

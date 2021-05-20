@@ -7,43 +7,43 @@ import storage.Name;
 
 public abstract class Currency extends AbstractEntity implements ICurrency {
 
-	private Dictionary<String,Float> value;
-	private Dictionary<String,Float> old_value;
+	private Dictionary<String,Double> value;
+	private Dictionary<String,Double> old_value;
 	public final String name;
 
 	public Currency(String id, String name) {
 		super(id);
-		this.value = new Hashtable<String,Float>();
-		this.old_value = new Hashtable<String,Float>();
+		this.value = new Hashtable<String,Double>();
+		this.old_value = new Hashtable<String,Double>();
 		this.name = name;
 	}
 	
-	public Currency(String id, Dictionary<String,Float> value, String name) {
+	public Currency(String id, Dictionary<String,Double> value, String name) {
 		super(id);
 		this.value = value;
 		this.name = name;
 		this.old_value = value;
 	}
 
-	public Dictionary<String,Float> getValue() {
+	public Dictionary<String,Double> getValue() {
 		return this.value;
 	}
 	
-	public Dictionary<String,Float> getOldValue() {
+	public Dictionary<String,Double> getOldValue() {
 		return this.old_value;
 	}
 
-	public void setValue(Dictionary<String,Float> value) {
+	public void setValue(Dictionary<String,Double> value) {
 		this.value = value;
 	}
 	
-	public Float addValue(String banknoteName, Float value)
+	public Double addValue(String banknoteName, Double value)
 	{
 
 		return this.value.put(banknoteName, value);
 	}
 	
-	public void addOldValue(String banknoteName, Float value){
+	public void addOldValue(String banknoteName, Double value){
 		this.old_value.put(banknoteName, value);
 	}
 	

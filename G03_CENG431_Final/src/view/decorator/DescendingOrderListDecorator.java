@@ -48,8 +48,8 @@ public class DescendingOrderListDecorator extends SortListDecorator {
 		public int compare(Object o1, Object o2) {
 			JLabel temp1 = (JLabel)o1;
 			JLabel temp2 = (JLabel)o2;
-			Float val1 = value(temp1);
-			Float val2 = value(temp2);
+			Double val1 = value(temp1);
+			Double val2 = value(temp2);
 			int result = 1;
 			if(val1>val2) {
 				result = -1;
@@ -59,10 +59,10 @@ public class DescendingOrderListDecorator extends SortListDecorator {
 		
 	}
 	// TODO olmadý ustam
-	private Float value(JLabel label) {
+	private Double value(JLabel label) {
 		String[] splitted = label.getText().split("%");
 		String[] splitted1 = splitted[0].split("\\(");
-		Float result = Float.parseFloat(splitted1[1].replaceAll(",","."));
+		Double result = Double.parseDouble(splitted1[1].replaceAll(",","."));
 		if(label.getForeground()==Color.RED)
 			return result * (-1);
 		else

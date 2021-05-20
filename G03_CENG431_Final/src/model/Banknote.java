@@ -8,7 +8,7 @@ public class Banknote extends Currency{
 		super(id, name);
 	}
 	
-	public Banknote(String id, Dictionary<String, Float> value, String name) {
+	public Banknote(String id, Dictionary<String, Double> value, String name) {
 		super(id, value, name);
 	}
 

@@ -50,13 +50,13 @@ public class UpdateMediator {
 		}
 	}
 
-	private void setValues(Currency coin, Dictionary<String, Float> values) {
+	private void setValues(Currency coin, Dictionary<String, Double> values) {
 		Enumeration<String> iterator = values.keys();
 		String key = "";
 		while (iterator.hasMoreElements()) {			
 			key = iterator.nextElement();
-			Float value = values.get(key);
-			Float oldValue = (float) 0;
+			Double value = values.get(key);
+			Double oldValue =  (double) 0;
 			oldValue = coin.addValue(key, value);
 			if(oldValue==null)
 				oldValue = value;

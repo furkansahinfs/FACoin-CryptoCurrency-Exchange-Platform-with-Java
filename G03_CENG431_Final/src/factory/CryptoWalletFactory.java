@@ -72,7 +72,7 @@ public class CryptoWalletFactory extends WalletFactory{
 		
 		Object resultObject = result.getObject();
 		if(resultObject!=null){
-			entityResult = new WalletEntity((ICurrency) resultObject,Float.valueOf(quantity));
+			entityResult = new WalletEntity((ICurrency) resultObject,Double.valueOf(quantity));
 		}
 		return entityResult;
 	}

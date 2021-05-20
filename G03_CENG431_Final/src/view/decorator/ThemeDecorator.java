@@ -8,8 +8,6 @@ public abstract class ThemeDecorator extends Decorator{
 	
 	public ThemeDecorator(IColorable view){
 		this.view = view;
-		setPalette();
+		set();
 	}
-	
-	protected abstract void setPalette();
 }

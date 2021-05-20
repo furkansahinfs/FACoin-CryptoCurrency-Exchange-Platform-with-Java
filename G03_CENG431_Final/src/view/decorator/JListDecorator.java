@@ -8,8 +8,6 @@ public abstract class JListDecorator extends Decorator{
 	
 	public JListDecorator(AppView view){
 		this.view = view;
-		setList();
+		set();
 	}
-	
-	public abstract void setList();
 }

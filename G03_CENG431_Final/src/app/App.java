@@ -16,6 +16,7 @@ import view.decorator.DarkThemeDecorator;
 import view.decorator.JListDecorator;
 import view.decorator.ThemeDecorator;
 import mediator.LoginMediator;
+import mediator.Updater;
 
 public class App {
 
@@ -57,6 +58,8 @@ public class App {
 		BaseRepository br = new BaseRepository();
 		br.initDatabase();
 		HttpRepository httpRepo = new HttpRepository();
+		Updater updater = new Updater();
+		updater.RUN();
 		AppWindow window = new AppWindow();
 		//UpdateMediator updateMediator = new UpdateMediator();
 		LoginMediator loginMediator = new LoginMediator();

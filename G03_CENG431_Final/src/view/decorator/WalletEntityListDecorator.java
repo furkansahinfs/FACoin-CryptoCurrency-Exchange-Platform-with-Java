@@ -10,7 +10,7 @@ public class WalletEntityListDecorator extends JListDecorator{
 	}
 
 	@Override
-	public void setList() {
+	public void set() {
 		// TODO Auto-generated method stub
 		
 	}

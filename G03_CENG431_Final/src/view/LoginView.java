@@ -63,6 +63,7 @@ public class LoginView extends AppView  {
 		message.setFont(new Font("Arial", Font.PLAIN, 20));
 		add(message);
 		message.setVisible(false);
+		AppWindow.FRAME.getContentPane().removeAll();
 		AppWindow.FRAME.getContentPane().add(this);
 		AppWindow.FRAME.setVisible(true);
 		

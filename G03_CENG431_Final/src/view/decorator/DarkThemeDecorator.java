@@ -11,7 +11,7 @@ public class DarkThemeDecorator extends ThemeDecorator {
 	}
 
 	@Override
-	protected void setPalette() {
+	public void set() {
 		ColorPalette palette = new ColorPalette(new DarkTheme());
 		this.view.setPalette(palette);
 	}

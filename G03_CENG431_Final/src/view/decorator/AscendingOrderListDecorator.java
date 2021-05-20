@@ -1,5 +1,6 @@
 package view.decorator;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -35,8 +36,8 @@ public class AscendingOrderListDecorator extends SortListDecorator{
 		public int compare(Object o1, Object o2) {
 			JLabel temp1 = (JLabel)o1;
 			JLabel temp2 = (JLabel)o2;
-			float val1 = value(temp1);
-			float val2 = value(temp2);
+			Float val1 = value(temp1);
+			Float val2 = value(temp2);
 			int result = 0;
 			if(val1>val2) {
 				result = 1;
@@ -46,9 +47,9 @@ public class AscendingOrderListDecorator extends SortListDecorator{
 		
 	}
 	// TODO olmadý ustam
-	private float value(JLabel label) {
+	private Float value(JLabel label) {
 		String[] splitted = label.getText().split("%");
 		String[] splitted1 = splitted[0].split("\\(");
-		return Float.valueOf(splitted1[1]);
+		return Float.parseFloat(splitted1[1]); // TODO neden amk nedennn
 	}
 }

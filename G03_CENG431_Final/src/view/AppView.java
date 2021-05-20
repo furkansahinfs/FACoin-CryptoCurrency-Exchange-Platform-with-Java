@@ -14,5 +14,5 @@ public abstract class AppView extends JPanel implements IColorable {
 
 	
 	public abstract void setList(List list);
-
+	public abstract List getList();
 }

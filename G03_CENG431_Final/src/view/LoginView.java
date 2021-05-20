@@ -8,6 +8,7 @@ import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -157,6 +158,12 @@ public class LoginView extends AppView  {
 	public void setList(List list) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List getList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

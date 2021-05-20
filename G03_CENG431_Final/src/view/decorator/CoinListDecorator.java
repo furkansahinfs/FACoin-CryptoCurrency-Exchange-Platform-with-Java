@@ -16,9 +16,15 @@ public class CoinListDecorator extends JListDecorator{
 
 	@Override
 	public void set() {
+		update();
+		view.setList(this.list);
+	}
+
+	@Override
+	public void update() {
 		CoinListMediator mediator = new CoinListMediator();
 		DefaultListModel<JLabel> listModel = mediator.getList();
-		view.setList(new CoinList(listModel));
+		this.list = new CoinList(listModel);
 	}
 
 }

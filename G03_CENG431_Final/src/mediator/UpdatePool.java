@@ -3,14 +3,14 @@ package mediator;
 import java.util.ArrayList;
 import java.util.List;
 
-import view.decorator.JListDecorator;
+import view.decorator.Decorator;
 
 public class UpdatePool {
 
-	protected static List<JListDecorator> POOL = new ArrayList<JListDecorator>();
+	protected static List<Decorator> POOL = new ArrayList<Decorator>();
 	
 	protected static void UPDATE() {
-		for(JListDecorator dec : POOL) {
+		for(Decorator dec : POOL) {
 			dec.set();
 		}
 	}

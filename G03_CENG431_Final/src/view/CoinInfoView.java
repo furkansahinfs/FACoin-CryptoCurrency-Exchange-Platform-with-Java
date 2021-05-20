@@ -2,6 +2,7 @@
 
 import java.awt.Dimension;
 
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import org.jfree.chart.ChartPanel;
@@ -58,6 +59,12 @@ public class CoinInfoView extends AppView {
 	public void setList(List list) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public List getList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

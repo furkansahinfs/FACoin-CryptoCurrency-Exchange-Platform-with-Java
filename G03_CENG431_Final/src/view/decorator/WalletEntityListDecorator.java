@@ -15,4 +15,10 @@ public class WalletEntityListDecorator extends JListDecorator{
 		
 	}
 
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

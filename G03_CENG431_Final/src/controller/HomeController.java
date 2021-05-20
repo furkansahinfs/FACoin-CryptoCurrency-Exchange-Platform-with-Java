@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import enums.ESort;
 import exception.HttpRequestException;
 import mediator.HomeMediator;
 /**
@@ -18,6 +19,8 @@ public class HomeController extends Consumable {
 		this.mediator = mediator;
 		mediator.getView().addSelectCoinListener((new SelectCoinListener()));
 		mediator.getView().addLogoutButtonListener(new LogoutButtonListener());
+		mediator.getView().addAscendingOrderListener(new AscendingOrderListener());
+		mediator.getView().addDescendingOrderListener(new DescendingOrderListener());
 	}
 
 
@@ -58,6 +61,24 @@ public class HomeController extends Consumable {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			mediator.logout();
+		}
+
+	}
+	
+	class AscendingOrderListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			mediator.sort(ESort.ASCENDING);
+		}
+
+	}
+	
+	class DescendingOrderListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			mediator.sort(ESort.DESCENDING);
 		}
 
 	}

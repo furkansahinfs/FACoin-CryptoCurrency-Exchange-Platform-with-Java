@@ -4,12 +4,10 @@ import view.color.ColorPalette;
 import view.list.CoinList;
 import view.list.List;
 import javax.swing.JButton;
-
 import javax.swing.JScrollPane;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
-import view.AppWindow;
 
 public class HomeView extends AppView {
 
@@ -87,6 +85,14 @@ public class HomeView extends AppView {
 	public void addSelectCoinListener(MouseListener listener) {
 		coinList.addMouseListener(listener);
 	}
+	
+	public void addAscendingOrderListener(ActionListener listener) {
+		toHigh.addActionListener(listener);
+	}
+	
+	public void addDescendingOrderListener(ActionListener listener) {
+		toLow.addActionListener(listener);
+	}
 
 	private void updateColor() {
 		setBackground(palette.BACKGROUND);
@@ -110,7 +116,11 @@ public class HomeView extends AppView {
 	public void setList(List list) {
 		coinList.setModel(list.getList());
 		coinList.setCellRenderer(new JListRenderer());
-		coinList.setFont(new Font("Arial", Font.PLAIN, 20));
 		updateUI();
+	}
+
+	@Override
+	public List getList() {
+		return this.coinList;
 	}
 }

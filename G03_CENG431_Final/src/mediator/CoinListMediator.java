@@ -15,7 +15,6 @@ import view.LabelInfo;
 import view.color.ColorPalette;
 import view.color.DarkTheme;
 
-
 public class CoinListMediator {
 
 	private IRestrictedRepository<Currency> coinRepository;
@@ -27,50 +26,48 @@ public class CoinListMediator {
 	}
 
 	private List<LabelInfo> getLabel(Currency currency) {
+
 		List<LabelInfo> labels = new ArrayList<LabelInfo>();
 		final Iterator<Currency> banknoteIterator = banknoteRepository.getAll();
 		Currency banknote = null;
-		
+
 		while (banknoteIterator.hasNext()) {
-			
+
 			banknote = banknoteIterator.next();
 			Double oldValue = currency.getOldValue().get(banknote.getName());
-			
+
 			Double value = currency.getValue().get(banknote.getName());
-			if(value==null)
+			if (value == null) {
 				value = (double) 0;
-			if(oldValue == null)
-			{
-				oldValue =value;
+			}
+
+			if (oldValue == null) {
+				oldValue = value;
 			}
 			Double howMuch;
-			if(value!=0)
-			{
+			if (value != 0) {
 				howMuch = (value * 100 / oldValue);
-			}
-			else
-			{
+			} else {
 				howMuch = (double) 100;
 			}
-			
 
 			Color result = null;
 			ColorPalette palette = new ColorPalette(new DarkTheme());
 			DecimalFormat df = new DecimalFormat();
 			df.setMaximumFractionDigits(4);
 			Double howMuchFormatted = Double.valueOf(df.format(howMuch));
-			if (howMuchFormatted > 100){
+			if (howMuchFormatted > 100) {
 				howMuch = howMuch - 100;
-				result = Color.GREEN;}
-			else if (howMuchFormatted == 100 ){
-				howMuch = (double) 0;			
-				result = palette.FIRST_COLOR;}
-			
-			else{			
+				result = Color.GREEN;
+			} else if (howMuchFormatted == 100) {
+				howMuch = (double) 0;
+				result = palette.FIRST_COLOR;
+			}
+
+			else {
 				howMuch = 100 - howMuch;
-				result = Color.RED;}
-			
-				
+				result = Color.RED;
+			}
 
 			LabelInfo newLabel = new LabelInfo(result, howMuch, currency.getName(), value, banknote.name);
 			labels.add(newLabel);
@@ -85,6 +82,7 @@ public class CoinListMediator {
 		final Iterator<Currency> newIterator = coinRepository.getAll();
 		Currency currency = null;
 		while (newIterator.hasNext()) {
+		
 			currency = newIterator.next();
 			List<LabelInfo> labels = getLabel(currency);
 
@@ -95,7 +93,7 @@ public class CoinListMediator {
 	}
 
 	public void setLabels(List<LabelInfo> labels, DefaultListModel<JLabel> listModel) {
-		int index=0;
+		int index = 0;
 		for (LabelInfo labelInfo : labels) {
 			JLabel label = createJLabel(labelInfo);
 			listModel.add(index, label);
@@ -104,35 +102,15 @@ public class CoinListMediator {
 	}
 
 	public JLabel createJLabel(LabelInfo label) {
-		
+
 		DecimalFormat df = new DecimalFormat();
 		df.setMaximumFractionDigits(4);
-		String text =  label.coinName + "/" + label.banknote + " : " + label.value + " (" + df.format(label.percent) + "%)";
-		
+		String text = label.coinName + "/" + label.banknote + " : " + label.value + " (" + df.format(label.percent)
+				+ "%)";
+
 		JLabel jLabel = new JLabel(text);
 		jLabel.setForeground(label.color);
-		
+
 		return jLabel;
 	}
-
-	/*class LabelInfo {
-		private Color color;
-		private Double percent;
-		private String coinName;
-		private Double value;
-		private String banknote;
-
-		public LabelInfo(Color color, Double percent, String name, Double value, String banknote) {
-			this.color = color;
-			this.percent = percent;
-			this.coinName = name;
-			this.value = value;
-			this.banknote = banknote;
-		}
-		
-		public String toString(){
-			return this.coinName + "/" + this.banknote + " : " + this.value + " (" + this.percent + "%)";
-		}
-	}*/
-
 }

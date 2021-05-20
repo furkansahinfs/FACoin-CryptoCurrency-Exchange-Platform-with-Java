@@ -1,8 +1,6 @@
 package fileio.repository;
 
 import java.util.Iterator;
-
-import exception.FileReadException;
 import exception.FileWriteException;
 import exception.ItemNotFoundException;
 import exception.NotSupportedException;

@@ -73,6 +73,7 @@ public class UpdateParser {
 						updateData.addKeyValue(banknoteName, ((Double) banknoteValue));
 					}
 				}
+				// TODO değerler aynı kalabliyoyrmu diye bakak
 				updateDataList.add(updateData);
 			}
 		}

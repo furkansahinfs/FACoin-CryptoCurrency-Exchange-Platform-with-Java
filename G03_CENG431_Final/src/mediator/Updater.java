@@ -19,7 +19,7 @@ public class Updater {
 		try {
 			Thread.EXECUTOR = Executors.newScheduledThreadPool(1);
 			Thread.EXECUTOR.scheduleAtFixedRate(PROGRAM, 0, 10, TimeUnit.SECONDS);
-		} catch (Exception e) {
+		} catch (RuntimeException e) {
 			Thread.EXECUTOR.shutdown();
 		}
 	}

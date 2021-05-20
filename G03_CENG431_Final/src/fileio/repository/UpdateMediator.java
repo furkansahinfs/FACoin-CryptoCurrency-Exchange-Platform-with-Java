@@ -41,25 +41,29 @@ public class UpdateMediator {
 
 	private void updateCoinValues(List<UpdateData> values) {
 		for (UpdateData data : values) {
-			
+
 			DatabaseResult dr = coins.getByName(data.name);
 			if (dr.getObject() == null)
 				continue;
 			Currency coin = (Currency) dr.getObject();
 			setValues(coin, data.values);
 		}
+	
 	}
 
 	private void setValues(Currency coin, Dictionary<String, Double> values) {
+		
 		Enumeration<String> iterator = values.keys();
 		String key = "";
-		while (iterator.hasMoreElements()) {			
+		while (iterator.hasMoreElements()) {
 			key = iterator.nextElement();
 			Double value = values.get(key);
-			Double oldValue =  (double) 0;
+			Double oldValue = (double) 0;
 			oldValue = coin.addValue(key, value);
-			if(oldValue==null)
+			if (oldValue == null) {
 				oldValue = value;
+			}
+
 			coin.addOldValue(key, oldValue);
 		}
 	}

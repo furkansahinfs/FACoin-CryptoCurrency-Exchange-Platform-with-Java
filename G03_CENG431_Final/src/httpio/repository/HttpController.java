@@ -25,14 +25,14 @@ public class HttpController {
 	public void readDayCandles(String coinName,String banknoteName) throws HttpRequestException
 	{
 		dayCandles.clear();
-		httpIO.readDayCandles(String.format(AppSettings.CANDLE_ENDPOINT, coinName,banknoteName));
+		httpIO.readDayCandles(String.format(AppSettings.DAY_CANDLE_ENDPOINT, coinName,banknoteName));
 		
 	}
 	
 	public void readHourCandles(String coinName,String banknoteName) throws HttpRequestException
 	{
 		hourCandles.clear();
-		httpIO.readHourCandles(String.format(AppSettings.CANDLE_ENDPOINT, coinName,banknoteName));
+		httpIO.readHourCandles(String.format(AppSettings.HOUR_CANDLE_ENDPOINT, coinName,banknoteName));
 	} 
 	
 	

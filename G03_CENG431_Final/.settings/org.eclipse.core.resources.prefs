@@ -1,2 +1,5 @@
 eclipse.preferences.version=1
 encoding//src/app/App.java=UTF-8
+encoding//src/fileio/repository/UpdateMediator.java=UTF-8
+encoding//src/httpio/parser/UpdateParser.java=UTF-8
+encoding//src/mediator/Updater.java=UTF-8

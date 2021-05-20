@@ -50,5 +50,5 @@ public class User  extends AbstractEntity{
 	{
 		return this.userName.equals(userName);		
 	}
-
+	// TODO combo box bankaya para yükleme
 }

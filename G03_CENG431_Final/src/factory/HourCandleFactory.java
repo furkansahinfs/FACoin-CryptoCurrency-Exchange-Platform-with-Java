@@ -17,11 +17,17 @@ public class HourCandleFactory extends CandleFactory{
 	public Object createEntity(Object args) {
 		Candle result = null;
 		if(!(args instanceof CandleParams))
+		{
 			return result;
+		}
+			
 		CandleParams tempArgs = (CandleParams)args;
 		ValidationResult vr = CandleValidator.validateHourCandle(tempArgs);
 		if(!vr.isValid)
+		{
 			return result;
+		}
+			
 		result = new HourCandle(tempArgs);
 		return result;
 	}

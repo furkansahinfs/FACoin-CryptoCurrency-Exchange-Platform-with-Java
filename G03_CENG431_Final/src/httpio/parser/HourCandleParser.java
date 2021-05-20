@@ -57,7 +57,7 @@ public class HourCandleParser {
 				low = candleData.getDouble("low");
 				open = candleData.getDouble("open");
 				close = candleData.getDouble("close");
-				volume = candleData.getDouble("volumeTo");
+				volume = candleData.getDouble("volumeto");
 				Date date = new Date(Long.valueOf(time));
 				CandleParams params = new CandleParams(date,high, low,open, close, volume);
 				Candle candle = createCandle(params);
@@ -65,8 +65,7 @@ public class HourCandleParser {
 				{
 					hourCandleRepository.addEntity(candle);
 				}
-			}
-			
+			}		
 		}
 		else
 		{

@@ -15,7 +15,6 @@ public class WalletContainer extends Container<Wallet> {
 				returnedWallet =  wallet;
 			}			
 		}
-		// TODO Auto-generated method stub
 		return returnedWallet;
 	}
 

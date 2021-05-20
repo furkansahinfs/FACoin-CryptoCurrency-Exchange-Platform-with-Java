@@ -4,6 +4,7 @@ import view.color.ColorPalette;
 import view.list.CoinList;
 import view.list.List;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -23,6 +24,7 @@ public class HomeView extends AppView {
 	private JScrollPane scrollPane;
 	private ColorPalette palette;
 	private JButton logout;
+	private JButton wallet;
 	private JButton favs;
 	private JButton toLow;
 	private JButton toHigh;
@@ -42,6 +44,7 @@ public class HomeView extends AppView {
 		scrollPane.setViewportView(coinList);
 		add(scrollPane);
 		// add(coinList);
+		AppWindow.FRAME.getContentPane().removeAll();
 		AppWindow.FRAME.getContentPane().add(this);
 		
 		favs = new JButton("\u2605");
@@ -58,6 +61,11 @@ public class HomeView extends AppView {
 		toHigh.setBounds(495, 116, 50, 25);
 		toHigh.setFont(new Font("Arial", Font.BOLD, 20));
 		add(toHigh);
+		
+		wallet = new JButton("Wallet");
+		wallet.setBounds(125, 116, 75, 50);
+		wallet.setFont(new Font("Arial Unicode MS", Font.BOLD, 20));// TODO arial
+		add(wallet);
 	}
 
 	/**
@@ -65,8 +73,8 @@ public class HomeView extends AppView {
 	 * 
 	 * @param String of selected user name
 	 */
-	public String getListSelected() {
-		return coinList.getSelectedValue().getText();
+	public JLabel getListSelected() {
+		return coinList.getSelectedValue();
 	}
 
 	@Override
@@ -84,6 +92,10 @@ public class HomeView extends AppView {
 	 */
 	public void addSelectCoinListener(MouseListener listener) {
 		coinList.addMouseListener(listener);
+	}
+	
+	public void addWalletButtonListener(ActionListener listener) {
+		wallet.addActionListener(listener);
 	}
 	
 	public void addAscendingOrderListener(ActionListener listener) {
@@ -106,6 +118,8 @@ public class HomeView extends AppView {
 		toLow.setForeground(palette.SECOND_COLOR);
 		toHigh.setBackground(palette.BACKGROUND);
 		toHigh.setForeground(palette.SECOND_COLOR);
+		wallet.setBackground(palette.FIRST_COLOR);
+		wallet.setForeground(palette.BACKGROUND);
 	}
 
 	public void addLogoutButtonListener(ActionListener listener) {

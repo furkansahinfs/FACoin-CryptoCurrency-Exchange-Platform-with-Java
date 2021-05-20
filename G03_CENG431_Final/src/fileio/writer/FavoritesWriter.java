@@ -7,7 +7,7 @@ public class FavoritesWriter {
 
 	
 	protected static String writeFavoriteTradingPairsXml(Dictionary<String,String> tradingPairs) {
-		String result =" <favorites>";
+		String result ="<favorites>";
 		Enumeration<String> keys = tradingPairs.keys();
 		String key = "";
 		while(keys.hasMoreElements()) {

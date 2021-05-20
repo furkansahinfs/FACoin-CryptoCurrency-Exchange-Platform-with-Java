@@ -5,15 +5,20 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.DefaultHighLowDataset;
 import controller.CoinInfoController;
+import enums.ECandleType;
+import fileio.repository.CoinRepository;
+import fileio.repository.IRestrictedRepository;
 import httpio.repository.DayCandleRepository;
+import httpio.repository.HourCandleRepository;
 import model.Candle;
+import model.Currency;
 import model.User;
 import storage.IContainer;
 import view.CoinInfoView;
 import view.decorator.DarkThemeDecorator;
 import view.decorator.JListDecorator;
+import view.decorator.TextDecorator;
 import view.decorator.ThemeDecorator;
-import storage.IContainer;
 
 public class CoinInfoMediator {
 
@@ -23,15 +28,32 @@ public class CoinInfoMediator {
 	private JListDecorator decorator;
 	private String coinName;
 	private String banknoteName;
+	private IRestrictedRepository<Currency> coinRepository;
+	private DayCandleRepository dayCandleRepository;
+	private HourCandleRepository hourCandleRepository;
+	
+	private boolean isDayCandle = true;
+	private boolean isHourCandle = false;
 
-	public CoinInfoMediator(String title) {
+	public CoinInfoMediator(String title, User user) {
+		this.user = user;
 		initCurrencyNames(title);
 		view = new CoinInfoView();
-		ThemeDecorator dec = new DarkThemeDecorator(view);
+		coinRepository = new CoinRepository();
+		ThemeDecorator themeDecorator = new DarkThemeDecorator(view);
+		TextDecorator textDecorator = new TextDecorator(view,coinName,banknoteName);
+		UpdatePool.POOL.add(textDecorator);
+		dayCandleRepository = new DayCandleRepository();
+		hourCandleRepository = new HourCandleRepository();
 		controller = new CoinInfoController(this);
-		setViewChart();
-
+		setViewChart(ECandleType.DAY);
 	}
+	
+	public void back() {
+		view.setVisible(false);
+		UpdatePool.POOL.clear();
+		HomeMediator mediator = new HomeMediator(user);
+	}	
 
 	private void initCurrencyNames(String title) {
 		String[] tradingPair = title.split("/");
@@ -44,11 +66,26 @@ public class CoinInfoMediator {
 		return view;
 	}
 	
-
-	public void setViewChart() {
-		DefaultHighLowDataset dataset = createOHLCDataset();
+	public void setViewChart(ECandleType type) {
+		DefaultHighLowDataset dataset = createOHLCDataset(type);
 		final JFreeChart chart = createChart(dataset);
 		view.setChart(chart);
+	}
+	
+	public void dayCandleChart() {
+		if(!isDayCandle){
+			setViewChart(ECandleType.DAY);
+			isDayCandle = true;
+			isHourCandle = false;
+		}
+	}
+
+	public void hourCandleChart() {
+		if(!isHourCandle){
+			setViewChart(ECandleType.HOUR);
+			isHourCandle = true;
+			isDayCandle = false; 
+		}
 	}
 
 	private JFreeChart createChart(final DefaultHighLowDataset dataset) {
@@ -56,11 +93,21 @@ public class CoinInfoMediator {
 		return chart;
 	}
 
-	private DefaultHighLowDataset createOHLCDataset() {
+	private DefaultHighLowDataset createOHLCDataset(ECandleType type) {
 		
-		DayCandleRepository repo = new DayCandleRepository();
-		IContainer<Candle> dayCandles = repo.day_candles(coinName, banknoteName);
-		int len = dayCandles.getLength();
+		IContainer<Candle> candles;
+		if(type == ECandleType.DAY)
+		{
+			candles = dayCandleRepository.day_candles(coinName, banknoteName);
+		}
+		else
+		{
+
+			candles = hourCandleRepository.hour_candles(coinName, banknoteName);
+		}
+	
+		
+		int len = candles.getLength();
 		Date[] dates = new Date[len];
 		double[] opens = new double[len];
 		double[] highs = new double[len];
@@ -69,7 +116,7 @@ public class CoinInfoMediator {
 		double[] volumes = new double[len];
 
 		int i = 0;
-		for (Candle d : dayCandles.getContainer()) {
+		for (Candle d : candles.getContainer()) {
 			dates[i] = d.getCandleDate();
 			opens[i] = Double.valueOf(d.getOpen());
 			highs[i] = Double.valueOf(d.getHigh());
@@ -82,5 +129,7 @@ public class CoinInfoMediator {
 		return new DefaultHighLowDataset(coinName +"/"+ banknoteName,
 				dates, highs, lows, opens, closes, volumes);
 	}
+	
+	
 
 }

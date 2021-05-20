@@ -1,5 +1,6 @@
 package mediator;
 
+import javax.swing.JLabel;
 import controller.HomeController;
 import enums.ESort;
 import exception.HttpRequestException;
@@ -23,6 +24,7 @@ public class HomeMediator {
 	private boolean descending = false;
 
 	public HomeMediator(User user) {
+		this.user = user;
 		view = new HomeView();
 		decorator = new CoinListDecorator(view);
 		UpdatePool.POOL.add(decorator);
@@ -40,13 +42,23 @@ public class HomeMediator {
 		UpdatePool.POOL.clear();
 		LoginMediator mediator = new LoginMediator();
 	}	
+	
+	public void goWalletPage() {
+		view.setVisible(false);
+		UpdatePool.POOL.clear();
+		WalletMediator mediator = new WalletMediator(user);
+	}	
 
 	public void getSelectedCoinView() throws HttpRequestException {
 
-		String selectedItemName = view.getListSelected();
-		view.setVisible(false);
-		String[] splittedItem = selectedItemName.split(":");
-		CoinInfoMediator mediator = new CoinInfoMediator(splittedItem[0]);
+		JLabel label = view.getListSelected();
+		if(label==null)
+		{
+			return;
+		}
+		view.setVisible(false);		
+		String[] splittedItem = label.getText().split(":");		
+		CoinInfoMediator mediator = new CoinInfoMediator(splittedItem[0],this.user);
 	
 	}
 	//TODO bura nasý olcak amuða jakam

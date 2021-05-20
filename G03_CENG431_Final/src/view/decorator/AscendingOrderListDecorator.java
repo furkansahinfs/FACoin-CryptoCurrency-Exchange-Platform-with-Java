@@ -1,13 +1,10 @@
 package view.decorator;
 
 import java.awt.Color;
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Comparator;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
-
 import view.list.CoinList;
 import view.list.List;
 

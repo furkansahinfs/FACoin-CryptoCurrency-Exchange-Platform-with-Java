@@ -1,7 +1,6 @@
 package service;
 
 import fileio.repository.CoinRepository;
-import fileio.repository.DatabaseResult;
 
 public class HomeService {
 

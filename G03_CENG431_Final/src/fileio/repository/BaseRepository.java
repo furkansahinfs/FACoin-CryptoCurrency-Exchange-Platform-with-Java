@@ -73,7 +73,7 @@ public class BaseRepository {
 	/**
 	 * The function writes all data to necessary files.
 	 */
-	protected static void saveChanges() throws FileWriteException {
+	public static void saveChanges() throws FileWriteException {
 		fileController.writeAll();
 	}
 }

@@ -4,24 +4,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
-import enums.ESort;
 import exception.HttpRequestException;
-import mediator.HomeMediator;
+import mediator.WalletMediator;
 /**
  * This class handles home screen requests
  */
-public class HomeController extends Consumable {
+public class WalletController extends Consumable {
 
-	private HomeMediator mediator;
+	private WalletMediator mediator;
 	
-	public HomeController(HomeMediator mediator) {
+	public WalletController(WalletMediator mediator) {
 		this.mediator = mediator;
 		mediator.getView().addSelectCoinListener((new SelectCoinListener()));
-		mediator.getView().addLogoutButtonListener(new LogoutButtonListener());
-		mediator.getView().addAscendingOrderListener(new AscendingOrderListener());
-		mediator.getView().addDescendingOrderListener(new DescendingOrderListener());
-		mediator.getView().addWalletButtonListener(new WalletButtonListener());
+		mediator.getView().addBackButtonListener(new BackButtonListener());
+		mediator.getView().addBankButtonListener(new BankButtonListener());
+		mediator.getView().addCryptoButtonListener(new CryptoButtonListener());
 	}
 
 
@@ -57,41 +54,30 @@ public class HomeController extends Consumable {
 		}
 	}
 	
-	class WalletButtonListener implements ActionListener {
+	class BackButtonListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			mediator.goWalletPage();
+			mediator.back();
 		}
 
 	}
 	
-	class LogoutButtonListener implements ActionListener {
+	class BankButtonListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			mediator.logout();
+			mediator.bankView();
 		}
 
-	}
-	
-	class AscendingOrderListener implements ActionListener {
+	}	
+
+	class CryptoButtonListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			mediator.sort(ESort.ASCENDING);
+			mediator.cryptoView();
 		}
 
 	}
-	
-	class DescendingOrderListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			mediator.sort(ESort.DESCENDING);
-		}
-
-	}
-
-
 }

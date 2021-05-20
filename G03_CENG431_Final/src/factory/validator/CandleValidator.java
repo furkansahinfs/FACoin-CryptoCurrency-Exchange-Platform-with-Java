@@ -9,7 +9,6 @@ public class CandleValidator {
 		
 		ValidationResult highLowResult = validateHighLowValues(params.high, params.low);
 		boolean isValid = highLowResult.isValid;
-
 		if (isValid) {
 			return new ValidationResult(true, "Validated.");
 		}

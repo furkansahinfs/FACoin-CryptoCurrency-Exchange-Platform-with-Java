@@ -130,7 +130,7 @@ public class CoinInfoView extends AppView {
         updateUI();
 	}
 	
-	
+	// TODO get texts functions needed
 
 	@Override
 	public void setPalette(ColorPalette palette) {

@@ -10,6 +10,7 @@ public class AppSettings {
 	public final static int HEIGHT = 600;
 	public final static int WIDTH = 800;
 	public final static ImageIcon LOGO = new ImageIcon("data//FaclogoLittle.png");
+	public final static ImageIcon ICON = new ImageIcon("data//FacIcon.png");
 	public static int SCREEN_X = 0;
 	public static int SCREEN_Y = 0;
 }

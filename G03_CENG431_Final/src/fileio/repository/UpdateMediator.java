@@ -10,6 +10,7 @@ import httpio.HttpIO;
 import httpio.IHttpIO;
 import model.Currency;
 import settings.AppSettings;
+import mediator.Thread;
 
 public class UpdateMediator {
 	private IHttpIO httpIO;
@@ -21,6 +22,7 @@ public class UpdateMediator {
 	}
 
 	public void updateValues() {
+		Thread.LOCK_MUTEX(Thread.MUTEX);
 		String getUrl = setEndpoint();
 		List<UpdateData> datas = new ArrayList<UpdateData>();
 		try {
@@ -29,6 +31,7 @@ public class UpdateMediator {
 			return;
 		}
 		updateCoinValues(datas);
+		Thread.UNLOCK_MUTEX(Thread.MUTEX);
 	}
 
 	private String setEndpoint() {

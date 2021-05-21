@@ -78,6 +78,7 @@ public class CoinListMediator {
 	}
 
 	public DefaultListModel<JLabel> getList() {
+		Thread.LOCK_MUTEX(Thread.MUTEX);
 		DefaultListModel<JLabel> list = new DefaultListModel<JLabel>();
 		final Iterator<Currency> newIterator = coinRepository.getAll();
 		Currency currency = null;
@@ -88,7 +89,7 @@ public class CoinListMediator {
 
 			setLabels(labels, list);
 		}
-
+		Thread.UNLOCK_MUTEX(Thread.MUTEX);
 		return list;
 	}
 

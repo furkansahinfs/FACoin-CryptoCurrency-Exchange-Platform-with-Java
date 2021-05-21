@@ -19,7 +19,7 @@ public class Frame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUpScreenBounds();
 		setBounds(AppSettings.SCREEN_X, AppSettings.SCREEN_Y, AppSettings.WIDTH, AppSettings.HEIGHT);
-		setIconImage(AppSettings.LOGO.getImage());
+		setIconImage(AppSettings.ICON.getImage());
 	}
 
 	private void setUpScreenBounds() {

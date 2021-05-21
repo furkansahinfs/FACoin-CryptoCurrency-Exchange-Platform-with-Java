@@ -54,8 +54,8 @@ public class CoinInfoView extends AppView {
 		add(hourCandle);
 
 		favorite = new JButton("\u2605");
-		favorite.setBounds(29, 400, 65, 23);
-		favorite.setFont(new Font("Arial Unicode MS", Font.BOLD, 11));
+		favorite.setBounds(chartPanel.getX()+chartPanel.getWidth()+10, chartPanel.getY(), 55, 40);
+		favorite.setFont(new Font("Arial Unicode MS", Font.BOLD, 24));
 		add(favorite);
 
 		sell = new JButton("SELL");

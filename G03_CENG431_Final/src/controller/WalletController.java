@@ -6,13 +6,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import exception.HttpRequestException;
 import mediator.WalletMediator;
+
 /**
  * This class handles home screen requests
  */
 public class WalletController extends Consumable {
 
 	private WalletMediator mediator;
-	
+
 	public WalletController(WalletMediator mediator) {
 		this.mediator = mediator;
 		mediator.getView().addSelectCoinListener((new SelectCoinListener()));
@@ -21,10 +22,8 @@ public class WalletController extends Consumable {
 		mediator.getView().addCryptoButtonListener(new CryptoButtonListener());
 	}
 
-
 	// by this class user can select one of the outfits
 	class SelectCoinListener implements MouseListener {
-
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			if (e.getClickCount() > 1) {
@@ -53,7 +52,7 @@ public class WalletController extends Consumable {
 		public void mouseExited(MouseEvent e) {
 		}
 	}
-	
+
 	class BackButtonListener implements ActionListener {
 
 		@Override
@@ -62,7 +61,7 @@ public class WalletController extends Consumable {
 		}
 
 	}
-	
+
 	class BankButtonListener implements ActionListener {
 
 		@Override
@@ -70,7 +69,7 @@ public class WalletController extends Consumable {
 			mediator.bankView();
 		}
 
-	}	
+	}
 
 	class CryptoButtonListener implements ActionListener {
 

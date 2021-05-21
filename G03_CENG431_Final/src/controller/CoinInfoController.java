@@ -53,7 +53,7 @@ public class CoinInfoController extends Consumable {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			mediator.hourCandleChart();
+			mediator.buyCoin();
 		}
 
 	}
@@ -62,7 +62,7 @@ public class CoinInfoController extends Consumable {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			mediator.hourCandleChart();
+			mediator.sellCoin();
 		}
 
 	}

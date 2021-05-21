@@ -48,10 +48,9 @@ public class WalletView extends AppView {
 		cryptoWallet = new JButton("CRYPTO");
 		cryptoWallet.setBounds(455, 100, 90, 30);
 		add(cryptoWallet);
-		
+				
 		AppWindow.FRAME.getContentPane().removeAll();
 		AppWindow.FRAME.getContentPane().add(this);
-		
 	}
 
 	/**
@@ -111,6 +110,8 @@ public class WalletView extends AppView {
 		walletEntityList.setCellRenderer(new JListRenderer());
 		updateUI();
 	}
+	
+
 
 	@Override
 	public List getList() {

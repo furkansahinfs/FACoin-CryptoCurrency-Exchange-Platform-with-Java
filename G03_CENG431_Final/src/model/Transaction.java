@@ -19,7 +19,8 @@ public class Transaction extends AbstractEntity {
 		this.coinValue = coinValue;
 	}
 	
-	public Transaction(Currency coin, Currency banknote, Double coinQuantity, Double coinValue){
+	public Transaction(String id,Currency coin, Currency banknote, Double coinQuantity, Double coinValue){
+		super(id);
 		this.coin = coin;
 		this.banknote = banknote;
 		this.type = new TransactionType();

@@ -1,7 +1,6 @@
 package mediator;
 
 import java.awt.Color;
-import java.util.concurrent.TimeUnit;
 import javax.swing.JLabel;
 import controller.OrderController;
 import exception.ItemNotFoundException;
@@ -56,7 +55,7 @@ public class OrderMediator {
 
 	public void rejectTransactionBridge() {
 		JLabel label = view.getListSelected();
-		if(label.getForeground().equals(approvedColor) || label == null)
+		if(label.getForeground().equals(approvedColor))
 			return;
 		view.showReject();
 	}
@@ -89,4 +88,6 @@ public class OrderMediator {
 	public OrderView getView() {
 		return view;
 	}
+
+
 }

@@ -46,13 +46,13 @@ public class WalletListMediator {
 			banknote = banknoteIterator.next();
 			// TODO added check for here
 			Double price = currency.getValue().get(banknote.getName());
-			if(price.equals(null)) {
+			if(price==null) {
 				price = (double) 0;
 			}
 			Double value = price * quantity;
-			if (value.equals(null)) {
-				value = (double) 0;
-			}
+//			if (value.equals(null)) {
+//				value = (double) 0;
+//			}
 			LabelInfo newLabel = new LabelInfo(COLOR, quantity, currency.getName(), value, banknote.name);
 			labels.add(newLabel);
 		}

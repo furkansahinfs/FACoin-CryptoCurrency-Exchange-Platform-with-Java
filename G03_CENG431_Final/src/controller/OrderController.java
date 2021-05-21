@@ -29,12 +29,10 @@ public class OrderController {
 	}
 	
 	class TransactionListListener implements MouseListener {
-
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			if (e.getClickCount() > 1) {
 				mediator.rejectTransactionBridge();
-
 			}
 		}
 

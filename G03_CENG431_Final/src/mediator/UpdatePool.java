@@ -3,14 +3,12 @@ package mediator;
 import java.util.ArrayList;
 import java.util.List;
 
-import view.decorator.Decorator;
-
 public class UpdatePool {
 
-	protected static List<Decorator> POOL = new ArrayList<Decorator>();
+	protected static List<IUpdatable> POOL = new ArrayList<IUpdatable>();
 	
 	protected static void UPDATE() {
-		for(Decorator dec : POOL) {
+		for(IUpdatable dec : POOL) {
 			dec.set();
 		}
 	}

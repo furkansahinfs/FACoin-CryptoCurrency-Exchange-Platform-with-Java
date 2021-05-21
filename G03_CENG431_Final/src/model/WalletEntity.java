@@ -1,5 +1,4 @@
 package model;
-import storage.BanknoteName;
 import storage.Name;
 public class WalletEntity{
 	private ICurrency currency;
@@ -10,7 +9,10 @@ public class WalletEntity{
 	}
 	
 	public double getTotal(String banknoteName){
-		return this.currency.getValue().get(banknoteName)*quantity;
+		Double value = this.currency.getValue().get(banknoteName); 
+		if(value == null)
+			value = (double) 0;
+		return value*quantity;
 	}
 	
 	public ICurrency getCurrency() {

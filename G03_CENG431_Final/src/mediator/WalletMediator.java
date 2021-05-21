@@ -12,7 +12,6 @@ import view.decorator.DarkThemeDecorator;
 import view.decorator.JListDecorator;
 import view.decorator.ThemeDecorator;
 
-
 public class WalletMediator {
 
 	private User user;
@@ -21,11 +20,10 @@ public class WalletMediator {
 	private JListDecorator decorator;
 	private boolean isBankView = false;
 	private boolean isCryptoView = true;
-	
 
 	public WalletMediator(User user) {
 		this.user = user;
-		view = new WalletView(user.getCryptoWallet().getId(),user.getBankWallet().getId());
+		view = new WalletView(user.getCryptoWallet().getId(), user.getBankWallet().getId());
 		decorator = new CryptoWalletListDecorator(view);
 		UpdatePool.POOL.add(decorator);
 		ThemeDecorator theme = new DarkThemeDecorator(view);
@@ -36,41 +34,39 @@ public class WalletMediator {
 		return view;
 	}
 
-	
 	public void back() {
 		view.setVisible(false);
 		UpdatePool.POOL.clear();
 		HomeMediator mediator = new HomeMediator(user);
-	}	
+	}
 
 	public void getSelectedCoinView() throws HttpRequestException {
 
 		JLabel label = view.getListSelected();
-		if(label==null)
-		{
-			return;
-		}	
-		String[] splittedTrade = label.getText().split("/");
-		if(!ECoins.isCoin(splittedTrade[0]))
-		{
+
+		if (label == null) {
 			return;
 		}
-		
+		String[] splittedTrade = label.getText().split("/");
+		if (!ECoins.isCoin(splittedTrade[0])) {
+			return;
+		}
+
 		String[] splittedItem = label.getText().split(":");
-		view.setVisible(false);	
+		view.setVisible(false);
 		CoinInfoMediator mediator = new CoinInfoMediator(splittedItem[0], user);
-	
+
 	}
 
 	public void cryptoView() {
-		if(!isCryptoView){
+		if (!isCryptoView) {
 			UpdatePool.POOL.remove(decorator);
 			decorator = new CryptoWalletListDecorator(this.view);
 			UpdatePool.POOL.add(decorator);
 			isCryptoView = true;
 			isBankView = false;
 		}
-		
+
 	}
 
 	public void bankView() {
@@ -82,5 +78,7 @@ public class WalletMediator {
 			isCryptoView = false; 
 		}
 	}
-
+	
 }
+
+

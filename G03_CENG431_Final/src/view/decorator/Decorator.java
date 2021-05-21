@@ -1,8 +1,9 @@
 package view.decorator;
 
-public abstract class Decorator {
+import mediator.IUpdatable;
+
+public abstract class Decorator implements IUpdatable {
 
 	public Decorator(){}
 	
-	public abstract void set();
 }

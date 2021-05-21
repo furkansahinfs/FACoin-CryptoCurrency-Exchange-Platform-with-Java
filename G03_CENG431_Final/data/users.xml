@@ -13,7 +13,7 @@
 		<password>123456</password>
 		<crypto_wallet>16240</crypto_wallet>
 		<bank_wallet>2196</bank_wallet>
-		<favorites>13-1,4-2,9-1,7-2</favorites>
-		<transactions>2</transactions>    
+		<favorites>4-2,13-1,9-1,7-2</favorites>
+		<transactions>2,3,4,5,6</transactions>    
 	</user>
 </users>

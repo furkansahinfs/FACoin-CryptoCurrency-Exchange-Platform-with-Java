@@ -6,11 +6,15 @@ import view.list.OrderList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
+import javax.swing.Timer;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 
@@ -49,21 +53,22 @@ public class OrderView extends AppView {
 		add(scrollPane);
 
 		reject = new JButton("Cancel");
-		reject.setBounds((scrollPane.getWidth()-scrollPane.getX())/2,scrollPane.getY()+scrollPane.getHeight()+50,90,40);
+		reject.setBounds(scrollPane.getWidth()/2+scrollPane.getX()-50,scrollPane.getY()+scrollPane.getHeight()+70,100,40);
 		reject.setFont(new Font("Arial", Font.BOLD, 20));// TODO arial
 		reject.setVisible(false);
 		add(reject);
 		
 		password = new JPasswordField("Password");
-		password.setBounds(reject.getX(),reject.getY()-50,90,40);
+		password.setBounds(reject.getX(),reject.getY()-50,100,40);
 		password.setFont(new Font("Arial", Font.PLAIN, 20));// TODO arial
 		password.setVisible(false);
 		add(password);
 		// TODO þifre deðiþtirme
 		alert = new JLabel("Password is wrong");
-		alert.setBounds(reject.getX(),reject.getY()+100,90,100);
+		alert.setBounds(reject.getX()+reject.getWidth()/2-85,reject.getY()+40,200,40);
 		alert.setFont(new Font("Arial", Font.BOLD, 20));
 		alert.setVisible(false);
+		add(alert);
 		
 		AppWindow.FRAME.getContentPane().removeAll();
 		AppWindow.FRAME.getContentPane().add(this);
@@ -110,6 +115,7 @@ public class OrderView extends AppView {
 		reject.setForeground(palette.BACKGROUND);
 		password.setBackground(palette.BACKGROUND);
 		password.setForeground(palette.FIRST_COLOR);
+		alert.setForeground(palette.SECOND_COLOR);
 	}
 	
 	@Override
@@ -139,11 +145,14 @@ public class OrderView extends AppView {
 	
 	public void showAlert() {
 		alert.setVisible(true);
+		new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                alert.setVisible(false);
+            }
+        }).start();
 	}
 	
-	public void hideAlert() {
-		alert.setVisible(false);
-	}
 	
 	public String getPassword() {
 		return new String(password.getPassword());

@@ -67,7 +67,7 @@ public class OrderListMediator {
 		df.setMaximumFractionDigits(4);
 		ColorPalette palette = new ColorPalette(new DarkTheme());
 		String transactionType = "Approved";
-		if(label.color == palette.FIRST_COLOR)
+		if(label.color.equals(palette.FIRST_COLOR))
 		{
 			transactionType = "Pending";
 		}

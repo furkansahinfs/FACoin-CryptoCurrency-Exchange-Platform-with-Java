@@ -20,8 +20,8 @@ public class WalletView extends AppView {
 	private JScrollPane scrollPane;
 	private ColorPalette palette;
 	private JButton back;
-	private String cryptoWalletId;
-	private String bankWalletId;
+	private final String cryptoWalletId;
+	private final String bankWalletId;
 	private JButton bankWallet;
 	private JButton cryptoWallet;
 
@@ -117,11 +117,11 @@ public class WalletView extends AppView {
 		return this.walletEntityList;
 	}
 	
-	public String getBankId(){
+	public final String getBankId(){
 		return this.bankWalletId;
 	}
 	
-	public String getCryptoId(){
+	public final String getCryptoId(){
 		return this.cryptoWalletId;
 	}
 }

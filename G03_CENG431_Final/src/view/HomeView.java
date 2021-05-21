@@ -28,8 +28,10 @@ public class HomeView extends AppView {
 	private JButton favs;
 	private JButton toLow;
 	private JButton toHigh;
-
-	public HomeView() {
+	private final String userId;
+	
+	public HomeView(String userId) {
+		this.userId = userId;
 		setLayout(null);
 		coinList = new CoinList(null);
 		logout = new JButton("Logout");
@@ -105,6 +107,10 @@ public class HomeView extends AppView {
 	public void addDescendingOrderListener(ActionListener listener) {
 		toLow.addActionListener(listener);
 	}
+	
+	public void addFavButtonListener(ActionListener listener) {
+		favs.addActionListener(listener);
+	}
 
 	private void updateColor() {
 		setBackground(palette.BACKGROUND);
@@ -136,5 +142,9 @@ public class HomeView extends AppView {
 	@Override
 	public List getList() {
 		return this.coinList;
+	}
+	
+	public final String getUserId() { 
+		return this.userId;
 	}
 }

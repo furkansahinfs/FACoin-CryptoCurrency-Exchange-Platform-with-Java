@@ -41,9 +41,9 @@ public class User  extends AbstractEntity{
 		return favorites;
 	}	
 	
-	public boolean equals(int userId)
+	public boolean equals(int gottenId)
 	{
-		return (this.userId == String.valueOf(userId));		
+		return (this.getId().equals(String.valueOf(gottenId)));		
 	}
 	
 	public boolean equals(String userName)

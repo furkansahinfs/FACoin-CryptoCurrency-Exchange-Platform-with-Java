@@ -11,6 +11,7 @@ import view.decorator.CoinListDecorator;
 import view.decorator.DarkThemeDecorator;
 import view.decorator.Decorator;
 import view.decorator.DescendingOrderListDecorator;
+import view.decorator.FavListDecorator;
 import view.decorator.JListDecorator;
 import view.decorator.ThemeDecorator;
 
@@ -22,10 +23,11 @@ public class HomeMediator {
 	private JListDecorator decorator;
 	private boolean ascending = false;
 	private boolean descending = false;
-
+	private boolean fav = false;
+	
 	public HomeMediator(User user) {
 		this.user = user;
-		view = new HomeView();
+		view = new HomeView(user.getId());
 		decorator = new CoinListDecorator(view);
 		UpdatePool.POOL.add(decorator);
 		ThemeDecorator theme = new DarkThemeDecorator(view);
@@ -80,6 +82,15 @@ public class HomeMediator {
 			UpdatePool.POOL.add(sortDecorator);
 		}
 		
+	}
+
+	public void favListView() {
+		if(!fav) {
+			UpdatePool.POOL.clear();
+			decorator = new FavListDecorator(view);
+			UpdatePool.POOL.add(decorator);
+			fav = true;
+		}
 	}
 
 }

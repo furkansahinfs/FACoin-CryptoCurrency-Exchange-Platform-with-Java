@@ -23,7 +23,6 @@ public class AscendingOrderListDecorator extends SortListDecorator{
 	}
 	
 	private List sort(List list) {
-		//DefaultListModel<JLabel> newList = new DefaultListModel<JLabel>();
 		DefaultListModel<JLabel> viewList = list.getList();
 		Object[] listArray = viewList.toArray();
 		Arrays.sort(listArray, new AscendingComparor());

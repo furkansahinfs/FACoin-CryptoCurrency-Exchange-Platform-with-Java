@@ -26,7 +26,7 @@ public class CryptoWalletRepository implements IRepository<CryptoWallet>,IRestri
 		} catch (FileWriteException e) {
 			message += e.getMessage();
 		}
-		return new DatabaseResult(null, message);
+		return new DatabaseResult(message, message);
 	}
 
 	/**

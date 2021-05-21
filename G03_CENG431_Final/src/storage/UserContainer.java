@@ -3,7 +3,6 @@ package storage;
 import exception.ItemNotFoundException;
 import model.User;
 
-
 public class UserContainer extends Container<User> {
 
 	/**
@@ -15,10 +14,11 @@ public class UserContainer extends Container<User> {
 	 * @throws ItemNotFoundException
 	 */
 	@Override
-	public User getById(String id) throws  ItemNotFoundException {
+	public User getById(String id) throws ItemNotFoundException {
 		User found = null;
 		for (User user : this.getContainer()) {
-			if (user.equals(id)) {
+			int userId = Integer.valueOf(id);
+			if (user.equals(userId)) {
 				found = user;
 				break;
 			}
@@ -42,12 +42,12 @@ public class UserContainer extends Container<User> {
 	public User getByName(String name) throws ItemNotFoundException {
 		User found = null;
 		for (User user : this.getContainer()) {
-			
+
 			if (user.equals(name)) {
 				found = user;
 				break;
 			}
-			
+
 		}
 		if (found == null) {
 			throw new ItemNotFoundException("There is no user has name " + name);

@@ -25,7 +25,7 @@ public class CoinRepository implements IRepository<Currency>,IRestrictedReposito
 		} catch (FileWriteException e) {
 			message += e.getMessage();
 		}
-		return new DatabaseResult(null, message);
+		return new DatabaseResult(message, message);
 	}
 
 	/**

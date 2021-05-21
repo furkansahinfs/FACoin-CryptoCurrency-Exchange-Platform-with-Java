@@ -43,6 +43,9 @@ public class UserValidator {
 	}
 
 	private static ValidationResult validateUserId(String userId) {
+		if(userId==null) {
+			return new ValidationResult(false, "Invalidated");
+		}
 		IRestrictedRepository<User> userRepository = new UserRepository();
 		DatabaseResult userIdResult = userRepository.getById(userId);
 		if (userIdResult.getObject() == null) {

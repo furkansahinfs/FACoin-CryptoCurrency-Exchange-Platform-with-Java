@@ -3,6 +3,7 @@ package fileio.repository;
 import exception.FileReadException;
 import exception.FileWriteException;
 import model.Currency;
+import model.Transaction;
 import model.User;
 import model.Wallet;
 import storage.IContainer;
@@ -68,6 +69,15 @@ public class BaseRepository {
 	 */
 	protected static final IContainer<Wallet> bank_wallets() {
 		return fileController.bank_wallets();
+	}
+	
+	/**
+	 * The function returns the read Bank Wallets' container
+	 * 
+	 * @return Wallet Container
+	 */
+	protected static final IContainer<Transaction> transactions() {
+		return fileController.transactions();
 	}
 
 	/**

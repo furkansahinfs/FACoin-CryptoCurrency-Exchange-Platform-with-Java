@@ -6,6 +6,7 @@
 		<crypto_wallet>13854</crypto_wallet>
 		<bank_wallet>1235</bank_wallet>
 		<favorites>1-1</favorites>    
+		<transactions>1,2,3</transactions>
 	</user>
     <user id="2">
 		<username>furkan</username>

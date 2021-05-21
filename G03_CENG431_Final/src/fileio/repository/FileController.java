@@ -5,7 +5,7 @@ import model.Wallet;
 import storage.IContainer;
 import storage.*;
 import model.Currency;
-
+import model.Transaction;
 import exception.FileReadException;
 import exception.FileWriteException;
 import fileio.FileIO;
@@ -22,6 +22,7 @@ public class FileController {
 	private IContainer<Wallet> bankWallets;
 	private IContainer<Currency> banknotes;
 	private IContainer<Currency> coins;
+	private IContainer<Transaction> transactions;
 	private IFileIO fileIO;
 
 	protected FileController() {
@@ -31,6 +32,7 @@ public class FileController {
 		bankWallets = new WalletContainer();
 		banknotes = new CurrencyContainer();
 		coins = new CurrencyContainer();
+		transactions = new TransactionContainer();
 	}
 
 	/**
@@ -81,6 +83,10 @@ public class FileController {
 	
 	protected IContainer<Currency> banknotes(){
 		return banknotes;
+	}
+	
+	protected IContainer<Transaction> transactions(){
+		return transactions;
 	}
 
 }

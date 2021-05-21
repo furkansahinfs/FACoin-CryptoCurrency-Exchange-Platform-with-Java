@@ -1,0 +1,20 @@
+{
+	"1":{
+		"pair":"1/1",
+		"coinQ":"1",
+		"bankQ":"100",
+		"type":"Approved"	
+	},
+	"2":{
+		"pair":"1/1",
+		"coinQ":"1",
+		"bankQ":"100",
+		"type":"Pending"			
+	},
+	"3":{
+		"pair":"1/1",
+		"coinQ":"1",
+		"bankQ":"100",
+		"type":"Approved"			
+	}
+}

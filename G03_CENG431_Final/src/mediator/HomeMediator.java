@@ -93,4 +93,9 @@ public class HomeMediator {
 		}
 	}
 
+	public void ordersView() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

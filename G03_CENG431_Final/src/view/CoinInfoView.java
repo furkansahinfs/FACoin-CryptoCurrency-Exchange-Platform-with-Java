@@ -5,8 +5,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,7 +13,6 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 
-import settings.AppSettings;
 import view.color.ColorPalette;
 import view.list.List;
 
@@ -24,7 +21,6 @@ public class CoinInfoView extends AppView {
 
 	private static final long serialVersionUID = -5200070696436660254L;
 	private ChartPanel chartPanel;
-	private JPanel parentPanel;
 	private ColorPalette palette;
 	private JLabel coinValue;
 	private JButton dayCandle;
@@ -129,8 +125,16 @@ public class CoinInfoView extends AppView {
         chart.getXYPlot().setOrientation(PlotOrientation.VERTICAL);
         updateUI();
 	}
+		
+	public String[] getBuy(){
+		String[] trade = {buyQuantity.getText() , buyPrice.getText()};
+		return trade;
+	}
 	
-	// TODO get texts functions needed
+	public String[] getSell(){
+		String[] trade = {sellQuantity.getText() , sellPrice.getText()};
+		return  trade;
+	}
 
 	@Override
 	public void setPalette(ColorPalette palette) {
@@ -139,8 +143,6 @@ public class CoinInfoView extends AppView {
 		
 	}
 
-	
-	
 	private void updateColors() {
 		setBackground(palette.BACKGROUND);
 		chartPanel.setBackground(palette.BACKGROUND);
@@ -171,17 +173,13 @@ public class CoinInfoView extends AppView {
 		updateUI();
 	}
 	
-	
-
 	@Override
 	public void setList(List list) {
-		// TODO Auto-generated method stub
 		
 	}
 	
 	@Override
 	public List getList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

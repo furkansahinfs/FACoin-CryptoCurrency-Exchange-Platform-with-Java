@@ -28,6 +28,7 @@ public class HomeView extends AppView {
 	private JButton favs;
 	private JButton toLow;
 	private JButton toHigh;
+	private JButton orders;
 	private final String userId;
 	
 	public HomeView(String userId) {
@@ -63,6 +64,11 @@ public class HomeView extends AppView {
 		toHigh.setBounds(495, 116, 50, 25);
 		toHigh.setFont(new Font("Arial", Font.BOLD, 20));
 		add(toHigh);
+		
+		orders = new JButton("Orders");
+		orders.setBounds(50, coinList.getY()+coinList.getHeight()+50, 100, 50);
+		orders.setFont(new Font("Arial", Font.BOLD, 20));
+		add(orders);
 		
 		wallet = new JButton("Wallet");
 		wallet.setBounds(50, 50, 100, 50);
@@ -111,6 +117,10 @@ public class HomeView extends AppView {
 	public void addFavButtonListener(ActionListener listener) {
 		favs.addActionListener(listener);
 	}
+	
+	public void addOrderButtonListener(ActionListener listener) {
+		orders.addActionListener(listener);
+	}
 
 	private void updateColor() {
 		setBackground(palette.BACKGROUND);
@@ -126,6 +136,8 @@ public class HomeView extends AppView {
 		toHigh.setForeground(palette.SECOND_COLOR);
 		wallet.setBackground(palette.BACKGROUND);
 		wallet.setForeground(palette.SECOND_COLOR);
+		orders.setBackground(palette.BACKGROUND);
+		orders.setForeground(palette.SECOND_COLOR);
 	}
 
 	public void addLogoutButtonListener(ActionListener listener) {

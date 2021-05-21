@@ -23,6 +23,7 @@ public class HomeController extends Consumable {
 		mediator.getView().addDescendingOrderListener(new DescendingOrderListener());
 		mediator.getView().addWalletButtonListener(new WalletButtonListener());
 		mediator.getView().addFavButtonListener(new FavButtonListener());
+		mediator.getView().addOrderButtonListener(new OrderButtonListener());
 	}
 
 
@@ -99,6 +100,15 @@ public class HomeController extends Consumable {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			mediator.favListView();
+		}
+
+	}
+	
+	class OrderButtonListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			mediator.ordersView();
 		}
 
 	}

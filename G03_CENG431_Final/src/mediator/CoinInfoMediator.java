@@ -125,24 +125,24 @@ public class CoinInfoMediator {
 			Double quantity = Double.valueOf(coinQuantityAndValue[0]);
 			Double value = Double.valueOf(coinQuantityAndValue[1]);
 			TransactionService transaction = new TransactionService(user);
-			WalletServiceParam params = new WalletServiceParam(coinName,banknoteName,quantity,value);
+			WalletServiceParam params = new WalletServiceParam(coinName,banknoteName,quantity,value,coinId,banknoteId);
 			transaction.sellCoin(params);
 		} catch (Exception e) {
-
+			System.out.println("COUNUNFIMED131"+e.getMessage());
 		}
 		
 	}
 
 	public void buyCoin() {		
-		String[] coinQuantityAndValue = view.getSell();
+		String[] coinQuantityAndValue = view.getBuy();
 		try {
 			Double quantity = Double.valueOf(coinQuantityAndValue[0]);
 			Double value = Double.valueOf(coinQuantityAndValue[1]);
 			TransactionService transaction = new TransactionService(user);
-			WalletServiceParam params = new WalletServiceParam(coinName,banknoteName,quantity,value);
+			WalletServiceParam params = new WalletServiceParam(coinName,banknoteName,quantity,value,coinId,banknoteId);
 			transaction.buyCoin(params);
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 	}
 	

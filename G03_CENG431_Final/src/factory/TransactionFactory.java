@@ -19,18 +19,17 @@ public class TransactionFactory {
 		ValidationResult pairResult = TransactionValidator.validatePair(pairNames[0], pairNames[1]);
 		ValidationResult quantityResult =  TransactionValidator.validateQuantites(coinQuantity, coinOrderValue);
 		ValidationResult typeResult = TransactionValidator.validateType(transactionType);
-		boolean isValidated = pairResult.isValid && quantityResult.isValid && typeResult.isValid;
+		boolean isValidated = pairResult.isValid && quantityResult.isValid && typeResult.isValid; 
 		if (!isValidated) {
 			return null;
 		}
-		
 		ValidationResult idResult = TransactionValidator.validateTransactionId(transactionId);
 		String id = transactionId;
 		if(!idResult.isValid)
 			id = idResult.messages;
 		
 		DatabaseResult gottenCoin = (new CoinRepository()).getById(pairNames[0]);
-		DatabaseResult gottenBanknote = (new BanknoteRepository()).getById(pairNames[0]);
+		DatabaseResult gottenBanknote = (new BanknoteRepository()).getById(pairNames[1]);
 		State state = new Pending();
 		if(transactionType.equals("Approved"))
 		{

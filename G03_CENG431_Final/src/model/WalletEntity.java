@@ -11,7 +11,7 @@ public class WalletEntity{
 	public double getTotal(String banknoteName){
 		Double value = this.currency.getValue().get(banknoteName); 
 		if(value == null)
-			value = (double) 0;
+			value = 1.0;
 		return value*quantity;
 	}
 	

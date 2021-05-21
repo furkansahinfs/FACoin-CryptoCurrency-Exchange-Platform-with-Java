@@ -1,8 +1,11 @@
-package service;
+         package service;
 
 import model.Currency;
 import model.Wallet;
 import model.WalletEntity;
+import storage.BanknoteName;
+import storage.CoinName;
+import storage.Name;
 import exception.ItemNotFoundException;
 import exception.NotSupportedException;
 
@@ -22,8 +25,8 @@ public class WalletService {
 	public boolean hasEnoughCoin(Wallet cryptoWallet, String coinName, Double coinQuantity) {
 		WalletEntity entity;
 		try {
-			entity = cryptoWallet.getEntities().getByName(coinName);
-			if (entity.getQuantity() <= coinQuantity) {
+			entity = cryptoWallet.getEntities().getByName(new CoinName(coinName));
+			if (entity.getQuantity() >= coinQuantity) {
 				return true;
 			}
 			return false;
@@ -34,27 +37,28 @@ public class WalletService {
 
 	public void blockBankWalletQuantity(Wallet bankWallet, String banknoteName, Double quantity) {
 		try {
-			WalletEntity entity = bankWallet.getEntities().getByName(banknoteName);
+			WalletEntity entity = bankWallet.getEntities().getByName(new BanknoteName(banknoteName));
 			entity.setQuantity(entity.getQuantity() - quantity);
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 
 	}
 
 	public void blockCryptoWalletQuantity(Wallet cryptoWallet, String cryptoName, Double quantity) {
 		try {
-			WalletEntity entity = cryptoWallet.getEntities().getByName(cryptoName);
+			WalletEntity entity = cryptoWallet.getEntities().getByName(new CoinName(cryptoName));
 			entity.setQuantity(entity.getQuantity() - quantity);
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 
 	}
 
 	public void setBankWalletQuantity(Wallet bankWallet, Currency banknote, Double quantity) {
 		try {
-			WalletEntity entity = bankWallet.getEntities().getByName(banknote.name);
+			Name name = new BanknoteName(banknote.getName());
+			WalletEntity entity = bankWallet.getEntities().getByName(name);
 			entity.setQuantity(entity.getQuantity() + quantity);
 		} catch (Exception e) {
 			WalletEntity newEntity = new WalletEntity(banknote, quantity);
@@ -65,9 +69,11 @@ public class WalletService {
 
 	public void setCryptoWalletQuantity(Wallet cryptoWallet, Currency coin, Double quantity) {
 		try {
-			WalletEntity entity = cryptoWallet.getEntities().getByName(coin.getName());
+			Name name = new CoinName(coin.getName());
+			WalletEntity entity = cryptoWallet.getEntities().getByName(name);
 			entity.setQuantity(entity.getQuantity() + quantity);
 		} catch (Exception e) {
+			System.out.println();
 			WalletEntity newEntity = new WalletEntity(coin, quantity);
 			cryptoWallet.getEntities().add(newEntity);
 		}

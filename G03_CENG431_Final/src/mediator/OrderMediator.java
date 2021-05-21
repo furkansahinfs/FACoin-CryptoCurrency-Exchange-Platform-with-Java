@@ -3,15 +3,8 @@ package mediator;
 import java.awt.Color;
 import javax.swing.JLabel;
 import controller.OrderController;
-import exception.ItemNotFoundException;
-import exception.NotSupportedException;
-import fileio.repository.IRepository;
-import fileio.repository.TransactionRepository;
-import model.Transaction;
 import model.User;
-import model.WalletEntity;
-import storage.BanknoteName;
-import storage.Name;
+import service.OrderService;
 import view.OrderView;
 import view.color.ColorPalette;
 import view.color.DarkTheme;
@@ -26,6 +19,7 @@ public class OrderMediator {
 	private final OrderController controller;
 	private Color approvedColor;
 	private Decorator listDecorator;
+	private OrderService service;
 	
 	public OrderMediator(User user) {
 		this.approvedColor = (new ColorPalette(new DarkTheme())).SECOND_COLOR;
@@ -35,6 +29,8 @@ public class OrderMediator {
 		listDecorator = new OrderListDecorator(view);
 		UpdatePool.POOL.add(listDecorator);
 		controller = new OrderController(this);
+		service = new OrderService(user);
+		
 	}
 
 	public void back() {
@@ -51,38 +47,22 @@ public class OrderMediator {
 			return;
 		}
 		JLabel label = view.getListSelected();
-		setRejectProcesses(label.getText());
+		if(label==null)
+			return;
+		service.setRejectProcesses(label.getText());
 		Decorator listDecorator = new OrderListDecorator(view);
 	}
 
 	public void rejectTransactionBridge() {
 		JLabel label = view.getListSelected();
+		if(label==null)
+			return;
 		if(label.getForeground().equals(approvedColor))
 			return;
 		view.showReject();
 	}
 	
-	private void setRejectProcesses(String selectedTransaction)
-	{
-		String transactionId = selectedTransaction.split(":")[0].strip();
-		String banknoteName = selectedTransaction.split("/")[1];
-		try {
-		
-			Transaction transaction = user.getTransactions().getById(transactionId);
-			IRepository<Transaction> repo = new TransactionRepository();
-			user.getTransactions().remove(transaction);
-	
-			Name banknoteNameObject = new BanknoteName(banknoteName);
-			WalletEntity walletEntity = user.getBankWallet().getEntities().getByName(banknoteNameObject);
-			
-			walletEntity.setQuantity(walletEntity.getQuantity()+transaction.getCoinValue()*transaction.getCoinQuantity());
-			repo.removeEntity(transaction);
-		
-			repo.saveChanges();
-	
-		} catch (ItemNotFoundException | NotSupportedException e) {
-		}
-	}
+
 
 	/**
 	 * @return the view

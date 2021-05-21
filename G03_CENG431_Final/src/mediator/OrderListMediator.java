@@ -71,7 +71,9 @@ public class OrderListMediator {
 		{
 			transactionType = "Pending";
 		}
-		String text = label.coinName + "/" + label.banknote + "/" + transactionType + " :\tQuantity = " + label.value + " - CoinValue = " + df.format(label.percent);
+		if(label.percent<0)
+			label.percent*=-1;
+		String text = label.coinName + "/" + label.banknote + "/" + transactionType + " :\tQuantity = " + label.percent + " - CoinValue = " + df.format(label.value);
 
 		JLabel jLabel = new JLabel(text);
 		jLabel.setForeground(label.color);

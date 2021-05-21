@@ -48,7 +48,7 @@ public class OrderView extends AppView {
 		
 		orderList = new OrderList(null);
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(225, 50, 320, 300);
+		scrollPane.setBounds(175, 50, 370, 300);
 		scrollPane.setViewportView(orderList);
 		add(scrollPane);
 

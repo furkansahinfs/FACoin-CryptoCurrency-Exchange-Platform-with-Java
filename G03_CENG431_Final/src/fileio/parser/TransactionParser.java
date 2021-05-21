@@ -58,17 +58,17 @@ public class TransactionParser {
 			if (transaction instanceof JSONObject) {
 				String pair = ((JSONObject) transaction).getString("pair");
 				String coinQuantity = ((JSONObject) transaction).getString("coinQ");
-				String banknoteQuantity = ((JSONObject) transaction).getString("bankQ");
+				String coinOrderValue = ((JSONObject) transaction).getString("coinValue");
 				String transactionType = ((JSONObject) transaction).getString("type");
-				Transaction createdTransaction = createTransaction(pair, coinQuantity, banknoteQuantity, transactionType );
+				Transaction createdTransaction = createTransaction(transactionId, pair, coinQuantity, coinOrderValue, transactionType );
 				transactionRepository.addEntity(createdTransaction);
 			}
 		}
 	}
 
-	private Transaction createTransaction(String pair, String coinQuantity, String banknoteQuantity, String transactionType) throws FileReadException {
-		Transaction createdTransaction = transactionFactory.createTransaction(pair, coinQuantity, banknoteQuantity, transactionType);
-		
+	private Transaction createTransaction(String transactionId, String pair, String coinQuantity, String coinOrderValue, String transactionType) throws FileReadException {
+		Transaction createdTransaction = transactionFactory.createTransaction(transactionId, pair, coinQuantity, coinOrderValue, transactionType);
+		 
 		if (createdTransaction != null) {
 			return createdTransaction;
 		} else {

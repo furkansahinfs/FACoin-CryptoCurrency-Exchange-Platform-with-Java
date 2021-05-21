@@ -3,6 +3,7 @@ package fileio;
 import exception.FileReadException;
 import exception.FileWriteException;
 import model.Currency;
+import model.Transaction;
 import model.User;
 import model.Wallet;
 import storage.IContainer;
@@ -59,9 +60,15 @@ public interface IFileIO {
 	 * @throws Exception for fileio exceptions
 	 */
 	public void readBanknotes(String filePath) throws FileReadException;
-
 	
-
+	/**
+	 * This function reads banknotes
+	 * 
+	 * @param filePath of banknotes file
+	 * @returns read banknotes
+	 * @throws Exception for fileio exceptions
+	 */
+	public void readTransactions(String filePath) throws FileReadException;
 
 	/**
 	 * This function writes users
@@ -108,6 +115,15 @@ public interface IFileIO {
 	 * @throws Exception for write operations
 	 */
 	public void writeBanknotes(IContainer<Currency> banknotes, String filePath) throws FileWriteException;
+	
+	/**
+	 * This function writes users
+	 * 
+	 * @param banknotes    of the system
+	 * @param filePath of the file
+	 * @throws Exception for write operations
+	 */
+	public void writeTransactions(IContainer<Transaction> banknotes, String filePath) throws FileWriteException;
 
 
 }

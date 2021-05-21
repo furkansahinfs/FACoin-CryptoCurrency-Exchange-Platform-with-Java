@@ -28,7 +28,10 @@ public class TransactionWriter {
 	
 	private String convertTransactionToJsonString(Transaction transaction) {
 		return "\""+transaction.getId()+"\":{"+
-				"\"pair\":\""+transaction.getCoin().getId()+"/"+transaction.getCoin().getId()+"\"";
+				"\"pair\":\""+transaction.getCoin().getId()+"-"+transaction.getCoin().getId()+"\","+
+				"\"coinQ\":\""+transaction.getCoinQuantity()+"\","+
+				"\"coinValue\":\""+transaction.getCoinValue()+"\","+
+				"\"type\":\""+transaction.getTransactionState()+"\"}";
 	}
 }
 

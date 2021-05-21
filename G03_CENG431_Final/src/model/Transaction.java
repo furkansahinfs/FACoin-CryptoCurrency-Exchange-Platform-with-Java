@@ -7,31 +7,32 @@ public class Transaction extends AbstractEntity {
 	private Currency coin;
 	private Currency banknote;
 	private TransactionType type;
-	private Double banknoteQuantity;
 	private Double coinQuantity;
+	private Double coinValue;
 
-	public Transaction(Currency coin, Currency banknote, TransactionType type, Double banknoteQuantity, Double coinQuantity){
+	public Transaction(String id,Currency coin, Currency banknote, TransactionType type, Double coinQuantity, Double coinValue){
+		super(id);
 		this.coin = coin;
 		this.banknote = banknote;
 		this.type = type;
-		this.banknoteQuantity = banknoteQuantity;
 		this.coinQuantity = coinQuantity;
+		this.coinValue = coinValue;
 	}
 	
-	public Transaction(Currency coin, Currency banknote, Double banknoteQuantity, Double coinQuantity){
+	public Transaction(Currency coin, Currency banknote, Double coinQuantity, Double coinValue){
 		this.coin = coin;
 		this.banknote = banknote;
 		this.type = new TransactionType();
-		this.banknoteQuantity = banknoteQuantity;
 		this.coinQuantity = coinQuantity;
-	}
-	
-	public Double getBanknoteQuantity(){
-		return this.banknoteQuantity;
+		this.coinValue = coinValue;
 	}
 	
 	public Double getCoinQuantity(){
 		return this.coinQuantity;
+	}
+	
+	public Double getCoinValue(){
+		return this.coinValue;
 	}
 	
 	public String getTransactionState(){

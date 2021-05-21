@@ -2,6 +2,7 @@ package fileio.writer;
 
 import exception.FileWriteException;
 import model.Currency;
+import model.Transaction;
 import model.User;
 import model.Wallet;
 import storage.IContainer;
@@ -13,6 +14,7 @@ public class Writer {
 	private UserWriter userWriter;
 	private CryptoWalletWriter cryptoWalletWriter;
 	private BankWalletWriter bankWalletWriter;
+	private TransactionWriter transactionWriter;
 	
 	public Writer() {
 		coinWriter = new CoinWriter();
@@ -20,6 +22,7 @@ public class Writer {
 		userWriter = new UserWriter();
 		cryptoWalletWriter = new CryptoWalletWriter();
 		bankWalletWriter = new BankWalletWriter();
+		transactionWriter = new TransactionWriter();
 	}
 	
 	public String writeUsersToString(IContainer<User> users) throws FileWriteException {
@@ -44,6 +47,11 @@ public class Writer {
 	
 	public String writeBankWalletsToString(IContainer<Wallet> bankWallets) throws FileWriteException {
 		String result = bankWalletWriter.writeBankWalletsJson(bankWallets);
+		return result;
+	}
+	
+	public String writeTransactionsToString(IContainer<Transaction> transactions) throws FileWriteException {
+		String result = transactionWriter.writeTransactionsJson(transactions);
 		return result;
 	}
 }

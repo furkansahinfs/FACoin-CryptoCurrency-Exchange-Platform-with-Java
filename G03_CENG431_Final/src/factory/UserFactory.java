@@ -27,22 +27,31 @@ public class UserFactory {
 	public User createUser(String userId, String userName, String password, String cryptoWalletId,
 			String bankWalletId, String favorites, String transactionIds) {
 		User userResult = null;
-		ValidationResult isUserOK = UserValidator.validateUser(userName, password, userId);
-		if (isUserOK.isValid) {
-
-			DatabaseResult resultCryptoWallet = (new CryptoWalletRepository()).getById(cryptoWalletId);
-			DatabaseResult resultBankWallet = (new BankWalletRepository()).getById(bankWalletId);
-			Object cryptoWallet = resultCryptoWallet.getObject();
-			Object bankWallet = resultBankWallet.getObject();
-
-			if (cryptoWallet != null && bankWallet != null) {
-				Dictionary<String,String> favoritesDictionary = createDictionary(favorites);
-				IContainer<Transaction> transactions = createTransactions(transactionIds);
-				userResult = new User(userId, userName, password, (Wallet) cryptoWallet, (Wallet) bankWallet, favoritesDictionary, transactions);
-			}
+		ValidationResult isUserOK = UserValidator.validateUser(userName, password);
+		
+		String id = userId;
+		ValidationResult idResult = UserValidator.validateUserId(userId);
+		
+		if(!idResult.isValid)
+			id = idResult.messages;
+		
+		if (!isUserOK.isValid) {
+			return userResult;
 		}
-
+	
+		DatabaseResult resultCryptoWallet = (new CryptoWalletRepository()).getById(cryptoWalletId);
+		DatabaseResult resultBankWallet = (new BankWalletRepository()).getById(bankWalletId);
+		Object cryptoWallet = resultCryptoWallet.getObject();
+		Object bankWallet = resultBankWallet.getObject();
+		
+		if (cryptoWallet != null && bankWallet != null) {
+			Dictionary<String,String> favoritesDictionary = createDictionary(favorites);
+			IContainer<Transaction> transactions = createTransactions(transactionIds);
+			userResult = new User(id, userName, password, (Wallet) cryptoWallet, (Wallet) bankWallet, favoritesDictionary, transactions);
+		}
+		
 		return userResult;
+		
 	}
 	
 	private Dictionary<String,String> createDictionary(String favorites)

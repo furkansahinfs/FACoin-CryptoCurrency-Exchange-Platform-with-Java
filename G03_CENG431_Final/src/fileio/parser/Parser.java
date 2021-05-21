@@ -19,13 +19,15 @@ public class Parser {
 	private BankWalletParser bankWalletParser;
 	private CoinParser coinParser;
 	private BanknoteParser banknoteParser;
-
+	private TransactionParser transactionParser;
+	
 	public Parser() {
 		this.userParser = new UserParser();
 		this.cryptoWalletParser = new CryptoWalletParser();
 		this.bankWalletParser = new BankWalletParser();
 		this.coinParser = new CoinParser();
 		this.banknoteParser = new BanknoteParser();
+		this.transactionParser = new TransactionParser();
 	}
 
 	/**
@@ -115,6 +117,24 @@ public class Parser {
 			 {
 		try {
 			banknoteParser.parseCurrencies(fileAll);
+		} catch (JSONException e) {
+			throw new FileReadException(e.getMessage());
+		}
+	}
+	
+	/**
+	 * The function parses gotten file content and returns the currency container which
+	 * holds created currencies
+	 * 
+	 * @param fileAll = currencies.json file content
+	 * @return Currency Container
+	 * @throws FileReadException 
+	 * @throws JSONException
+	 */
+	public void parseTransactions(String fileAll) throws FileReadException
+			 {
+		try {
+			transactionParser.parseTransactions(fileAll);
 		} catch (JSONException e) {
 			throw new FileReadException(e.getMessage());
 		}

@@ -8,12 +8,11 @@ import model.User;
 
 public class UserValidator {
 
-	public static ValidationResult validateUser(String userName, String password, String userId) {
+	public static ValidationResult validateUser(String userName, String password) {
 		ValidationResult userNameResult = validateUserName(userName);
 		ValidationResult passwordResult = validatePassword(password);
-		ValidationResult userIdResult = validateUserId(userId);
 
-		boolean areValidationsOK = userNameResult.isValid && passwordResult.isValid && userIdResult.isValid;
+		boolean areValidationsOK = userNameResult.isValid && passwordResult.isValid;
 		ValidationResult validationResult = new ValidationResult("Not validated.");
 		if (areValidationsOK) {
 			validationResult = new ValidationResult(true, "Validated.");
@@ -42,7 +41,7 @@ public class UserValidator {
 		return new ValidationResult(isAboveLength, "Password is not valid");
 	}
 
-	private static ValidationResult validateUserId(String userId) {
+	public static ValidationResult validateUserId(String userId) {
 		if(userId==null) {
 			return new ValidationResult(false, "Invalidated");
 		}

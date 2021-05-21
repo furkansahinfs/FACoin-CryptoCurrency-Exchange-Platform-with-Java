@@ -46,8 +46,8 @@ public class FileController {
 		fileIO.readCoins("data\\coins.json");
 		fileIO.readCryptoWallets("data\\crypto_wallets.json");
 		fileIO.readBankWallets("data\\bank_wallets.json");
-		fileIO.readUsers("data\\users.xml");
-			
+		fileIO.readTransactions("data\\transactions.json");
+		fileIO.readUsers("data\\users.xml");		
 	}
 
 	/**
@@ -61,7 +61,7 @@ public class FileController {
 		fileIO.writeBankWallets(bankWallets, "data\\bank_wallets.json");
 		fileIO.writeCoins(coins,"data\\coins.json");
 		fileIO.writeBanknotes(banknotes,"data\\banknotes.json");
-
+		fileIO.writeTransactions(transactions, "data\\transactions.json");
 	}
 
 

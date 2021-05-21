@@ -5,6 +5,7 @@ import view.list.CoinList;
 import view.list.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -24,6 +25,9 @@ public class OrderView extends AppView {
 	private JScrollPane scrollPane;
 	private ColorPalette palette;
 	private JButton back;
+	private JButton reject;
+	private JPasswordField password;
+	
 	private final String userId;
 	
 	public OrderView(String userId) {
@@ -38,7 +42,7 @@ public class OrderView extends AppView {
 		orderList = new CoinList(null);
 		scrollPane = new JScrollPane();
 		// coinList.setBounds(100,100,200,300);
-		scrollPane.setBounds(225, 150, 320, 300);
+		scrollPane.setBounds(225, 50, 320, 300);
 		// HomeController initialises list using update at the start
 		// and in the continuation. Default it is empty.
 		scrollPane.setViewportView(orderList);
@@ -58,12 +62,6 @@ public class OrderView extends AppView {
 		return orderList.getSelectedValue();
 	}
 
-	@Override
-	public void setPalette(ColorPalette palette) {
-		this.palette = palette;
-		updateColor();
-
-	}
 	
 	/**
 	 * The function helps for detecting of selecting a outfit of a collection in the
@@ -71,7 +69,7 @@ public class OrderView extends AppView {
 	 * 
 	 * @param listener
 	 */
-	public void addSelectCoinListener(MouseListener listener) {
+	public void addTransactionListener(MouseListener listener) {
 		orderList.addMouseListener(listener);
 	}
 	
@@ -79,6 +77,9 @@ public class OrderView extends AppView {
 		back.addActionListener(listener);
 	}
 	
+	public void addRejectButtonListener(ActionListener listener) {
+		reject.addActionListener(listener);
+	}
 	
 
 
@@ -90,7 +91,14 @@ public class OrderView extends AppView {
 		back.setBackground(palette.FIRST_COLOR);
 		back.setForeground(palette.BACKGROUND);
 	}
+	
+	@Override
+	public void setPalette(ColorPalette palette) {
+		this.palette = palette;
+		updateColor();
 
+	}
+	
 	
 	@Override
 	public void setList(List list) {

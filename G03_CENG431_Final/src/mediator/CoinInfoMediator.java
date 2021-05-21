@@ -6,15 +6,21 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.DefaultHighLowDataset;
 import controller.CoinInfoController;
 import enums.ECandleType;
+import fileio.repository.UserRepository;
+import fileio.repository.BanknoteRepository;
 import fileio.repository.CoinRepository;
+import fileio.repository.DatabaseResult;
 import fileio.repository.IRestrictedRepository;
 import httpio.repository.DayCandleRepository;
 import httpio.repository.HourCandleRepository;
+import model.AbstractEntity;
 import model.Candle;
 import model.Currency;
 import model.User;
 import storage.IContainer;
 import view.CoinInfoView;
+import view.color.ColorPalette;
+import view.color.DarkTheme;
 import view.decorator.DarkThemeDecorator;
 import view.decorator.JListDecorator;
 import view.decorator.TextDecorator;
@@ -28,7 +34,10 @@ public class CoinInfoMediator {
 	private JListDecorator decorator;
 	private String coinName;
 	private String banknoteName;
+	private String coinId;
+	private String banknoteId;
 	private IRestrictedRepository<Currency> coinRepository;
+	private IRestrictedRepository<Currency> banknoteRepository;
 	private DayCandleRepository dayCandleRepository;
 	private HourCandleRepository hourCandleRepository;
 	
@@ -40,6 +49,8 @@ public class CoinInfoMediator {
 		initCurrencyNames(title);
 		view = new CoinInfoView();
 		coinRepository = new CoinRepository();
+		banknoteRepository = new BanknoteRepository();
+		initCoinIds();
 		ThemeDecorator themeDecorator = new DarkThemeDecorator(view);
 		TextDecorator textDecorator = new TextDecorator(view,coinName,banknoteName);
 		UpdatePool.POOL.add(textDecorator);
@@ -47,13 +58,56 @@ public class CoinInfoMediator {
 		hourCandleRepository = new HourCandleRepository();
 		controller = new CoinInfoController(this);
 		setViewChart(ECandleType.DAY);
+		setFavoriteButtonColor();
 	}
 	
+	private void initCoinIds() {
+		DatabaseResult coinResult = coinRepository.getByName(coinName);
+		coinId = ((AbstractEntity)coinResult.getObject()).getId();
+		
+		DatabaseResult banknoteResult = banknoteRepository.getByName(banknoteName);
+		banknoteId = ((AbstractEntity)banknoteResult.getObject()).getId();
+	}
+
 	public void back() {
 		view.setVisible(false);
 		UpdatePool.POOL.clear();
 		HomeMediator mediator = new HomeMediator(user);
 	}	
+	
+	private void setFavoriteButtonColor()
+	{
+	
+		String str = user.getFavorites().get(coinId);
+		ColorPalette palette = new ColorPalette(new DarkTheme());
+		if(str == null)
+		{
+			view.setFavoriteColor(palette.SECOND_COLOR);
+		}
+		else
+		{
+			view.setFavoriteColor(palette.FIRST_COLOR);
+		}
+	}
+	
+	public void favorite() {
+		String str = user.getFavorites().get(coinId);
+		ColorPalette palette = new ColorPalette(new DarkTheme());
+		if(str==null)
+		{
+			view.setFavoriteColor(palette.FIRST_COLOR);
+			user.getFavorites().put(coinId, banknoteId);
+			(new UserRepository()).saveChanges();
+			
+		}
+		else
+		{
+			view.setFavoriteColor(palette.SECOND_COLOR);
+			user.getFavorites().remove(coinId);
+			(new UserRepository()).saveChanges();
+		}
+		
+	}
 
 	private void initCurrencyNames(String title) {
 		String[] tradingPair = title.split("/");

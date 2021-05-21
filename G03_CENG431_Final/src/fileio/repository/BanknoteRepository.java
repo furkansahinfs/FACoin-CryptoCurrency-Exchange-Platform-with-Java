@@ -71,7 +71,16 @@ public class BanknoteRepository implements IRepository<Currency>,IRestrictedRepo
 
 	@Override
 	public DatabaseResult getByName(String name) {
-		return null;
+		final IContainer<Currency> currencies = BaseRepository.banknotes();
+		String message = "";
+		Object result = null;
+		try {
+			// try to find the user
+			result = currencies.getByName(name);
+		} catch (ItemNotFoundException | NotSupportedException e) {
+			message += e.getMessage();
+		}
+		return new DatabaseResult(result, message); 
 	}
 
 	@Override

@@ -67,7 +67,7 @@ public class UserFactory {
 			Object coin = resultOfCoin.getObject();
 			Object banknote = resultOfBanknote.getObject();
 
-			if (coin != null && banknote != null) {
+			if(coin != null && banknote != null) {
 				favoritesDictionary.put(pair[0], pair[1]);
 			}	
 		}

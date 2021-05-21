@@ -3,92 +3,49 @@ package mediator;
 import java.awt.Color;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
-import fileio.repository.BanknoteRepository;
-import fileio.repository.CoinRepository;
-import fileio.repository.IRestrictedRepository;
-import model.Currency;
+import fileio.repository.UserRepository;
+import fileio.repository.DatabaseResult;
+import storage.IContainer;
 import view.LabelInfo;
-import view.color.ColorPalette;
-import view.color.DarkTheme;
+import model.Transaction;
+import model.User;
 
 public class OrderListMediator {
 
-	private IRestrictedRepository<Currency> coinRepository;
-	private IRestrictedRepository<Currency> banknoteRepository;
-
-	public OrderListMediator() {
-		coinRepository = new CoinRepository();
-		banknoteRepository = new BanknoteRepository();
+	private final String userId;
+	
+	public OrderListMediator(String userId) {
+		this.userId = userId;
 	}
 
-	private List<LabelInfo> getLabel(Currency currency) {
+	private List<LabelInfo> getLabel(IContainer<Transaction> transactions) {
 
 		List<LabelInfo> labels = new ArrayList<LabelInfo>();
-		final Iterator<Currency> banknoteIterator = banknoteRepository.getAll();
-		Currency banknote = null;
-
-		while (banknoteIterator.hasNext()) {
-
-			banknote = banknoteIterator.next();
-			Double oldValue = currency.getOldValue().get(banknote.getName());
-
-			Double value = currency.getValue().get(banknote.getName());
-			if (value == null) {
-				value = (double) 0;
+		for (Transaction transaction : transactions) {
+			Color color = Color.GREEN;
+			if(transaction.getTransactionState().equals("Pending"))
+			{
+				color = Color.RED;
 			}
-
-			if (oldValue == null) {
-				oldValue = value;
-			}
-			Double howMuch;
-			if (value != 0) {
-				howMuch = (value * 100 / oldValue);
-			} else {
-				howMuch = (double) 100;
-			}
-
-			Color result = null;
-			ColorPalette palette = new ColorPalette(new DarkTheme());
-			DecimalFormat df = new DecimalFormat();
-			df.setMaximumFractionDigits(4);
-			Double howMuchFormatted = Double.valueOf(df.format(howMuch).replaceAll(",","."));
-			if (howMuchFormatted > 100) {
-				howMuch = howMuch - 100;
-				result = Color.GREEN;
-			} else if (howMuchFormatted == 100) {
-				howMuch = (double) 0;
-				result = palette.FIRST_COLOR;
-			}
-
-			else {
-				howMuch = 100 - howMuch;
-				result = Color.RED;
-			}
-
-			LabelInfo newLabel = new LabelInfo(result, howMuch, currency.getName(), value, banknote.name);
+			LabelInfo newLabel = new LabelInfo(color, transaction.getCoinQuantity(), transaction.getCoin().getName(), transaction.getCoinValue(), transaction.getBanknote().getName());
 			labels.add(newLabel);
-
 		}
 		return labels;
-
 	}
 
 	public DefaultListModel<JLabel> getList() {
 		Thread.LOCK_MUTEX(Thread.MUTEX);
 		DefaultListModel<JLabel> list = new DefaultListModel<JLabel>();
-		final Iterator<Currency> newIterator = coinRepository.getAll();
-		Currency currency = null;
-		while (newIterator.hasNext()) {
-		
-			currency = newIterator.next();
-			List<LabelInfo> labels = getLabel(currency);
-
-			setLabels(labels, list);
+		DatabaseResult userResult = (new UserRepository()).getById(userId);
+		if(userResult.getObject() == null)
+		{
+			return list;
 		}
+		IContainer<Transaction> userTransactions = ((User) userResult.getObject()).getTransactions();
+		setLabels(getLabel(userTransactions),list);
 		Thread.UNLOCK_MUTEX(Thread.MUTEX);
 		return list;
 	}

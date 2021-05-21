@@ -15,6 +15,9 @@ public class CoinInfoController extends Consumable {
 		mediator.getView().addBackButtonListener(new BackButtonListener());
 		mediator.getView().addDayCandleButtonListener(new DayCandleButtonListener());
 		mediator.getView().addHourCandleButtonListener(new HourCandleButtonListener());
+		mediator.getView().addBuyButtonListener(new BuyButtonListener());
+		mediator.getView().addSellButtonListener(new SellButtonListener());
+		mediator.getView().addFavoriteButtonListener(new FavoriteButtonListener());
 		
 	}
 	
@@ -60,6 +63,15 @@ public class CoinInfoController extends Consumable {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			mediator.hourCandleChart();
+		}
+
+	}
+	
+	class FavoriteButtonListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			mediator.favorite();
 		}
 
 	}

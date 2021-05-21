@@ -91,11 +91,18 @@ public class HomeMediator {
 			UpdatePool.POOL.add(decorator);
 			fav = true;
 		}
+		else {
+			UpdatePool.POOL.clear();
+			decorator = new CoinListDecorator(view);
+			UpdatePool.POOL.add(decorator);
+			fav = false;
+		}
 	}
 
 	public void ordersView() {
-		// TODO Auto-generated method stub
-		
+		view.setVisible(false);
+		UpdatePool.POOL.clear();
+		OrderMediator mediator = new OrderMediator(user);
 	}
 
 }

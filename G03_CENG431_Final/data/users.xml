@@ -6,14 +6,14 @@
 		<crypto_wallet>13854</crypto_wallet>
 		<bank_wallet>1235</bank_wallet>
 		<favorites>1-1</favorites>
-		<transactions></transactions>    
+		<transactions>1</transactions>    
 	</user>
     <user id="2">
 		<username>furkan</username>
 		<password>123456</password>
 		<crypto_wallet>16240</crypto_wallet>
 		<bank_wallet>2196</bank_wallet>
-		<favorites></favorites>
-		<transactions></transactions>    
+		<favorites>4-2,13-1,9-1,7-2</favorites>
+		<transactions>2,3</transactions>    
 	</user>
 </users>

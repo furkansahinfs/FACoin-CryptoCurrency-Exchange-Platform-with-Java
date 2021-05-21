@@ -2,10 +2,10 @@ package view.decorator;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
-
-import mediator.CoinListMediator;
+import mediator.OrderListMediator;
 import view.AppView;
-import view.list.CoinList;
+import view.OrderView;
+import view.list.OrderList;
 
 
 public class OrderListDecorator extends JListDecorator{
@@ -22,9 +22,10 @@ public class OrderListDecorator extends JListDecorator{
 
 	@Override
 	public void update() {
-		CoinListMediator mediator = new CoinListMediator();
+		String userId = ((OrderView) this.view).getUserId();
+		OrderListMediator mediator = new OrderListMediator(userId);
 		DefaultListModel<JLabel> listModel = mediator.getList();
-		this.list = new CoinList(listModel);
+		this.list = new OrderList(listModel);
 	}
 
 }

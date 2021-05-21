@@ -32,7 +32,7 @@ public class TransactionFactory {
 		DatabaseResult gottenCoin = (new CoinRepository()).getById(pairNames[0]);
 		DatabaseResult gottenBanknote = (new BanknoteRepository()).getById(pairNames[0]);
 		State state = new Pending();
-		if(transactionType.equals("Approve"))
+		if(transactionType.equals("Approved"))
 		{
 			state = new Approved();
 		}

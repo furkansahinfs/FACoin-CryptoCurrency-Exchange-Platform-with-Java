@@ -66,7 +66,7 @@ public class HomeView extends AppView {
 		add(toHigh);
 		
 		orders = new JButton("Orders");
-		orders.setBounds(50, coinList.getY()+coinList.getHeight()+50, 100, 50);
+		orders.setBounds(50, scrollPane.getY()+scrollPane.getHeight()+25, 100, 50);
 		orders.setFont(new Font("Arial", Font.BOLD, 20));
 		add(orders);
 		

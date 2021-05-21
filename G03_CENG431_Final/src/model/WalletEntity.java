@@ -1,4 +1,6 @@
 package model;
+import storage.BanknoteName;
+import storage.Name;
 public class WalletEntity{
 	private ICurrency currency;
 	private Double quantity;
@@ -19,7 +21,16 @@ public class WalletEntity{
 		return this.quantity;
 	}
 	
+	public void setQuantity(Double quantity) {
+		this.quantity = quantity;
+	}
+	
 	public String getCurrencyName(){
 		return currency.getClass().getSimpleName();
+	}
+	
+	public boolean equals(Name gottenName)
+	{
+		return this.currency.getName().equals(gottenName.name);
 	}
 }

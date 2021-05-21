@@ -7,4 +7,5 @@ public interface IRestrictedRepository<T>{
 	public DatabaseResult getByName(String name);
 	public Iterator<T> getAll();
 	public DatabaseResult saveChanges();
+	public boolean isEmpty();
 }

@@ -87,6 +87,11 @@ public class CryptoWalletRepository implements IRepository<CryptoWallet>,IRestri
 	public final Iterator<CryptoWallet> getAll() {
 		return null;
 	}
+
+	@Override
+	public boolean isEmpty() {
+		return BaseRepository.crypto_wallets().isEmpty();
+	}
 	
 
 }

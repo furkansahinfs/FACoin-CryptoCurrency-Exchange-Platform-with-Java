@@ -1,5 +1,6 @@
 package storage;
 
+import exception.ItemNotFoundException;
 import exception.NotSupportedException;
 
 public class StringContainer extends Container<String> {
@@ -30,6 +31,12 @@ public class StringContainer extends Container<String> {
 			i++;
 		}
 		return array;
+	}
+
+	@Override
+	public String getByName(Name name) throws ItemNotFoundException, NotSupportedException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -39,4 +39,10 @@ public class CurrencyContainer extends Container<Currency> {
 			return found;
 		}
 	}
+
+	@Override
+	public Currency getByName(Name name) throws ItemNotFoundException, NotSupportedException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

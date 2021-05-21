@@ -105,4 +105,9 @@ public class UserRepository implements IRepository<User>,IRestrictedRepository<U
 	public Iterator<User> getAll() {
 		return BaseRepository.users().iterator();
 	}
+
+		@Override
+		public boolean isEmpty() {
+			return BaseRepository.users().isEmpty();
+		}
 }

@@ -39,12 +39,12 @@ public class TransactionRepository implements IRepository<Transaction>,IRestrict
 	 */
 	public DatabaseResult getById(String id) {
 		// get user container of system which holds all users
-		final IContainer<Wallet> cryptoWallets = BaseRepository.crypto_wallets();
+		final IContainer<Transaction> transactions = BaseRepository.transactions();
 		String message = "";
 		Object result = null;
 		try {
 			// try to find the user
-			result = cryptoWallets.getById(id);
+			result = transactions.getById(id);
 			
 		} catch (ItemNotFoundException | NotSupportedException e) {
 			message += e.getMessage();
@@ -58,8 +58,8 @@ public class TransactionRepository implements IRepository<Transaction>,IRestrict
 	 * 
 	 * @return Crypto Wallet Container which holds all bank wallets
 	 */
-	public final IContainer<Wallet> getCryptoWallets() {
-		return BaseRepository.crypto_wallets();
+	public final IContainer<Transaction> getTransactions() {
+		return BaseRepository.transactions();
 	}
 	
 
@@ -86,6 +86,11 @@ public class TransactionRepository implements IRepository<Transaction>,IRestrict
 	@Override
 	public final Iterator<Transaction> getAll() {
 		return null;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return BaseRepository.transactions().isEmpty();
 	}
 
 	

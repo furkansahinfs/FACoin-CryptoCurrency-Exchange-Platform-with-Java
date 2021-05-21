@@ -35,7 +35,6 @@ public class FavListService {
 		DatabaseResult dr = users.getById(userId);
 		if(dr.getObject()==null)
 		{
-			System.out.println("user null");
 			return list;
 		}
 				

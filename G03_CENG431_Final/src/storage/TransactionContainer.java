@@ -28,4 +28,10 @@ public class TransactionContainer extends Container<Transaction>{
 		return null;
 	}
 
+	@Override
+	public Transaction getByName(Name name) throws ItemNotFoundException, NotSupportedException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

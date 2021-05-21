@@ -87,5 +87,10 @@ public class BanknoteRepository implements IRepository<Currency>,IRestrictedRepo
 	public Iterator<Currency> getAll() {
 		return BaseRepository.banknotes().iterator();
 	}
+
+	@Override
+	public boolean isEmpty() {
+		return BaseRepository.banknotes().isEmpty();
+	}
 	
 }

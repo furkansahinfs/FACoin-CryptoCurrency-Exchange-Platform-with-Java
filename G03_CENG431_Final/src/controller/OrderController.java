@@ -15,7 +15,7 @@ public class OrderController {
 		this.mediator = mediator;
 		this.mediator.getView().addBackButtonListener(new BackButtonListener());
 		this.mediator.getView().addRejectButtonListener(new RejectButtonListener());
-		this.mediator.getView()
+		this.mediator.getView().addTransactionListener(new TransactionListListener());
 	
 	}
 	

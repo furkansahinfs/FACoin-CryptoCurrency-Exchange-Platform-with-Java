@@ -1,12 +1,15 @@
 package view;
 
 import view.color.ColorPalette;
-import view.list.CoinList;
 import view.list.List;
+import view.list.OrderList;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
+
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
@@ -27,7 +30,7 @@ public class OrderView extends AppView {
 	private JButton back;
 	private JButton reject;
 	private JPasswordField password;
-	
+	private JLabel alert;
 	private final String userId;
 	
 	public OrderView(String userId) {
@@ -39,15 +42,29 @@ public class OrderView extends AppView {
 		back.setFont(new Font("Arial", Font.BOLD, 20));// TODO arial
 		add(back);
 		
-		orderList = new CoinList(null);
+		orderList = new OrderList(null);
 		scrollPane = new JScrollPane();
-		// coinList.setBounds(100,100,200,300);
 		scrollPane.setBounds(225, 50, 320, 300);
-		// HomeController initialises list using update at the start
-		// and in the continuation. Default it is empty.
 		scrollPane.setViewportView(orderList);
 		add(scrollPane);
-		// add(coinList);
+
+		reject = new JButton("Cancel");
+		reject.setBounds((scrollPane.getWidth()-scrollPane.getX())/2,scrollPane.getY()+scrollPane.getHeight()+50,90,40);
+		reject.setFont(new Font("Arial", Font.BOLD, 20));// TODO arial
+		reject.setVisible(false);
+		add(reject);
+		
+		password = new JPasswordField("Password");
+		password.setBounds(reject.getX(),reject.getY()-50,90,40);
+		password.setFont(new Font("Arial", Font.PLAIN, 20));// TODO arial
+		password.setVisible(false);
+		add(password);
+		// TODO þifre deðiþtirme
+		alert = new JLabel("Password is wrong");
+		alert.setBounds(reject.getX(),reject.getY()+100,90,100);
+		alert.setFont(new Font("Arial", Font.BOLD, 20));
+		alert.setVisible(false);
+		
 		AppWindow.FRAME.getContentPane().removeAll();
 		AppWindow.FRAME.getContentPane().add(this);
 
@@ -85,11 +102,14 @@ public class OrderView extends AppView {
 
 	private void updateColor() {
 		setBackground(palette.BACKGROUND);
-
 		orderList.setBackground(palette.BACKGROUND);
 		scrollPane.setBackground(palette.BACKGROUND);
 		back.setBackground(palette.FIRST_COLOR);
 		back.setForeground(palette.BACKGROUND);
+		reject.setBackground(Color.RED);
+		reject.setForeground(palette.BACKGROUND);
+		password.setBackground(palette.BACKGROUND);
+		password.setForeground(palette.FIRST_COLOR);
 	}
 	
 	@Override
@@ -107,6 +127,28 @@ public class OrderView extends AppView {
 		updateUI();
 	}
 
+	public void showReject() {
+		reject.setVisible(true);
+		password.setVisible(true);
+	}
+	
+	public void hideReject() {
+		reject.setVisible(false);
+		password.setVisible(false);
+	}
+	
+	public void showAlert() {
+		alert.setVisible(true);
+	}
+	
+	public void hideAlert() {
+		alert.setVisible(false);
+	}
+	
+	public String getPassword() {
+		return new String(password.getPassword());
+	}
+	
 	@Override
 	public List getList() {
 		return this.orderList;

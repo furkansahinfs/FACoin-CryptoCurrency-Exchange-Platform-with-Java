@@ -87,4 +87,9 @@ public class BankWalletRepository implements IRepository<BankWallet>,IRestricted
 		return null;
 	}
 
+	@Override
+	public boolean isEmpty() {
+		return BaseRepository.bank_wallets().isEmpty();
+	}
+
 }

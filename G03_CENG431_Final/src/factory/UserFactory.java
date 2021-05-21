@@ -43,7 +43,7 @@ public class UserFactory {
 		DatabaseResult resultBankWallet = (new BankWalletRepository()).getById(bankWalletId);
 		Object cryptoWallet = resultCryptoWallet.getObject();
 		Object bankWallet = resultBankWallet.getObject();
-		
+
 		if (cryptoWallet != null && bankWallet != null) {
 			Dictionary<String,String> favoritesDictionary = createDictionary(favorites);
 			IContainer<Transaction> transactions = createTransactions(transactionIds);
@@ -79,13 +79,14 @@ public class UserFactory {
 	{
 		IContainer<Transaction> transactions = new TransactionContainer();
 		IRestrictedRepository<Transaction> transactionRepository = new TransactionRepository();
-		if(transactions.isEmpty())
+		if(transactionRepository.isEmpty())
 			return transactions;
+			
 		String[] splittedTransactionIds = transactionIds.split(",");
 		for (String id : splittedTransactionIds) {	
 			DatabaseResult resultOfTransaction = transactionRepository.getById(id);
 			Object transaction = resultOfTransaction.getObject();
-
+			
 			if (transaction != null ) {
 				transactions.add((Transaction) transaction);
 			}	

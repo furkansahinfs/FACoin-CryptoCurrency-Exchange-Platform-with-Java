@@ -1,6 +1,7 @@
 package httpio.repository;
 
 import exception.HttpRequestException;
+import fileio.repository.DatabaseResult;
 import fileio.repository.IRepository;
 import storage.IContainer;
 import model.Candle;
@@ -29,6 +30,13 @@ public class HourCandleRepository implements IRepository<Candle> {
 	
 	public Candle removeEntity(Candle candle)
 	{
+		return null;
+	}
+
+
+	@Override
+	public DatabaseResult saveChanges() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

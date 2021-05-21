@@ -37,6 +37,16 @@ public interface IContainer<T> extends Iterable<T> {
 	 * @throws NotSupportedException if item does not have a getName function
 	 */
 	public T getByName(String name) throws ItemNotFoundException, NotSupportedException;
+	
+	/**
+	 * This is an abstract function and it tries to get an item by its name.
+	 * 
+	 * @param name of the item
+	 * @returns item if found
+	 * @throws ItemNotFoundException if not found throws not found exception
+	 * @throws NotSupportedException if item does not have a getName function
+	 */
+	public T getByName(Name name) throws ItemNotFoundException, NotSupportedException;
 
 	/**
 	 * The function returns the container

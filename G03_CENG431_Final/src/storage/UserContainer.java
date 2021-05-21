@@ -1,6 +1,7 @@
 package storage;
 
 import exception.ItemNotFoundException;
+import exception.NotSupportedException;
 import model.User;
 
 public class UserContainer extends Container<User> {
@@ -54,6 +55,12 @@ public class UserContainer extends Container<User> {
 		} else {
 			return found;
 		}
+	}
+
+	@Override
+	public User getByName(Name name) throws ItemNotFoundException, NotSupportedException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

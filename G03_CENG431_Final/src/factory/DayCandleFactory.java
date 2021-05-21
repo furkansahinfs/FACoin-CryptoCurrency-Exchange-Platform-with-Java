@@ -23,7 +23,6 @@ public class DayCandleFactory extends CandleFactory {
 		ValidationResult vr = CandleValidator.validateDayCandle(tempArgs);
 		if (!vr.isValid)
 		{
-			System.out.println(vr.messages);
 			return result;
 		}
 			

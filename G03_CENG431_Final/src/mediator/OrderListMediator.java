@@ -10,6 +10,7 @@ import fileio.repository.UserRepository;
 import fileio.repository.DatabaseResult;
 import storage.IContainer;
 import view.LabelInfo;
+import view.color.*;
 import model.Transaction;
 import model.User;
 
@@ -25,12 +26,13 @@ public class OrderListMediator {
 
 		List<LabelInfo> labels = new ArrayList<LabelInfo>();
 		for (Transaction transaction : transactions) {
-			Color color = Color.GREEN;
+			ColorPalette palette = new ColorPalette(new DarkTheme());
+			Color color = palette.SECOND_COLOR;
 			if(transaction.getTransactionState().equals("Pending"))
 			{
-				color = Color.RED;
+				color = palette.FIRST_COLOR;
 			}
-			LabelInfo newLabel = new LabelInfo(color, transaction.getCoinQuantity(), transaction.getCoin().getName(), transaction.getCoinValue(), transaction.getBanknote().getName());
+			LabelInfo newLabel = new LabelInfo(color, transaction.getCoinQuantity(), (transaction.getId() + " : " + transaction.getCoin().getName()), transaction.getCoinValue(), transaction.getBanknote().getName());
 			labels.add(newLabel);
 		}
 		return labels;
@@ -63,8 +65,13 @@ public class OrderListMediator {
 
 		DecimalFormat df = new DecimalFormat();
 		df.setMaximumFractionDigits(4);
-		String text = label.coinName + "/" + label.banknote + " : " + label.value + " (" + df.format(label.percent)
-				+ "%)";
+		ColorPalette palette = new ColorPalette(new DarkTheme());
+		String transactionType = "Approved";
+		if(label.color == palette.FIRST_COLOR)
+		{
+			transactionType = "Pending";
+		}
+		String text = label.coinName + "/" + label.banknote + "/" + transactionType + " :\tQuantity = " + label.value + " - CoinValue = " + df.format(label.percent);
 
 		JLabel jLabel = new JLabel(text);
 		jLabel.setForeground(label.color);

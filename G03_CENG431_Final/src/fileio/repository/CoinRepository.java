@@ -88,4 +88,9 @@ public class CoinRepository implements IRepository<Currency>,IRestrictedReposito
 	public final Iterator<Currency> getAll() {
 		return BaseRepository.coins().iterator();
 	}
+
+	@Override
+	public boolean isEmpty() {
+		return BaseRepository.coins().isEmpty();
+	}
 }

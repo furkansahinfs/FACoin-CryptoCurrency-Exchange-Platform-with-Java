@@ -24,4 +24,10 @@ public class WalletContainer extends Container<Wallet> {
 		return null;
 	}
 
+	@Override
+	public Wallet getByName(Name name) throws ItemNotFoundException, NotSupportedException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

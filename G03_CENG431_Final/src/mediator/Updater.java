@@ -21,6 +21,7 @@ public class Updater {
 			Thread.EXECUTOR.scheduleAtFixedRate(PROGRAM, 0, 10, TimeUnit.SECONDS);
 		} catch (RuntimeException e) {
 			Thread.EXECUTOR.shutdown();
+			UpdatePool.POOL.clear();
 		}
 	}
 

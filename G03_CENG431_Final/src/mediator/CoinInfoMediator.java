@@ -1,14 +1,18 @@
 package mediator;
+
 import controller.CoinInfoController;
 import enums.ECandleType;
 import fileio.repository.UserRepository;
 import model.User;
 import service.CandleChartService;
 import service.CoinInfoService;
+import service.TransactionService;
+import service.WalletServiceParam;
 import view.CoinInfoView;
 import view.color.ColorPalette;
 import view.color.DarkTheme;
 import view.decorator.DarkThemeDecorator;
+import view.decorator.Decorator;
 import view.decorator.TextDecorator;
 import view.decorator.ThemeDecorator;
 
@@ -21,9 +25,9 @@ public class CoinInfoMediator {
 	private String banknoteName;
 	private String coinId;
 	private String banknoteId;
-
 	private CandleChartService service;
 	private CoinInfoService coinInfoService;
+	private Decorator textDecorator;
 	
 	private boolean isDayCandle = true;
 	private boolean isHourCandle = false;
@@ -35,7 +39,7 @@ public class CoinInfoMediator {
 		service = new CandleChartService(coinName,banknoteName);
 		view = new CoinInfoView();
 		ThemeDecorator themeDecorator = new DarkThemeDecorator(view);
-		TextDecorator textDecorator = new TextDecorator(view,coinName,banknoteName);
+		textDecorator = new TextDecorator(view,coinName,banknoteName);
 		UpdatePool.POOL.add(textDecorator);
 		controller = new CoinInfoController(this);
 		service.setViewChart(ECandleType.DAY,view);
@@ -45,7 +49,7 @@ public class CoinInfoMediator {
 
 	public void back() {
 		view.setVisible(false);
-		UpdatePool.POOL.clear();
+		UpdatePool.POOL.remove(textDecorator);
 		HomeMediator mediator = new HomeMediator(user);
 	}	
 	
@@ -56,6 +60,8 @@ public class CoinInfoMediator {
 		this.coinId = namesIds[2];
 		this.banknoteId = namesIds[3];
 	}
+	
+	
 	
 	private void setFavoriteButtonColor()
 	{
@@ -113,15 +119,34 @@ public class CoinInfoMediator {
 
 	
 
-	public void sellCoin() {
-		// TODO Auto-generated method stub
+	public void sellCoin() {		
+		String[] coinQuantityAndValue = view.getSell();
+		try {
+			Double quantity = Double.valueOf(coinQuantityAndValue[0]);
+			Double value = Double.valueOf(coinQuantityAndValue[1]);
+			TransactionService transaction = new TransactionService(user);
+			WalletServiceParam params = new WalletServiceParam(coinName,banknoteName,quantity,value);
+			transaction.sellCoin(params);
+		} catch (Exception e) {
+
+		}
 		
 	}
 
-	public void buyCoin() {
-		// TODO Auto-generated method stub
-		
+	public void buyCoin() {		
+		String[] coinQuantityAndValue = view.getSell();
+		try {
+			Double quantity = Double.valueOf(coinQuantityAndValue[0]);
+			Double value = Double.valueOf(coinQuantityAndValue[1]);
+			TransactionService transaction = new TransactionService(user);
+			WalletServiceParam params = new WalletServiceParam(coinName,banknoteName,quantity,value);
+			transaction.buyCoin(params);
+		} catch (Exception e) {
+
+		}
 	}
+	
+
 	
 	
 

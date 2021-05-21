@@ -36,7 +36,7 @@ public class WalletMediator {
 
 	public void back() {
 		view.setVisible(false);
-		UpdatePool.POOL.clear();
+		UpdatePool.POOL.remove(decorator);
 		HomeMediator mediator = new HomeMediator(user);
 	}
 

@@ -21,7 +21,6 @@ public class Thread {
 		try {
 			TimeUnit.SECONDS.sleep(i);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

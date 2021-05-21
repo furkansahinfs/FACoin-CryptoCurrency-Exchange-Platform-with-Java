@@ -30,6 +30,7 @@ public class HomeMediator {
 		view = new HomeView(user.getId());
 		decorator = new CoinListDecorator(view);
 		UpdatePool.POOL.add(decorator);
+		UpdatePool.POOL.add(new TransactionMediator(user));
 		ThemeDecorator theme = new DarkThemeDecorator(view);
 		controller = new HomeController(this);
 	}
@@ -41,13 +42,13 @@ public class HomeMediator {
 	
 	public void logout() {
 		view.setVisible(false);
-		UpdatePool.POOL.clear();
+		UpdatePool.POOL.remove(decorator);
 		LoginMediator mediator = new LoginMediator();
 	}	
 	
 	public void goWalletPage() {
 		view.setVisible(false);
-		UpdatePool.POOL.clear();
+		UpdatePool.POOL.remove(decorator);
 		WalletMediator mediator = new WalletMediator(user);
 	}	
 
@@ -63,17 +64,17 @@ public class HomeMediator {
 		CoinInfoMediator mediator = new CoinInfoMediator(splittedItem[0],this.user);
 	
 	}
-	//TODO bura nasý olcak amuða jakam
+	
 	public void sort(ESort sortType) {
 		Decorator sortDecorator = null;
 		if(sortType.equals(ESort.ASCENDING) && !ascending) {
-			UpdatePool.POOL.clear();
+			UpdatePool.POOL.remove(decorator);
 			sortDecorator = new AscendingOrderListDecorator(decorator);
 			ascending = true;
 			descending = false;
 		}
 		else if(sortType.equals(ESort.DESCENDING) && !descending) {
-			UpdatePool.POOL.clear();
+			UpdatePool.POOL.remove(decorator);
 			sortDecorator = new DescendingOrderListDecorator(decorator);
 			ascending = false;
 			descending = true;
@@ -86,13 +87,13 @@ public class HomeMediator {
 
 	public void favListView() {
 		if(!fav) {
-			UpdatePool.POOL.clear();
+			UpdatePool.POOL.remove(decorator);
 			decorator = new FavListDecorator(view);
 			UpdatePool.POOL.add(decorator);
 			fav = true;
 		}
 		else {
-			UpdatePool.POOL.clear();
+			UpdatePool.POOL.remove(decorator);
 			decorator = new CoinListDecorator(view);
 			UpdatePool.POOL.add(decorator);
 			fav = false;
@@ -101,7 +102,7 @@ public class HomeMediator {
 
 	public void ordersView() {
 		view.setVisible(false);
-		UpdatePool.POOL.clear();
+		UpdatePool.POOL.remove(decorator);
 		OrderMediator mediator = new OrderMediator(user);
 	}
 

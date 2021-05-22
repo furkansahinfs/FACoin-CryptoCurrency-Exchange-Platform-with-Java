@@ -35,7 +35,7 @@ public interface IFileIO {
 	/**
 	 * This function reads users
 	 * 
-	 * @param filePath of users file
+	 * @param filePath of users.xml file
 	 * @returns read users
 	 * @throws Exception for fileio exceptions
 	 */
@@ -45,7 +45,7 @@ public interface IFileIO {
 	/**
 	 * This function reads coins
 	 * 
-	 * @param filePath of coins file
+	 * @param filePath of coins.json file
 	 * @returns read coins
 	 * @throws Exception for fileio exceptions
 	 */
@@ -55,17 +55,17 @@ public interface IFileIO {
 	/**
 	 * This function reads banknotes
 	 * 
-	 * @param filePath of banknotes file
+	 * @param filePath of banknotes.json file
 	 * @returns read banknotes
 	 * @throws Exception for fileio exceptions
 	 */
 	public void readBanknotes(String filePath) throws FileReadException;
 	
 	/**
-	 * This function reads banknotes
+	 * This function reads transactions
 	 * 
-	 * @param filePath of banknotes file
-	 * @returns read banknotes
+	 * @param filePath of transactions.json file
+	 * @returns read transactions
 	 * @throws Exception for fileio exceptions
 	 */
 	public void readTransactions(String filePath) throws FileReadException;
@@ -117,9 +117,9 @@ public interface IFileIO {
 	public void writeBanknotes(IContainer<Currency> banknotes, String filePath) throws FileWriteException;
 	
 	/**
-	 * This function writes users
+	 * This function writes transactions
 	 * 
-	 * @param banknotes    of the system
+	 * @param transactions    of the system
 	 * @param filePath of the file
 	 * @throws Exception for write operations
 	 */

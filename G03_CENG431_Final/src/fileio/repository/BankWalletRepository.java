@@ -8,14 +8,14 @@ import storage.IContainer;
 import model.BankWallet;
 import model.Wallet;
 
-public class BankWalletRepository implements IRepository<BankWallet>,IRestrictedRepository<BankWallet>  {
+public class BankWalletRepository implements IRepository<BankWallet>, IRestrictedRepository<BankWallet> {
 
 	public BankWalletRepository() {
 
 	}
 
 	/**
-	 * The function tries to write the wallets to the necessary file.
+	 * The function tries to write the repositories contents to the files
 	 * 
 	 * @return DatabaseResult(null, message);
 	 */
@@ -29,29 +29,29 @@ public class BankWalletRepository implements IRepository<BankWallet>,IRestricted
 		return new DatabaseResult(message, message);
 	}
 
-	
 	/**
-	 * The function tries to find the bank wallet of given id and returns the database
-	 * result. If user is found > database.result object = wallet, else
-	 * database.result object = null
+	 * The function tries to find the bank wallet of given id and returns the
+	 * database result. If bank wallet is found > database.result object = bank
+	 * wallet, else database.result object = null
 	 * 
-	 * @param id = gotten wallet id
+	 * @param id = gotten bank wallet id
 	 * @return database result
 	 */
 	public DatabaseResult getById(String id) {
-		// get user container of system which holds all users
+		// tries to find bank wallet with given id in the bank wallet repository of
+		// system.
 		final IContainer<Wallet> bankWallets = BaseRepository.bank_wallets();
 		String message = "";
 		Object result = null;
 		try {
-			// try to find the user
+			// try to find the wallet
 			result = bankWallets.getById(id);
 		} catch (ItemNotFoundException | NotSupportedException e) {
 			message += e.getMessage();
 		}
 		return new DatabaseResult(result, message);
 	}
-	
+
 	/**
 	 * The function returns the Bank Wallets' container of system
 	 * 
@@ -61,13 +61,14 @@ public class BankWalletRepository implements IRepository<BankWallet>,IRestricted
 		return BaseRepository.bank_wallets();
 	}
 
-
+	// Add wallet to the bank wallet repository
 	@Override
 	public boolean addEntity(BankWallet entity) {
 		boolean result = BaseRepository.bank_wallets().add(entity);
 		return result;
 	}
 
+	// Remove wallet from the bank wallet repository
 	@Override
 	public BankWallet removeEntity(BankWallet entity) {
 		try {
@@ -78,7 +79,7 @@ public class BankWalletRepository implements IRepository<BankWallet>,IRestricted
 	}
 
 	@Override
-	public DatabaseResult getByName(String name)  {
+	public DatabaseResult getByName(String name) {
 		return null;
 	}
 

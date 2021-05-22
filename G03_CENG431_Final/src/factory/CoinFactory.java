@@ -10,34 +10,46 @@ import model.ICurrency;
 
 public class CoinFactory extends CurrencyFactory {
 
+	/**
+	 * The constructor is for CoinFactory. A currency factory is extended for
+	 * factory process.
+	 */
 	public CoinFactory() {
 		super(null);
 		super.setFactory(this);
 	}
-	
+
 	@Override
 	public Object createEntity(Object args) {
 		ICurrency currency = null;
-		if(!(args instanceof CurrencyFactoryParams)){
+
+		// If gotten args are not CurrencyFactoryParams, return null
+		if (!(args instanceof CurrencyFactoryParams)) {
 			return currency;
 		}
-		
-		CurrencyFactoryParams params = (CurrencyFactoryParams)args;
+
+		CurrencyFactoryParams params = (CurrencyFactoryParams) args;
+
+		// Validate coin name and coin id
 		ValidationResult vr = CoinValidator.validatCoin(params.name, params.id);
-		if(vr.isValid){
-			currency = new Coin(params.id,params.name);
+
+		// If args are valid, create a coin with args' params
+		if (vr.isValid) {
+			currency = new Coin(params.id, params.name);
 		}
-		else if(vr.messages.contains("Id is not validated.") && vr.messages.length() == 20)
-		{
+
+		// If id is invalid, create an unique id. After that create a coin with
+		// args' params
+		else if (vr.messages.contains("Id is not validated.") && vr.messages.length() == 20) {
 			IRestrictedRepository<Currency> repository = new CoinRepository();
 			String new_id = RandomFactory.randomId();
 			while (repository.getById(new_id).getObject() != null) {
 				new_id = RandomFactory.randomId();
 			}
-			
-			currency = new Coin(new_id,params.name);
+
+			currency = new Coin(new_id, params.name);
 		}
-		
+
 		return currency;
 	}
 

@@ -25,7 +25,7 @@ public class FileRead {
 		File file = new File(filename); // opening file
 		BufferedReader br;
 		br = openFile(file);
-		String fileAll = readFileContent(br);
+		String fileAll = readFileContent(br); // read file
 		return fileAll;
 	}
 

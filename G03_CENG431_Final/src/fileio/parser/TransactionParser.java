@@ -14,21 +14,18 @@ public class TransactionParser {
 	private TransactionFactory transactionFactory;
 
 	/**
-	 * The TransactionParser parses the gotten transactions.json file content and creates
-	 * transaction objects
+	 * The TransactionParser parses the gotten transactions.json file content and
+	 * creates transaction objects
 	 */
 	protected TransactionParser() {
 		transactionFactory = new TransactionFactory();
 	}
 
 	/**
-	 * The function parses gotten file content and returns the wallet container
-	 * which holds created contracts
+	 * The function parses gotten file content. Add the created objects to the
+	 * transaction repository of system
 	 * 
-	 * @param fileAll = contract file content
-	 * @param users   = user container which holds all users
-	 * @param wallets = wallet container which holds all wallets of users
-	 * @return Wallet Container
+	 * @param fileAll = transactions.json file content
 	 * @throws FileReadException
 	 * @throws JSONException
 	 */
@@ -36,8 +33,7 @@ public class TransactionParser {
 		IRepository<Transaction> transactionRepository = new TransactionRepository();
 		JSONObject jsonContracts;
 		jsonContracts = (new JSONParser()).parse(fileAll); // get json object of file content
-		parse(jsonContracts, transactionRepository); // parse wallets
-
+		parse(jsonContracts, transactionRepository); // parse transactions
 
 	}
 
@@ -53,22 +49,30 @@ public class TransactionParser {
 				throw new JSONException("TransactionParser.parse::Key is not a string");
 			// get the coin values and invoke createWallet()
 			// to get created wallet
-			String transactionId = (String) keyTemp;
-			transaction = jsonObject.get(transactionId);
+			String transactionId = (String) keyTemp; // transactionId
+			transaction = jsonObject.get(transactionId); // transaction values
 			if (transaction instanceof JSONObject) {
-				String pair = ((JSONObject) transaction).getString("pair");
-				String coinQuantity = ((JSONObject) transaction).getString("coinQ");
-				String coinOrderValue = ((JSONObject) transaction).getString("coinValue");
-				String transactionType = ((JSONObject) transaction).getString("type");
-				Transaction createdTransaction = createTransaction(transactionId, pair, coinQuantity, coinOrderValue, transactionType );
-				transactionRepository.addEntity(createdTransaction);
+				String pair = ((JSONObject) transaction).getString("pair"); // pair of transaction
+				String coinQuantity = ((JSONObject) transaction).getString("coinQ"); // coin quantity of transaction
+				String coinOrderValue = ((JSONObject) transaction).getString("coinValue"); // coin value of transaction
+				String transactionType = ((JSONObject) transaction).getString("type");// type of transaction
+
+				// Create transaction
+				Transaction createdTransaction = createTransaction(transactionId, pair, coinQuantity, coinOrderValue,
+						transactionType);
+				transactionRepository.addEntity(createdTransaction); // add created transaction to the
+																		// transactionRepository
 			}
 		}
 	}
 
-	private Transaction createTransaction(String transactionId, String pair, String coinQuantity, String coinOrderValue, String transactionType) throws FileReadException {
-		Transaction createdTransaction = transactionFactory.createTransaction(transactionId, pair, coinQuantity, coinOrderValue, transactionType);
-		 
+	private Transaction createTransaction(String transactionId, String pair, String coinQuantity, String coinOrderValue,
+			String transactionType) throws FileReadException {
+
+		// Create transaction with given params and return created object
+		Transaction createdTransaction = transactionFactory.createTransaction(transactionId, pair, coinQuantity,
+				coinOrderValue, transactionType);
+
 		if (createdTransaction != null) {
 			return createdTransaction;
 		} else {

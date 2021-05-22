@@ -8,14 +8,14 @@ import storage.IContainer;
 import model.CryptoWallet;
 import model.Wallet;
 
-public class CryptoWalletRepository implements IRepository<CryptoWallet>,IRestrictedRepository<CryptoWallet> {
+public class CryptoWalletRepository implements IRepository<CryptoWallet>, IRestrictedRepository<CryptoWallet> {
 
 	public CryptoWalletRepository() {
 
 	}
 
 	/**
-	 * The function tries to write the wallets to the necessary file.
+	 * The function tries to write the repositories contents to the files
 	 * 
 	 * @return DatabaseResult(null, message);
 	 */
@@ -30,45 +30,46 @@ public class CryptoWalletRepository implements IRepository<CryptoWallet>,IRestri
 	}
 
 	/**
-	 * The function tries to find the crypto wallet of given id and returns the database
-	 * result. If user is found > database.result object = wallet, else
-	 * database.result object = null
+	 * The function tries to find the crypto wallet of given id and returns the
+	 * database result. If crypto wallet is found > database.result object = crypto
+	 * wallet, else database.result object = null
 	 * 
-	 * @param id = gotten wallet id
+	 * @param id = gotten crypto wallet id
 	 * @return database result
 	 */
 	public DatabaseResult getById(String id) {
-		// get user container of system which holds all users
+		// tries to find crypto wallet with given id in the crypto wallet repository of
+		// system.
 		final IContainer<Wallet> cryptoWallets = BaseRepository.crypto_wallets();
 		String message = "";
 		Object result = null;
 		try {
-			// try to find the user
+			// try to find the wallet
 			result = cryptoWallets.getById(id);
-			
+
 		} catch (ItemNotFoundException | NotSupportedException e) {
 			message += e.getMessage();
 		}
 		return new DatabaseResult(result, message);
 	}
-	
 
 	/**
 	 * The function returns the Crypto Wallets' container of system
 	 * 
-	 * @return Crypto Wallet Container which holds all bank wallets
+	 * @return Crypto Wallet Container which holds all crypto wallets
 	 */
 	public final IContainer<Wallet> getCryptoWallets() {
 		return BaseRepository.crypto_wallets();
 	}
-	
 
+	// Add wallet to the crypto wallet repository
 	@Override
 	public boolean addEntity(CryptoWallet entity) {
 		boolean result = BaseRepository.crypto_wallets().add(entity);
 		return result;
 	}
 
+	// Remove wallet from the crypto wallet repository
 	@Override
 	public CryptoWallet removeEntity(CryptoWallet entity) {
 		try {
@@ -92,6 +93,5 @@ public class CryptoWalletRepository implements IRepository<CryptoWallet>,IRestri
 	public boolean isEmpty() {
 		return BaseRepository.crypto_wallets().isEmpty();
 	}
-	
 
 }

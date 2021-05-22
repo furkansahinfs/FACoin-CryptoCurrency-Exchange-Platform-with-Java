@@ -25,11 +25,12 @@ public class BanknoteParser {
 	}
 
 	/**
-	 * The function parses gotten file content creates banknote objects.
+	 * The function parses gotten file content creates banknote objects. Add the
+	 * created objects to the banknote repository of system
 	 * 
-	 * @param fileAll    = banknotes.json file content	
+	 * @param fileAll = banknotes.json file content
 	 * @throws FileReadException
-	 * @throws JSONException 
+	 * @throws JSONException
 	 */
 	protected void parseCurrencies(String fileAll) throws FileReadException, JSONException {
 		IRepository<Currency> banknoteRepository = new BanknoteRepository();
@@ -39,7 +40,8 @@ public class BanknoteParser {
 
 	}
 
-	private void parse(JSONObject jsonObject, IRepository<Currency> banknoteRepository) throws JSONException, FileReadException {
+	private void parse(JSONObject jsonObject, IRepository<Currency> banknoteRepository)
+			throws JSONException, FileReadException {
 		// iterate json object
 		Iterator<?> keys = jsonObject.keys();
 		Object val = null;
@@ -49,25 +51,24 @@ public class BanknoteParser {
 				throw new JSONException("BanknoteParser.parse::Key is not a string");
 			// get the banknote values and invoke createCurrency()
 			// to get created banknotes
-			String key = (String) keyTemp;
-			val = jsonObject.get(key);
-			Banknote banknote = createCurrency(key, (String) val);
-			banknoteRepository.addEntity(banknote);
+			String key = (String) keyTemp;  // banknote id
+			val = jsonObject.get(key); // banknote name
+			Banknote banknote = createCurrency(key, (String) val); // created banknote
+			banknoteRepository.addEntity(banknote); // add banknote to the banknote repository
 		}
 	}
 
-	private Banknote createCurrency(String currencyId, String currencyName) throws FileReadException
-	{
+	private Banknote createCurrency(String currencyId, String currencyName) throws FileReadException {
+		//Create CurrencyFactoryParams with banknote id and banknote name
 		CurrencyFactoryParams params = new CurrencyFactoryParams(currencyName, currencyId);
-		Banknote createdCurrency = 	(Banknote) abstractFactory.createEntity(params);
-		if(createdCurrency != null)
-		{
+		
+		//Create banknote object and return it
+		Banknote createdCurrency = (Banknote) abstractFactory.createEntity(params);
+		if (createdCurrency != null) {
 			return createdCurrency;
-		}
-		else
-		{
+		} else {
 			throw new FileReadException("Wrong Format for banknotes.json");
-		}		
+		}
 	}
 
 }

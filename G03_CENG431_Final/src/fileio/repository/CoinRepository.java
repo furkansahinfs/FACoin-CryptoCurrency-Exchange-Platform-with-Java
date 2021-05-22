@@ -7,14 +7,14 @@ import exception.NotSupportedException;
 import storage.IContainer;
 import model.Currency;
 
-public class CoinRepository implements IRepository<Currency>,IRestrictedRepository<Currency> {
+public class CoinRepository implements IRepository<Currency>, IRestrictedRepository<Currency> {
 
 	public CoinRepository() {
 
 	}
 
 	/**
-	 * The function tries to write the outfits to the necessary file.
+	 * The function tries to write the repositories contents to the necessary file.
 	 * 
 	 * @return DatabaseResult(null, message);
 	 */
@@ -29,20 +29,20 @@ public class CoinRepository implements IRepository<Currency>,IRestrictedReposito
 	}
 
 	/**
-	 * The function tries to find the user of given name and returns the database
-	 * result. If user is found > database.result object = user, else
+	 * The function tries to find the coin of given id and returns the database
+	 * result. If coin is found > database.result object = coin, else
 	 * database.result object = null
 	 * 
-	 * @param name = gotten user name
+	 * @param id = gotten coin id
 	 * @return database result
 	 */
 	public DatabaseResult getById(String id) {
-		// get user container of system which holds all users
+		// tries to find coin with given id in the coin repository of system.
 		final IContainer<Currency> currencies = BaseRepository.coins();
 		String message = "";
 		Object result = null;
 		try {
-			// try to find the user
+			// try to find the coin
 			result = currencies.getById(id);
 		} catch (ItemNotFoundException | NotSupportedException e) {
 			message += e.getMessage();
@@ -50,18 +50,22 @@ public class CoinRepository implements IRepository<Currency>,IRestrictedReposito
 		return new DatabaseResult(result, message);
 	}
 	
-	public IContainer<Currency> coins()
-	{
+	/**
+	 * The function returns the Coin container of system
+	 * 
+	 * @return Coin Container which holds all coins
+	 */
+	public IContainer<Currency> coins() {
 		return BaseRepository.coins();
 	}
-	
-	public boolean addEntity(Currency currency)
-	{
+
+	// Add currency to the coin repository
+	public boolean addEntity(Currency currency) {
 		return BaseRepository.coins().add(currency);
 	}
-	
-	public Currency removeEntity(Currency currency)
-	{
+
+	// Remove currency from the coin repository
+	public Currency removeEntity(Currency currency) {
 		try {
 			return BaseRepository.coins().remove(currency);
 		} catch (ItemNotFoundException e) {
@@ -69,21 +73,29 @@ public class CoinRepository implements IRepository<Currency>,IRestrictedReposito
 		}
 	}
 
+	/**
+	 * The function tries to find the coin of given name and returns the database
+	 * result. If coin is found > database.result object = coin, else
+	 * database.result object = null
+	 * 
+	 * @param name = gotten coin name
+	 * @return database result
+	 */
 	@Override
-	public DatabaseResult getByName(String name)  {
-		
+	public DatabaseResult getByName(String name) {
+		// tries to find coin with given name in the coin repository of system.
 		final IContainer<Currency> currencies = BaseRepository.coins();
 		String message = "";
 		Object result = null;
 		try {
-			// try to find the user
+			// try to find the coin
 			result = currencies.getByName(name);
 		} catch (ItemNotFoundException | NotSupportedException e) {
 			message += e.getMessage();
 		}
-		return new DatabaseResult(result, message); 
+		return new DatabaseResult(result, message);
 	}
-	
+
 	@Override
 	public final Iterator<Currency> getAll() {
 		return BaseRepository.coins().iterator();

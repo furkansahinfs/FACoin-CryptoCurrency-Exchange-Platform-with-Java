@@ -17,8 +17,8 @@ public class CoinParser {
 	private AbstractFactory abstractFactory;
 
 	/**
-	 * The CoinParser parses the gotten coins.json file content and creates
-	 * coin objects
+	 * The CoinParser parses the gotten coins.json file content and creates coin
+	 * objects. After each creation adds them to the CoinRepository of system
 	 */
 	protected CoinParser() {
 		abstractFactory = new AbstractFactory(new CoinFactory());
@@ -27,9 +27,9 @@ public class CoinParser {
 	/**
 	 * The function parses gotten file content and creates coin objects
 	 * 
-	 * @param fileAll    = banknotes.json file content	
+	 * @param fileAll = coins.json file content
 	 * @throws FileReadException
-	 * @throws JSONException 
+	 * @throws JSONException
 	 */
 	protected void parseCurrencies(String fileAll) throws FileReadException, JSONException {
 		IRepository<Currency> currencyRepository = new CoinRepository();
@@ -39,7 +39,8 @@ public class CoinParser {
 
 	}
 
-	private void parse(JSONObject jsonObject, IRepository<Currency> currencyRepository) throws JSONException, FileReadException {
+	private void parse(JSONObject jsonObject, IRepository<Currency> currencyRepository)
+			throws JSONException, FileReadException {
 		// iterate json object
 		Iterator<?> keys = jsonObject.keys();
 		Object val = null;
@@ -48,27 +49,25 @@ public class CoinParser {
 			if (!(keyTemp instanceof String))
 				throw new JSONException("CoinParser.parse::Key is not a string");
 			// get the coin values and invoke createCurrency()
-			// to get created currency
-			String key = (String) keyTemp;
-			val = jsonObject.get(key);
-			Coin coin = createCurrency(key, (String) val);
-			currencyRepository.addEntity(coin);
+			// to get created coin
+			String key = (String) keyTemp; // coin id
+			val = jsonObject.get(key); // coin name
+			Coin coin = createCurrency(key, (String) val); // created coin
+			currencyRepository.addEntity(coin); // add coin to the coin repository
 		}
 	}
 
-	private Coin createCurrency(String currencyId, String currencyName) throws FileReadException
-	{
-	
+	private Coin createCurrency(String currencyId, String currencyName) throws FileReadException {
+		// Create CurrencyFactoryParams with coin id and coin name
 		CurrencyFactoryParams params = new CurrencyFactoryParams(currencyName, currencyId);
-		Coin createdCurrency = 	(Coin) abstractFactory.createEntity(params);
-		if(createdCurrency != null)
-		{
+
+		// Create coin object and return it
+		Coin createdCurrency = (Coin) abstractFactory.createEntity(params);
+		if (createdCurrency != null) {
 			return createdCurrency;
-		}
-		else
-		{
+		} else {
 			throw new FileReadException("Wrong Format for coins.json");
-		}		
+		}
 	}
 
 }

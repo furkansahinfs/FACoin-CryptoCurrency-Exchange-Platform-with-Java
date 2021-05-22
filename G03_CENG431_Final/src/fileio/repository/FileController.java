@@ -47,7 +47,7 @@ public class FileController {
 		fileIO.readCryptoWallets("data\\crypto_wallets.json");
 		fileIO.readBankWallets("data\\bank_wallets.json");
 		fileIO.readTransactions("data\\transactions.json");
-		fileIO.readUsers("data\\users.xml");		
+		fileIO.readUsers("data\\users.xml");
 	}
 
 	/**
@@ -59,11 +59,10 @@ public class FileController {
 		fileIO.writeUsers(users, "data\\users.xml");
 		fileIO.writeCryptoWallets(cryptoWallets, "data\\crypto_wallets.json");
 		fileIO.writeBankWallets(bankWallets, "data\\bank_wallets.json");
-		fileIO.writeCoins(coins,"data\\coins.json");
-		fileIO.writeBanknotes(banknotes,"data\\banknotes.json");
+		fileIO.writeCoins(coins, "data\\coins.json");
+		fileIO.writeBanknotes(banknotes, "data\\banknotes.json");
 		fileIO.writeTransactions(transactions, "data\\transactions.json");
 	}
-
 
 	protected IContainer<User> users() {
 		return users;
@@ -77,15 +76,15 @@ public class FileController {
 		return bankWallets;
 	}
 
-	protected IContainer<Currency> coins(){
+	protected IContainer<Currency> coins() {
 		return coins;
 	}
-	
-	protected IContainer<Currency> banknotes(){
+
+	protected IContainer<Currency> banknotes() {
 		return banknotes;
 	}
-	
-	protected IContainer<Transaction> transactions(){
+
+	protected IContainer<Transaction> transactions() {
 		return transactions;
 	}
 

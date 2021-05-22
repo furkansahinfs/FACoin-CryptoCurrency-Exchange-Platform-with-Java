@@ -19,8 +19,9 @@ import fileio.repository.UserRepository;
 import model.User;
 
 public class UserParser {
-	
+
 	private UserFactory userFactory;
+
 	/**
 	 * The UserParser parses the gotten contract file content and creates user
 	 * objects
@@ -30,40 +31,35 @@ public class UserParser {
 	}
 
 	/**
-	 * The function parses gotten file content and returns the user container which
-	 * holds created users
+	 * The function parses gotten file content and add created users to the user
+	 * repository of the system
 	 * 
-	 * @param fileAll = user file content
-	 * @param creator = creator object
-	 * @param outfits = outfit container which holds all outfits
-	 * @return User Container
-	 * @throws ParserConfigurationException 
-	 * @throws IOException 
-	 * @throws SAXException 
-	 * @throws FileReadException 
-	 * @throws Exception 
-	 * @throws XMLException
+	 * @param fileAll = users.xml file content
+	 * @throws FileReadException
+	 * @throws ParserConfigurationException
+	 * @throws IOException
+	 * @throws SAXException
+	 * @throws FileReadException
 	 */
-	protected void parseUsers(String fileAll) throws SAXException, IOException, ParserConfigurationException, FileReadException 
-			 {
-		
+	protected void parseUsers(String fileAll)
+			throws SAXException, IOException, ParserConfigurationException, FileReadException {
+
 		Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
 				.parse(new InputSource(new StringReader(fileAll)));
-		IRepository<User> userRepository = new UserRepository();// initialise user container
+		IRepository<User> userRepository = new UserRepository();
 		parse(doc, userRepository);// parse all to users
 	}
 
 	/**
 	 * The function parses gotten Document object and creates users. After creating
-	 * each user, add the user to the users
+	 * each user, add the user to the user repository of system
 	 * 
-	 * @param doc   = Document object of file content
-	 * @param users = contract container
-	 * @throws FileReadException 
-	 * @throws SAXException 
-	 * @throws JSONException
+	 * @param doc            = Document object of file content
+	 * @param userRepository = user repository of system
+	 * @throws FileReadException
+	 * @throws SAXException
 	 */
-	private void parse(Document doc, IRepository<User> userRepository) throws FileReadException, SAXException  {
+	private void parse(Document doc, IRepository<User> userRepository) throws FileReadException, SAXException {
 
 		doc.getDocumentElement().normalize();
 		if (!doc.getDocumentElement().getNodeName().equals("users"))
@@ -79,15 +75,12 @@ public class UserParser {
 				Element userNodeElement = (Element) userNode;
 				// create user invoking createUser()
 				User user = createUser(userNodeElement);
-				if(user != null)
-				{
-					userRepository.addEntity(user); // add created user to the users
-				}
-				else
-				{
+				if (user != null) {
+					userRepository.addEntity(user); // add created user to the repository
+				} else {
 					throw new SAXException("FileFormatError for users.xml");
 				}
-				
+
 			}
 		}
 	}
@@ -101,21 +94,21 @@ public class UserParser {
 	 */
 	private User createUser(Element userNodeElement) throws SAXException {
 		String userId, userName, cryptoWalletId, bankWalletId, password, favorites, transactionIds = "";
-		
+
 		// get values
 		userId = userNodeElement.getAttribute("id");
 		userName = getTagValue("username", userNodeElement);
 		password = getTagValue("password", userNodeElement);
 		cryptoWalletId = getTagValue("crypto_wallet", userNodeElement);
-		bankWalletId = getTagValue("bank_wallet", userNodeElement);	
+		bankWalletId = getTagValue("bank_wallet", userNodeElement);
 		favorites = getTagValue("favorites", userNodeElement);
 		transactionIds = getTagValue("transactions", userNodeElement);
 
 		User user = null;
-		user = userFactory.createUser(userId, userName, password, cryptoWalletId, bankWalletId, favorites, transactionIds);
+		user = userFactory.createUser(userId, userName, password, cryptoWalletId, bankWalletId, favorites,
+				transactionIds);
 		return user;
 	}
-	
 
 	// gets value by tag name
 	private static String getTagValue(String tag, Element element) {

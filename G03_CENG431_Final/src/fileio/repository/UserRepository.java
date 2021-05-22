@@ -7,14 +7,14 @@ import exception.NotSupportedException;
 import storage.IContainer;
 import model.User;
 
-public class UserRepository implements IRepository<User>,IRestrictedRepository<User> {
+public class UserRepository implements IRepository<User>, IRestrictedRepository<User> {
 
 	public UserRepository() {
 
 	}
 
 	/**
-	 * The function tries to write the users to the necessary file.
+	 * The function tries to write the repositories contents to the files
 	 * 
 	 * @return DatabaseResult(null, message);
 	 */
@@ -37,7 +37,8 @@ public class UserRepository implements IRepository<User>,IRestrictedRepository<U
 	 * @return database result
 	 */
 	public DatabaseResult getUserByName(String name) {
-		// get user container of system which holds all users
+		// tries to find user with given name in the user repository of
+		// system.
 		final IContainer<User> users = BaseRepository.users();
 		String message = "";
 		Object result = null;
@@ -49,17 +50,18 @@ public class UserRepository implements IRepository<User>,IRestrictedRepository<U
 		}
 		return new DatabaseResult(result, message);
 	}
-	
+
 	/**
-	 * The function tries to find the user of given name and returns the database
+	 * The function tries to find the user of given id and returns the database
 	 * result. If user is found > database.result object = user, else
 	 * database.result object = null
 	 * 
-	 * @param name = gotten user name
+	 * @param id = gotten user id
 	 * @return database result
 	 */
 	public DatabaseResult getById(String id) {
-		// get user container of system which holds all users
+		// tries to find user with given id in the user repository of
+		// system.
 		final IContainer<User> users = BaseRepository.users();
 		String message = "";
 		Object result = null;
@@ -81,11 +83,13 @@ public class UserRepository implements IRepository<User>,IRestrictedRepository<U
 		return BaseRepository.users();
 	}
 
+	// Add user to the user repository
 	@Override
 	public boolean addEntity(User entity) {
 		return BaseRepository.users().add(entity);
 	}
 
+	// Remove user from the user repository
 	@Override
 	public User removeEntity(User entity) {
 		try {
@@ -100,14 +104,14 @@ public class UserRepository implements IRepository<User>,IRestrictedRepository<U
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-		@Override
+
+	@Override
 	public Iterator<User> getAll() {
 		return BaseRepository.users().iterator();
 	}
 
-		@Override
-		public boolean isEmpty() {
-			return BaseRepository.users().isEmpty();
-		}
+	@Override
+	public boolean isEmpty() {
+		return BaseRepository.users().isEmpty();
+	}
 }

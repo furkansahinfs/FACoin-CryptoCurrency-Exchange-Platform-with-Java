@@ -11,14 +11,20 @@ public class FileWrite {
 	protected FileWrite() {
 
 	}
-
+	
+	/**
+	 * The function writes content to the file of given path
+	 * @param fileContent
+	 * @param filePath
+	 * @throws FileWriteException
+	 */
 	protected void writeFileContent(String fileContent, String filePath) throws FileWriteException {
 		FileWriter fw = openFile(filePath);
 		Writer writer = new BufferedWriter(fw);
 		writeContentToFile(writer,fileContent);
 		
 	}
-
+	
 	private void writeContentToFile(Writer writer, String fileContent) throws FileWriteException {
 		try {
 			writer.write(fileContent);

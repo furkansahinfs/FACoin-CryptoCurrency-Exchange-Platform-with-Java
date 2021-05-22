@@ -7,14 +7,14 @@ import exception.NotSupportedException;
 import storage.IContainer;
 import model.Transaction;
 
-public class TransactionRepository implements IRepository<Transaction>,IRestrictedRepository<Transaction> {
+public class TransactionRepository implements IRepository<Transaction>, IRestrictedRepository<Transaction> {
 
 	public TransactionRepository() {
 
 	}
 
 	/**
-	 * The function tries to write the wallets to the necessary file.
+	 * The function tries to write the repositories contents to the necessary file.
 	 * 
 	 * @return DatabaseResult(null, message);
 	 */
@@ -29,45 +29,46 @@ public class TransactionRepository implements IRepository<Transaction>,IRestrict
 	}
 
 	/**
-	 * The function tries to find the crypto wallet of given id and returns the database
-	 * result. If user is found > database.result object = wallet, else
-	 * database.result object = null
+	 * The function tries to find the transaction of given id and returns the
+	 * database result. If transaction is found > database.result object =
+	 * transaction, else database.result object = null
 	 * 
-	 * @param id = gotten wallet id
+	 * @param id = gotten transaction id
 	 * @return database result
 	 */
 	public DatabaseResult getById(String id) {
-		// get user container of system which holds all users
+		// tries to find transaction with given id in the transaction repository of
+		// system.
 		final IContainer<Transaction> transactions = BaseRepository.transactions();
 		String message = "";
 		Object result = null;
 		try {
-			// try to find the user
+			// try to find the transaction
 			result = transactions.getById(id);
-			
+
 		} catch (ItemNotFoundException | NotSupportedException e) {
 			message += e.getMessage();
 		}
 		return new DatabaseResult(result, message);
 	}
-	
 
 	/**
-	 * The function returns the Crypto Wallets' container of system
+	 * The function returns the Transactions' container of system
 	 * 
-	 * @return Crypto Wallet Container which holds all bank wallets
+	 * @return Transaction Container which holds all transactions
 	 */
 	public final IContainer<Transaction> getTransactions() {
 		return BaseRepository.transactions();
 	}
-	
 
+	// Add transaction to the transaction repository
 	@Override
 	public boolean addEntity(Transaction entity) {
 		boolean result = BaseRepository.transactions().add(entity);
 		return result;
 	}
 
+	// Remove transaction from the transaction repository
 	@Override
 	public Transaction removeEntity(Transaction entity) {
 		try {
@@ -91,8 +92,5 @@ public class TransactionRepository implements IRepository<Transaction>,IRestrict
 	public boolean isEmpty() {
 		return BaseRepository.transactions().isEmpty();
 	}
-
-	
-	
 
 }

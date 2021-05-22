@@ -26,13 +26,10 @@ public class CryptoWalletParser {
 	}
 
 	/**
-	 * The function parses gotten file content and returns the wallet container
-	 * which holds created wallets
+	 * The function parses gotten file content and creates crypto wallet objects And
+	 * add them to the crypto wallet repository of system
 	 * 
-	 * @param fileAll = contract file content
-	 * @param users   = user container which holds all users
-	 * @param wallets = wallet container which holds all wallets of users
-	 * @return Wallet Container
+	 * @param fileAll = crypto_wallets.json file content
 	 * @throws FileReadException
 	 * @throws JSONException
 	 */
@@ -56,26 +53,28 @@ public class CryptoWalletParser {
 				throw new JSONException("CryptoWalletParser.parse::Key is not a string");
 			// get the coin values and invoke createWallet()
 			// to get created wallet
-			String key = (String) keyTemp;
-			val = jsonObject.get(key);
+			String key = (String) keyTemp; // wallet id
+			val = jsonObject.get(key); // array of wallet entities
 			if (val instanceof JSONObject) {
 				JSONArray coins = (JSONArray) ((JSONObject) val).get("coins");
 
 				Dictionary<String, String> coinDictionary = new Hashtable<String, String>();
+
+				// Get each coin entity and add to the coin dictionary of wallet
 				for (int i = 0; i < coins.length(); i++) {
-					JSONObject coinJson = (JSONObject) coins.get(i);
-					String coinId = coinJson.getString("id");
-					String quantity = coinJson.getString("quantity");
-					coinDictionary.put(coinId, quantity);
+					JSONObject coinJson = (JSONObject) coins.get(i); // get entity
+					String coinId = coinJson.getString("id"); // get coin id
+					String quantity = coinJson.getString("quantity"); // get coin quantity
+					coinDictionary.put(coinId, quantity); // put them to the coin dictionary
 				}
-				CryptoWallet wallet = createWallet(key, coinDictionary);
-				cryptoWalletRepository.addEntity(wallet);
+				CryptoWallet wallet = createWallet(key, coinDictionary); // create a new wallet
+				cryptoWalletRepository.addEntity(wallet); // add wallet to the cryptoWalletRepository
 			}
 		}
 	}
 
 	private CryptoWallet createWallet(String walletId, Dictionary<String, String> coins) throws FileReadException {
-
+		// Create a new wallet with given id and coin entities
 		CryptoWallet createdWallet = (CryptoWallet) cryptoWalletFactory.createWallet(walletId, coins);
 		if (createdWallet != null) {
 			return createdWallet;

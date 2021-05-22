@@ -36,18 +36,18 @@ public class BaseRepository {
 	}
 
 	/**
-	 * The function returns the read currencies' container
+	 * The function returns the read coins' container
 	 * 
-	 * @return Currency Container
+	 * @return Coin Container
 	 */
 	protected static final IContainer<Currency> coins() {
 		return fileController.coins();
 	}
-	
+
 	/**
-	 * The function returns the read currencies' container
+	 * The function returns the read banknotes' container
 	 * 
-	 * @return Currency Container
+	 * @return Banknote Container
 	 */
 	protected static final IContainer<Currency> banknotes() {
 		return fileController.banknotes();
@@ -70,9 +70,9 @@ public class BaseRepository {
 	protected static final IContainer<Wallet> bank_wallets() {
 		return fileController.bank_wallets();
 	}
-	
+
 	/**
-	 * The function returns the read Bank Wallets' container
+	 * The function returns the read Transactions' container
 	 * 
 	 * @return Wallet Container
 	 */

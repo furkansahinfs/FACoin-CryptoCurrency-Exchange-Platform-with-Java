@@ -7,14 +7,14 @@ import exception.NotSupportedException;
 import storage.IContainer;
 import model.Currency;
 
-public class BanknoteRepository implements IRepository<Currency>,IRestrictedRepository<Currency> {
+public class BanknoteRepository implements IRepository<Currency>, IRestrictedRepository<Currency> {
 
 	public BanknoteRepository() {
 
 	}
 
 	/**
-	 * The function tries to write the outfits to the necessary file.
+	 * The function tries to write the repositories contents to the necessary file.
 	 * 
 	 * @return DatabaseResult(null, message);
 	 */
@@ -29,20 +29,21 @@ public class BanknoteRepository implements IRepository<Currency>,IRestrictedRepo
 	}
 
 	/**
-	 * The function tries to find the user of given name and returns the database
-	 * result. If user is found > database.result object = user, else
+	 * The function tries to find the banknote of given id and returns the database
+	 * result. If banknote is found > database.result object = banknote, else
 	 * database.result object = null
 	 * 
-	 * @param name = gotten user name
+	 * @param id = gotten banknote id
 	 * @return database result
 	 */
 	public DatabaseResult getById(String id) {
-		// get user container of system which holds all users
+
+		// tries to find banknote with given id in the banknote repository of system.
 		final IContainer<Currency> currencies = BaseRepository.banknotes();
 		String message = "";
 		Object result = null;
 		try {
-			// try to find the user
+			// try to find the banknote
 			result = currencies.getById(id);
 		} catch (ItemNotFoundException | NotSupportedException e) {
 			message += e.getMessage();
@@ -50,18 +51,22 @@ public class BanknoteRepository implements IRepository<Currency>,IRestrictedRepo
 		return new DatabaseResult(result, message);
 	}
 	
-	public IContainer<Currency> getBanknotes()
-	{
+	/**
+	 * The function returns the BankNotes container of system
+	 * 
+	 * @return Bank Note Container which holds all bank notes
+	 */
+	public IContainer<Currency> getBanknotes() {
 		return BaseRepository.banknotes();
 	}
 	
-	public boolean addEntity(Currency currency)
-	{
+	// Add currency to the banknote repository
+	public boolean addEntity(Currency currency) {
 		return BaseRepository.banknotes().add(currency);
 	}
-	
-	public Currency removeEntity(Currency currency)
-	{
+
+	// Remove currency from the banknote repository
+	public Currency removeEntity(Currency currency) {
 		try {
 			return BaseRepository.banknotes().remove(currency);
 		} catch (ItemNotFoundException e) {
@@ -69,18 +74,27 @@ public class BanknoteRepository implements IRepository<Currency>,IRestrictedRepo
 		}
 	}
 
+	/**
+	 * The function tries to find the banknote of given name and returns the
+	 * database result. If banknote is found > database.result object = bankote,
+	 * else database.result object = null
+	 * 
+	 * @param name = gotten banknote name
+	 * @return database result
+	 */
 	@Override
 	public DatabaseResult getByName(String name) {
+		// tries to find banknote with given name in the banknote repository of system.
 		final IContainer<Currency> currencies = BaseRepository.banknotes();
 		String message = "";
 		Object result = null;
 		try {
-			// try to find the user
+			// try to find the banknote
 			result = currencies.getByName(name);
 		} catch (ItemNotFoundException | NotSupportedException e) {
 			message += e.getMessage();
 		}
-		return new DatabaseResult(result, message); 
+		return new DatabaseResult(result, message);
 	}
 
 	@Override
@@ -92,5 +106,5 @@ public class BanknoteRepository implements IRepository<Currency>,IRestrictedRepo
 	public boolean isEmpty() {
 		return BaseRepository.banknotes().isEmpty();
 	}
-	
+
 }

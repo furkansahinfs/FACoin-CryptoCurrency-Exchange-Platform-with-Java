@@ -26,13 +26,10 @@ public class BankWalletParser {
 	}
 
 	/**
-	 * The function parses gotten file content and returns the wallet container
-	 * which holds created contracts
+	 * The function parses gotten file content and creates bank wallet objects And
+	 * add them to the bank wallet repository of system
 	 * 
-	 * @param fileAll = contract file content
-	 * @param users   = user container which holds all users
-	 * @param wallets = wallet container which holds all wallets of users
-	 * @return Wallet Container
+	 * @param fileAll = bank_wallets.json file content
 	 * @throws FileReadException
 	 * @throws JSONException
 	 */
@@ -41,7 +38,6 @@ public class BankWalletParser {
 		JSONObject jsonContracts;
 		jsonContracts = (new JSONParser()).parse(fileAll); // get json object of file content
 		parse(jsonContracts, bankWalletRepository); // parse wallets
-
 
 	}
 
@@ -55,27 +51,32 @@ public class BankWalletParser {
 			Object keyTemp = keys.next();
 			if (!(keyTemp instanceof String))
 				throw new JSONException("BankWalletParser.parse::Key is not a string");
-			// get the coin values and invoke createWallet()
+			// get the bank wallet values and invoke createWallet()
 			// to get created wallet
-			String key = (String) keyTemp;
-			val = jsonObject.get(key);
-			if (val instanceof JSONObject) {
-				JSONArray banknotes = (JSONArray) ((JSONObject) val).get("banknotes");
+			String key = (String) keyTemp; // wallet id
+			val = jsonObject.get(key); // array of wallet entities
 
-				Dictionary<String, String> banknote = new Hashtable<String, String>();
+			if (val instanceof JSONObject) {
+
+				JSONArray banknotes = (JSONArray) ((JSONObject) val).get("banknotes");
+				Dictionary<String, String> banknoteDictionary = new Hashtable<String, String>();
+
+				// Get each banknote entity and add to the banknote dictionary of wallet
 				for (int i = 0; i < banknotes.length(); i++) {
-					JSONObject banknoteJson = (JSONObject) banknotes.get(i);
-					String banknoteId = banknoteJson.getString("id");
-					String quantity = banknoteJson.getString("quantity");
-					banknote.put(banknoteId, quantity);
+					JSONObject banknoteJson = (JSONObject) banknotes.get(i); // get entity
+					String banknoteId = banknoteJson.getString("id"); // get banknote id
+					String quantity = banknoteJson.getString("quantity"); // get banknote quantity
+					banknoteDictionary.put(banknoteId, quantity); // put them to the banknote dictionary
 				}
-				BankWallet wallet = createWallet(key, banknote);
-				bankWalletRepository.addEntity(wallet);
+				BankWallet wallet = createWallet(key, banknoteDictionary); // create a new wallet
+				bankWalletRepository.addEntity(wallet); // add wallet to the bankWalletRepository
 			}
 		}
 	}
 
 	private BankWallet createWallet(String walletId, Dictionary<String, String> banknotes) throws FileReadException {
+
+		// Create a new wallet with given id and banknote entities
 		BankWallet createdWallet = (BankWallet) bankWalletFactory.createWallet(walletId, banknotes);
 		if (createdWallet != null) {
 			return createdWallet;

@@ -2,12 +2,15 @@ package view.decorator;
 
 import view.IColorable;
 
-public abstract class ThemeDecorator extends Decorator{
+/**
+ * This decorator updates color of an IColorable object
+ */
+public abstract class ThemeDecorator extends Decorator {
 
 	protected IColorable view;
-	
-	public ThemeDecorator(IColorable view){
+
+	public ThemeDecorator(IColorable view) {
 		this.view = view;
-		set();
+		set(); // update
 	}
 }

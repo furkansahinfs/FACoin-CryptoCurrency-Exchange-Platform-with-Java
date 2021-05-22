@@ -13,13 +13,11 @@ import settings.AppSettings;
 import view.color.ColorPalette;
 import view.list.List;
 
-
 /**
  * The login view is a view which user can log in the system.
  *
  */
-public class LoginView extends AppView  {
-
+public class LoginView extends AppView {
 
 	private static final long serialVersionUID = 7766903621224003360L;
 	private JButton loginButton; // login button
@@ -28,46 +26,42 @@ public class LoginView extends AppView  {
 	private JLabel message; // warning message according to the situation
 	private ColorPalette palette;
 	private JLabel logo;
-	
+
 	public LoginView() {
-		// set the observable and view elements in the view.
+
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 		setLayout(null);
-		
+
 		loginButton = new JButton("Sign in");
 		loginButton.setBounds(300, 320, 200, 40);
 		loginButton.setFont(new Font("Arial", Font.BOLD, 20));
 		add(loginButton);
-		
+
 		password = new JPasswordField("123456");
 		password.setBounds(300, 260, 200, 40);
 		password.setFont(new Font("Arial", Font.PLAIN, 20));
 		add(password);
-		
+
 		userName = new JTextField("furkan");
 		userName.setBounds(300, 200, 200, 40);
 		userName.setFont(new Font("Arial", Font.PLAIN, 20));
 		add(userName);
-		
+
 		logo = new JLabel(AppSettings.LOGO);
-		logo.setBounds(AppSettings.WIDTH-AppSettings.SCREEN_X, 0, 200, 200);
+		logo.setBounds(AppSettings.WIDTH - AppSettings.SCREEN_X, 0, 200, 200);
 		add(logo);
-		
+
 		message = new JLabel("Incorrect login, please try again");
 		message.setBounds(265, 400, 300, 30);
 		message.setFont(new Font("Arial", Font.PLAIN, 20));
 		add(message);
 		message.setVisible(false);
-		AppWindow.FRAME.getContentPane().removeAll();
-		AppWindow.FRAME.getContentPane().add(this);
-		AppWindow.FRAME.setVisible(true);
-		
+		AppWindow.FRAME.getContentPane().removeAll(); // remove content of the system frame
+		AppWindow.FRAME.getContentPane().add(this); // add this to frame pane
+		AppWindow.FRAME.setVisible(true); // and set this ones visibility
 
 	}
-	
-	
-	
-	
+
 	/**
 	 * The function helps for detecting of clicking login button using listener
 	 * 
@@ -76,17 +70,17 @@ public class LoginView extends AppView  {
 	public void addLoginListener(ActionListener loginListener) {
 		loginButton.addActionListener(loginListener);
 	}
-	
+
 	/**
-	 * The function helps for detecting of change in the
-	 * user name field using listener
+	 * The function helps for detecting of change in the user name field using
+	 * listener
 	 * 
 	 * @param listener
 	 */
 	public void addTextListener(MouseListener textListener) {
 		userName.addMouseListener(textListener);
 	}
-	
+
 	/**
 	 * The function returns the filled password
 	 * 
@@ -107,6 +101,7 @@ public class LoginView extends AppView  {
 
 	/**
 	 * If user is not authenticated, show the warning message
+	 * 
 	 * @param isAuthenticated
 	 */
 	public void printMessage(boolean isAuthenticated) {
@@ -116,24 +111,15 @@ public class LoginView extends AppView  {
 			message.setVisible(true);
 	}
 
-
-	public void update(Object args) {
-		if (args == null){
-			password.setText("");
-			userName.setText("");
-			message.setVisible(false);
-			this.setVisible(true);}
-	}
-
-
-
-
 	@Override
 	public void setPalette(ColorPalette palette) {
 		this.palette = palette;
 		updateColors();
 	}
-	
+
+	/**
+	 * This functiýn updates color of entities by given palette
+	 */
 	private void updateColors() {
 		setBackground(palette.BACKGROUND);
 		loginButton.setBackground(palette.FIRST_COLOR);
@@ -145,18 +131,14 @@ public class LoginView extends AppView  {
 		password.setForeground(palette.FIRST_COLOR);
 	}
 
-
-
-
 	@Override
 	public void setList(List list) {
-		// TODO Auto-generated method stub
-		
+		// This view not supports set list function
 	}
 
 	@Override
 	public List getList() {
-		// TODO Auto-generated method stub
+		// This view not supports get list function
 		return null;
 	}
 

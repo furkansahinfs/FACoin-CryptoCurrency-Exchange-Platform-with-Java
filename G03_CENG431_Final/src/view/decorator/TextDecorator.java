@@ -4,11 +4,15 @@ import javax.swing.JLabel;
 import service.JLabelService;
 import view.AppView;
 
-public class TextDecorator extends Decorator{
+/**
+ * This class updates label for CoinInfoView
+ */
+public class TextDecorator extends Decorator {
 
-	private AppView view ;
+	private AppView view;
 	private String coinName;
 	private String banknoteName;
+
 	public TextDecorator(AppView view, String coinName, String banknoteName) {
 		this.view = view;
 		this.coinName = coinName;
@@ -18,15 +22,13 @@ public class TextDecorator extends Decorator{
 
 	@Override
 	public void set() {
-		update();		
+		update();
 	}
 
-	
-	public void update()
-	{
-		JLabelService service = new JLabelService();
-		JLabel label = service.getCoinLabel(coinName, banknoteName);
-		this.view.setLabel(label);
+	public void update() {
+		JLabelService service = new JLabelService(); // call label service
+		JLabel label = service.getCoinLabel(coinName, banknoteName); // get trading pair info
+		this.view.setLabel(label); // and set label of the view
 	}
 
 }

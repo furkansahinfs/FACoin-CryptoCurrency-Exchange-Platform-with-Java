@@ -34,7 +34,7 @@ public class CoinInfoView extends AppView {
 	private JTextField sellPrice;
 	private JLabel infoLabel;
 	private JLabel alert;
-	
+
 	public CoinInfoView() {
 		setLayout(null);
 
@@ -47,7 +47,7 @@ public class CoinInfoView extends AppView {
 		chartPanel.setPreferredSize(new Dimension(600, 300));
 		chartPanel.setBounds(100, 25, 600, 300);
 		add(chartPanel);
-		
+
 		dayCandle = new JButton("DAY");
 		dayCandle.setBounds(29, 302, 65, 23);
 		dayCandle.setFont(new Font("Arial", Font.BOLD, 11));
@@ -59,7 +59,7 @@ public class CoinInfoView extends AppView {
 		add(hourCandle);
 
 		favorite = new JButton("\u2605");
-		favorite.setBounds(chartPanel.getX()+chartPanel.getWidth()+10, chartPanel.getY(), 55, 40);
+		favorite.setBounds(chartPanel.getX() + chartPanel.getWidth() + 10, chartPanel.getY(), 55, 40);
 		favorite.setFont(new Font("Arial Unicode MS", Font.BOLD, 24));
 		add(favorite);
 
@@ -74,11 +74,11 @@ public class CoinInfoView extends AppView {
 		add(buy);
 
 		alert = new JLabel("");
-		alert.setBounds(chartPanel.getX()+25,coinValue.getY()+110,500,50);
+		alert.setBounds(chartPanel.getX() + 25, coinValue.getY() + 110, 500, 50);
 		alert.setFont(new Font("Arial", Font.BOLD, 14));
 		alert.setVisible(false);
 		add(alert);
-		
+
 		buyQuantity = new JTextField("Buy Quantity");
 		buyQuantity.setBounds(chartPanel.getX() + 50, 349, 130, 35);
 		buyQuantity.setFont(new Font("Arial", Font.BOLD, 14));
@@ -103,14 +103,13 @@ public class CoinInfoView extends AppView {
 		back.setBounds(14, 25, 76, 30);
 		back.setFont(new Font("Arial", Font.BOLD, 14));
 		add(back);
-		
-		infoLabel =new JLabel("<html>In every 10 seconds, value of coin is updated automatically."
+
+		infoLabel = new JLabel("<html>In every 10 seconds, value of coin is updated automatically."
 				+ "<br>You can see day/hour candles using day/hour buttons."
 				+ "<br>You can favor/unfavor coin using star button.<br>(yellow = favored, blue = unfavored).</html>");
 		infoLabel.setBounds(225, 460, 600, 100);
 		infoLabel.setForeground(Color.GRAY);
 		add(infoLabel);
-
 
 		AppWindow.FRAME.getContentPane().add(this);
 
@@ -140,6 +139,11 @@ public class CoinInfoView extends AppView {
 		favorite.addActionListener(listener);
 	}
 
+	/**
+	 * This function sets chart of the charPanel
+	 * 
+	 * @param chart new chart for chart panel
+	 */
 	public void setChart(JFreeChart chart) {
 		chart.setBackgroundPaint(getBackground());
 		chart.clearSubtitles();
@@ -149,11 +153,22 @@ public class CoinInfoView extends AppView {
 		updateUI();
 	}
 
+	/**
+	 * This function returns but quantity and buy price when buy button pressed
+	 * 
+	 * @returns buy quantity and buy price
+	 */
 	public String[] getBuy() {
 		String[] trade = { buyQuantity.getText(), buyPrice.getText() };
 		return trade;
 	}
 
+	/**
+	 * This function gets sell quantity and sell price texts when sell button
+	 * pressed
+	 * 
+	 * @returns sell quantity and sell price
+	 */
 	public String[] getSell() {
 		String[] trade = { sellQuantity.getText(), sellPrice.getText() };
 		return trade;
@@ -177,8 +192,13 @@ public class CoinInfoView extends AppView {
 		updateUI();
 	}
 
-	public void setFavoriteColor(Color color) {	
-		favorite.setBackground(color);		
+	/**
+	 * This function sets color of fav button
+	 * 
+	 * @param color
+	 */
+	public void setFavoriteColor(Color color) {
+		favorite.setBackground(color);
 	}
 
 	@Override
@@ -186,18 +206,22 @@ public class CoinInfoView extends AppView {
 		return;
 	}
 
+	/**
+	 * This function shows a 2 seconds alert by given text
+	 * 
+	 * @param string
+	 */
 	public void showAlert(String string) {
 		alert.setText(string);
 		alert.setVisible(true);
 		new Timer(2000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                alert.setVisible(false);
-            }
-        }).start();
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				alert.setVisible(false);
+			}
+		}).start();
 	}
-	
-	
+
 	private void updateColors() {
 		setBackground(palette.BACKGROUND);
 		chartPanel.setBackground(palette.BACKGROUND);
@@ -206,7 +230,7 @@ public class CoinInfoView extends AppView {
 		dayCandle.setForeground(palette.SECOND_COLOR);
 		hourCandle.setBackground(palette.BACKGROUND);
 		hourCandle.setForeground(palette.SECOND_COLOR);
-		favorite.setBackground(palette.SECOND_COLOR);	
+		favorite.setBackground(palette.SECOND_COLOR);
 		favorite.setForeground(palette.BACKGROUND);
 		back.setBackground(palette.FIRST_COLOR);
 		back.setForeground(palette.BACKGROUND);
@@ -225,5 +249,4 @@ public class CoinInfoView extends AppView {
 		alert.setBackground(palette.BACKGROUND);
 		alert.setForeground(palette.FIRST_COLOR);
 	}
-
 }

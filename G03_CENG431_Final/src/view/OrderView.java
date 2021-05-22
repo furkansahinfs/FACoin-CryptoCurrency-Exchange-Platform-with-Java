@@ -1,32 +1,25 @@
 package view;
 
-import view.color.ColorPalette;
-import view.list.List;
-import view.list.OrderList;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-
-import javax.swing.JPasswordField;
-import javax.swing.JScrollPane;
-import javax.swing.Timer;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.Timer;
+
+import view.color.ColorPalette;
+import view.list.List;
+import view.list.OrderList;
+
 public class OrderView extends AppView {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1948466354580780395L;
 
-	/**
-	 * Create the panel.
-	 */
 	private List orderList;
 	private JScrollPane scrollPane;
 	private ColorPalette palette;
@@ -36,16 +29,16 @@ public class OrderView extends AppView {
 	private JLabel alert;
 	private final String userId;
 	private JLabel infoLabel;
-	
+
 	public OrderView(String userId) {
 		this.userId = userId;
 		setLayout(null);
-		
+
 		back = new JButton("Back");
 		back.setBounds(628, 50, 90, 30);
-		back.setFont(new Font("Arial", Font.BOLD, 20));// TODO arial
+		back.setFont(new Font("Arial", Font.BOLD, 20));
 		add(back);
-		
+
 		orderList = new OrderList(null);
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(175, 50, 370, 300);
@@ -53,28 +46,30 @@ public class OrderView extends AppView {
 		add(scrollPane);
 
 		reject = new JButton("Cancel");
-		reject.setBounds(scrollPane.getWidth()/2+scrollPane.getX()-50,scrollPane.getY()+scrollPane.getHeight()+70,100,40);
-		reject.setFont(new Font("Arial", Font.BOLD, 20));// TODO arial
+		reject.setBounds(scrollPane.getWidth() / 2 + scrollPane.getX() - 50,
+				scrollPane.getY() + scrollPane.getHeight() + 70, 100, 40);
+		reject.setFont(new Font("Arial", Font.BOLD, 20));
 		reject.setVisible(false);
 		add(reject);
-		
+
 		password = new JPasswordField("Password");
-		password.setBounds(reject.getX(),reject.getY()-50,100,40);
-		password.setFont(new Font("Arial", Font.PLAIN, 20));// TODO arial
+		password.setBounds(reject.getX(), reject.getY() - 50, 100, 40);
+		password.setFont(new Font("Arial", Font.PLAIN, 20));
 		password.setVisible(false);
 		add(password);
-		// TODO þifre deðiþtirme
+
 		alert = new JLabel("Password is wrong");
-		alert.setBounds(reject.getX()+reject.getWidth()/2-85,reject.getY()+40,200,40);
+		alert.setBounds(reject.getX() + reject.getWidth() / 2 - 85, reject.getY() + 40, 200, 40);
 		alert.setFont(new Font("Arial", Font.BOLD, 20));
 		alert.setVisible(false);
 		add(alert);
-		
-		infoLabel =new JLabel("<html>In every 10 seconds, transactions are executed automatically.<br>You can cancel pending transaction<br>by clicking twice on it and typing password</html>");
+
+		infoLabel = new JLabel(
+				"<html>In every 10 seconds, transactions are executed automatically.<br>You can cancel pending transaction<br>by clicking twice on it and typing password</html>");
 		infoLabel.setBounds(175, 400, 500, 200);
 		infoLabel.setForeground(Color.CYAN);
 		add(infoLabel);
-		
+
 		AppWindow.FRAME.getContentPane().removeAll();
 		AppWindow.FRAME.getContentPane().add(this);
 
@@ -89,7 +84,6 @@ public class OrderView extends AppView {
 		return orderList.getSelectedValue();
 	}
 
-	
 	/**
 	 * The function helps for detecting of selecting a outfit of a collection in the
 	 * followed users' collections using listener
@@ -99,16 +93,14 @@ public class OrderView extends AppView {
 	public void addTransactionListener(MouseListener listener) {
 		orderList.addMouseListener(listener);
 	}
-	
+
 	public void addBackButtonListener(ActionListener listener) {
 		back.addActionListener(listener);
 	}
-	
+
 	public void addRejectButtonListener(ActionListener listener) {
 		reject.addActionListener(listener);
 	}
-	
-
 
 	private void updateColor() {
 		setBackground(palette.BACKGROUND);
@@ -122,53 +114,59 @@ public class OrderView extends AppView {
 		password.setForeground(palette.FIRST_COLOR);
 		alert.setForeground(palette.SECOND_COLOR);
 	}
-	
+
 	@Override
 	public void setPalette(ColorPalette palette) {
 		this.palette = palette;
 		updateColor();
-
 	}
-	
-	
+
 	@Override
 	public void setList(List list) {
-		orderList.setModel(list.getList());
+		orderList.setModel(list.getList());// set model and set its list renderer
 		orderList.setCellRenderer(new JListRenderer());
 		updateUI();
 	}
 
+	/**
+	 * This function shows reject button and password field
+	 */
 	public void showReject() {
 		reject.setVisible(true);
 		password.setVisible(true);
 	}
-	
+
+	/**
+	 * This function hides reject button and password field
+	 */
 	public void hideReject() {
 		reject.setVisible(false);
 		password.setVisible(false);
 	}
-	
+
+	/**
+	 * This function shows alert for the wrong password
+	 */
 	public void showAlert() {
 		alert.setVisible(true);
 		new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                alert.setVisible(false);
-            }
-        }).start();
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				alert.setVisible(false);
+			}
+		}).start();
 	}
-	
-	
+
 	public String getPassword() {
 		return new String(password.getPassword());
 	}
-	
+
 	@Override
 	public List getList() {
 		return this.orderList;
 	}
-	
-	public final String getUserId() { 
+
+	public final String getUserId() {
 		return this.userId;
 	}
 }

@@ -2,13 +2,19 @@ package view.color;
 
 import java.awt.Color;
 
-public class DefaultTheme extends Theme{
+/**
+ * Default theme for the system
+ */
+public class DefaultTheme extends Theme {
+
 	protected DefaultTheme() {
 		super();
 		DEFAULT_THEME();
 	}
 
-
+	/**
+	 * Sets the theme colors for default theme
+	 */
 	private void DEFAULT_THEME() {
 		this.background = Color.WHITE;
 		this.firstColor = Color.BLACK;

@@ -8,7 +8,10 @@ import view.AppView;
 import view.WalletView;
 import view.list.WalletEntityList;
 
-public class CryptoWalletListDecorator extends JListDecorator{
+/**
+ * This class fills wallet entity list by crypto wallet entities
+ */
+public class CryptoWalletListDecorator extends JListDecorator {
 
 	public CryptoWalletListDecorator(AppView view) {
 		super(view);
@@ -18,15 +21,15 @@ public class CryptoWalletListDecorator extends JListDecorator{
 	public void set() {
 		update();
 		view.setList(this.list);
-		
+
 	}
 
 	@Override
 	public void update() {
-		WalletView viewTemp = (WalletView) this.view;
-		WalletListMediator mediator = new WalletListMediator(viewTemp.getCryptoId(),viewTemp.getBankId());
-		DefaultListModel<JLabel> listModel = mediator.getCryptoWalletList();
-		this.list = new WalletEntityList(listModel);
+		WalletView viewTemp = (WalletView) this.view; // call wallet list mediator
+		WalletListMediator mediator = new WalletListMediator(viewTemp.getCryptoId(), viewTemp.getBankId());
+		DefaultListModel<JLabel> listModel = mediator.getCryptoWalletList(); // get crypto list
+		this.list = new WalletEntityList(listModel); // set list
 	}
 
 }

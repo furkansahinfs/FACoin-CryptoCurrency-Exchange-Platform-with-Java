@@ -2,11 +2,6 @@ package exception;
 
 public class HttpRequestException extends Exception {
 
-	
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1381698827813128190L;
 
 	public HttpRequestException() {
@@ -25,7 +20,8 @@ public class HttpRequestException extends Exception {
 		super(message, cause);
 	}
 
-	public HttpRequestException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+	public HttpRequestException(String message, Throwable cause, boolean enableSuppression,
+			boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 	}
 

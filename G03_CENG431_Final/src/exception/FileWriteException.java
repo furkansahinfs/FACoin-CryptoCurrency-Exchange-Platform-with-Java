@@ -1,6 +1,6 @@
 package exception;
 
-public class FileWriteException extends Exception{
+public class FileWriteException extends Exception {
 
 	/**
 	 * 

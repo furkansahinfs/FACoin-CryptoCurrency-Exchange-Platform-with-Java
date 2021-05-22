@@ -1,6 +1,3 @@
-/**
- * 
- */
 package exception;
 
 public class UnauthorizedUserException extends Exception {

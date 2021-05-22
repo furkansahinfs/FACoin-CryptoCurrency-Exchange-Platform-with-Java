@@ -21,14 +21,14 @@ public class HttpIO implements IHttpIO {
 	}
 
 	public List<UpdateData> getValues(String endpointPath) {
-		httpRequest.setParams(endpointPath, ERequestType.GET);
-		String httpContext = httpRequest.getRequest();
-		List<UpdateData> updateDataList = parser.parseUpdatedValues(httpContext);
-		return updateDataList;
+		httpRequest.setParams(endpointPath, ERequestType.GET); // create request
+		String httpContext = httpRequest.getRequest(); // make request
+		List<UpdateData> updateDataList = parser.parseUpdatedValues(httpContext); // parse response
+		return updateDataList; // return parsed data
 	}
 
 	@Override
-	public Date getTime(String endpointPath) {
+	public Date getTime(String endpointPath) {// same logic as above
 		httpRequest.setParams(endpointPath, ERequestType.GET);
 		String httpContext = httpRequest.getRequest();
 		Date date = parser.parseDate(httpContext);
@@ -36,7 +36,7 @@ public class HttpIO implements IHttpIO {
 	}
 
 	@Override
-	public void readDayCandles(String endpointPath) throws HttpRequestException {
+	public void readDayCandles(String endpointPath) throws HttpRequestException {// same logic as below
 		httpRequest.setParams(endpointPath, ERequestType.GET);
 		String httpContext = httpRequest.getRequest();
 		String coinName = extractCoinName(endpointPath).name();
@@ -50,16 +50,22 @@ public class HttpIO implements IHttpIO {
 
 	@Override
 	public void readHourCandles(String endpointPath) throws HttpRequestException {
-		httpRequest.setParams(endpointPath, ERequestType.GET);
-		String httpContext = httpRequest.getRequest();
-		String coinName = extractCoinName(endpointPath).name();
+		httpRequest.setParams(endpointPath, ERequestType.GET); // create request
+		String httpContext = httpRequest.getRequest(); // make request
+		String coinName = extractCoinName(endpointPath).name(); // extract coin nmae
 		try {
-			parser.parseHourCandles(httpContext, coinName);
+			parser.parseHourCandles(httpContext, coinName); // try to parse response
 		} catch (JSONException e) {
-			throw new HttpRequestException(e.getMessage());
+			throw new HttpRequestException(e.getMessage()); // throw exception
 		}
 	}
 
+	/**
+	 * This function extracts coin name from enpoint
+	 * 
+	 * @param url of the request
+	 * @returns {@link ECoins}
+	 */
 	private ECoins extractCoinName(String url) {
 		int eqIndex = url.indexOf("=") + 1;
 		int andIndex = url.indexOf("&");

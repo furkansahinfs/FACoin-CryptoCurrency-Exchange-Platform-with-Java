@@ -12,25 +12,24 @@ import fileio.repository.IRepository;
 import httpio.repository.HourCandleRepository;
 import model.Candle;
 
-
 public class HourCandleParser {
-	
+
 	private AbstractFactory abstractFactory;
+
 	/**
-	 * The BanknoteParser parses the gotten banknotes.json file content and creates
-	 * banknote objects
+	 * The DayCandleParser parses the gotten http content and creates candle objects
 	 */
-	protected HourCandleParser() {
+	protected HourCandleParser() { // hour candle factory
 		this.abstractFactory = new AbstractFactory(new HourCandleFactory());
 	}
 
 	/**
-	 * The function parses gotten file content creates banknote objects.
+	 * This function parses hour candles
 	 * 
-	 * @param fileAll = banknotes.json file content
-	 * @throws JSONException 
+	 * @param endpointResult given result
+	 * @param coinName       name of the coin
+	 * @throws JSONException if there is an error in json content
 	 */
-
 	protected void parseHourCandles(String endpointResult, String coinName) throws JSONException {
 		IRepository<Candle> hourCandleRepository = new HourCandleRepository();
 		JSONObject jsonValues;
@@ -41,16 +40,15 @@ public class HourCandleParser {
 
 	private void parse(JSONObject jsonObject, String coinName, IRepository<Candle> hourCandleRepository)
 			throws JSONException {
-		// iterate json object
+
 		String status = jsonObject.getString("Response");
-		
-		if(status.equals("Success"))
-		{
+
+		if (status.equals("Success")) {
 			JSONArray data = ((JSONObject) jsonObject.get("Data")).getJSONArray("Data");
-			for (int i=0;i<data.length();i++)
-			{
+			// iterate json object
+			for (int i = 0; i < data.length(); i++) {
 				JSONObject candleData = (JSONObject) data.get(i);
-				Double high,low,open,close,volume;
+				Double high, low, open, close, volume;
 				Long time;
 				time = candleData.getLong("time");
 				high = candleData.getDouble("high");
@@ -59,22 +57,19 @@ public class HourCandleParser {
 				close = candleData.getDouble("close");
 				volume = candleData.getDouble("volumeto");
 				Date date = new Date(Long.valueOf(time));
-				CandleParams params = new CandleParams(date,high, low,open, close, volume);
+				CandleParams params = new CandleParams(date, high, low, open, close, volume);
 				Candle candle = createCandle(params);
-				if(candle != null)
-				{
+				if (candle != null) {
 					hourCandleRepository.addEntity(candle);
 				}
-			}		
-		}
-		else
-		{
+			}
+		} else {
 			throw new JSONException("There is a problem occured while requesting endpoint");
 		}
-		
+
 	}
 
-	private Candle createCandle(CandleParams params){
+	private Candle createCandle(CandleParams params) {
 		Candle result = null;
 		result = (Candle) abstractFactory.createEntity(params);
 		return result;

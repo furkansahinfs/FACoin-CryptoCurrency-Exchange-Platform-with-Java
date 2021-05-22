@@ -18,7 +18,6 @@ public class TransactionService {
 		repo = new TransactionRepository();
 	}
 
-	// TODO adet kontrolü , gerçek deðer kontrolü
 	public boolean buyCoin(WalletServiceParam params) {
 		boolean hasEnoughMoney = walletService.hasEnoughMoney(user.getBankWallet(), params.banknoteName,
 				params.coinQuantity, params.coinValue);
@@ -35,9 +34,7 @@ public class TransactionService {
 				
 				return true;
 			}
-			System.out.println("TRANNULL");
 		}
-		System.out.println("HASENUG"+hasEnoughMoney);
 		return false;
 	}
 
@@ -68,13 +65,11 @@ public class TransactionService {
 		{
 			if(transaction.getCoinValue()>=coinUpdatedValue)
 			{
-				System.out.println("buy");
 				walletService.setCryptoWalletQuantity(user.getCryptoWallet(), transaction.getCoin(),transactionQuantity );
 				transaction.approveTransaction();
 			}
 		
 		}
-		// TODO cancel basýnca hemen silmiyo buna bakak
 		if(transactionQuantity<0)
 		{
 			if(transaction.getCoinValue()>coinUpdatedValue)

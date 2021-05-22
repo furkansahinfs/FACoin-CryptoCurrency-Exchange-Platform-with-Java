@@ -7,7 +7,7 @@ import java.awt.event.MouseListener;
 
 import mediator.OrderMediator;
 
-public class OrderController {
+public class OrderController extends Consumable {
 
 	private OrderMediator mediator;
 	

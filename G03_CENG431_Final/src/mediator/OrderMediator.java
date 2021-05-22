@@ -2,6 +2,9 @@ package mediator;
 
 import java.awt.Color;
 import javax.swing.JLabel;
+
+import controller.Consumable;
+import controller.IConsumable;
 import controller.OrderController;
 import model.User;
 import service.OrderService;
@@ -12,11 +15,11 @@ import view.decorator.DarkThemeDecorator;
 import view.decorator.Decorator;
 import view.decorator.OrderListDecorator;
 
-public class OrderMediator {
+public class OrderMediator extends Consumable {
 
 	private final User user;
 	private final OrderView view;
-	private final OrderController controller;
+	private final IConsumable controller;
 	private Color approvedColor;
 	private Decorator listDecorator;
 	private OrderService service;
@@ -25,7 +28,7 @@ public class OrderMediator {
 		this.approvedColor = (new ColorPalette(new DarkTheme())).SECOND_COLOR;
 		this.user = user;
 		view = new OrderView(user.getId());
-		Decorator themeDecorator = new DarkThemeDecorator(view);
+		new DarkThemeDecorator(view);
 		listDecorator = new OrderListDecorator(view);
 		UpdatePool.POOL.add(listDecorator);
 		controller = new OrderController(this);
@@ -34,9 +37,12 @@ public class OrderMediator {
 	}
 
 	public void back() {
+		controller.supressNotUsed();
 		UpdatePool.POOL.remove(listDecorator);
 		getView().setVisible(false);
-		HomeMediator mediator = new HomeMediator(user);
+		IConsumable mediator = new HomeMediator(user);
+		mediator.supressNotUsed();
+		
 	}
 
 	public void rejectTransaction() {
@@ -49,8 +55,8 @@ public class OrderMediator {
 		JLabel label = view.getListSelected();
 		if(label==null)
 			return;
-		service.setRejectProcesses(label.getText());
-		Decorator listDecorator = new OrderListDecorator(view);
+		service.setRejectProcesses(label.getText(),listDecorator);
+		UpdatePool.POOL.add(listDecorator);
 	}
 
 	public void rejectTransactionBridge() {
@@ -59,6 +65,7 @@ public class OrderMediator {
 			return;
 		if(label.getForeground().equals(approvedColor))
 			return;
+		UpdatePool.POOL.remove(listDecorator);
 		view.showReject();
 	}
 	

@@ -1,7 +1,6 @@
 package mediator;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -44,7 +43,7 @@ public class WalletListMediator {
 		while (banknoteIterator.hasNext()) {
 
 			banknote = banknoteIterator.next();
-			// TODO added check for here
+
 			Double price = currency.getValue().get(banknote.getName());
 			if(price==null) {
 				price = (double) 0;

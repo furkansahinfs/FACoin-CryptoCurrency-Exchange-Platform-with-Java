@@ -1,6 +1,9 @@
 package mediator;
 
 import javax.swing.JLabel;
+
+import controller.Consumable;
+import controller.IConsumable;
 import controller.WalletController;
 import enums.ECoins;
 import exception.HttpRequestException;
@@ -10,13 +13,12 @@ import view.decorator.BankWalletListDecorator;
 import view.decorator.CryptoWalletListDecorator;
 import view.decorator.DarkThemeDecorator;
 import view.decorator.JListDecorator;
-import view.decorator.ThemeDecorator;
 
-public class WalletMediator {
+public class WalletMediator extends Consumable {
 
 	private User user;
 	private WalletView view;
-	private WalletController controller;
+	private IConsumable controller;
 	private JListDecorator decorator;
 	private boolean isBankView = false;
 	private boolean isCryptoView = true;
@@ -26,7 +28,7 @@ public class WalletMediator {
 		view = new WalletView(user.getCryptoWallet().getId(), user.getBankWallet().getId());
 		decorator = new CryptoWalletListDecorator(view);
 		UpdatePool.POOL.add(decorator);
-		ThemeDecorator theme = new DarkThemeDecorator(view);
+		new DarkThemeDecorator(view);
 		controller = new WalletController(this);
 	}
 
@@ -35,9 +37,11 @@ public class WalletMediator {
 	}
 
 	public void back() {
+		controller.supressNotUsed();
 		view.setVisible(false);
 		UpdatePool.POOL.remove(decorator);
-		HomeMediator mediator = new HomeMediator(user);
+		IConsumable mediator = new HomeMediator(user);
+		mediator.supressNotUsed();
 	}
 
 	public void getSelectedCoinView() throws HttpRequestException {
@@ -54,7 +58,8 @@ public class WalletMediator {
 
 		String[] splittedItem = label.getText().split(":");
 		view.setVisible(false);
-		CoinInfoMediator mediator = new CoinInfoMediator(splittedItem[0], user);
+		IConsumable mediator = new CoinInfoMediator(splittedItem[0], user);
+		mediator.supressNotUsed();
 
 	}
 

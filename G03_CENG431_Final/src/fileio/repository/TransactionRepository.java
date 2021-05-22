@@ -6,7 +6,6 @@ import exception.ItemNotFoundException;
 import exception.NotSupportedException;
 import storage.IContainer;
 import model.Transaction;
-import model.Wallet;
 
 public class TransactionRepository implements IRepository<Transaction>,IRestrictedRepository<Transaction> {
 

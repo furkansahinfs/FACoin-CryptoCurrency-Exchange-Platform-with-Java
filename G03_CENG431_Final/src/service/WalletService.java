@@ -39,6 +39,9 @@ public class WalletService {
 		try {
 			WalletEntity entity = bankWallet.getEntities().getByName(new BanknoteName(banknoteName));
 			entity.setQuantity(entity.getQuantity() - quantity);
+			if(entity.getQuantity()==0) {
+				bankWallet.getEntities().remove(entity);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -49,6 +52,9 @@ public class WalletService {
 		try {
 			WalletEntity entity = cryptoWallet.getEntities().getByName(new CoinName(cryptoName));
 			entity.setQuantity(entity.getQuantity() - quantity);
+			if(entity.getQuantity()==0) {
+				cryptoWallet.getEntities().remove(entity);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -60,6 +66,9 @@ public class WalletService {
 			Name name = new BanknoteName(banknote.getName());
 			WalletEntity entity = bankWallet.getEntities().getByName(name);
 			entity.setQuantity(entity.getQuantity() + quantity);
+			if(entity.getQuantity()==0) {
+				bankWallet.getEntities().remove(entity);
+			}
 		} catch (Exception e) {
 			WalletEntity newEntity = new WalletEntity(banknote, quantity);
 			bankWallet.getEntities().add(newEntity);
@@ -73,7 +82,6 @@ public class WalletService {
 			WalletEntity entity = cryptoWallet.getEntities().getByName(name);
 			entity.setQuantity(entity.getQuantity() + quantity);
 		} catch (Exception e) {
-			System.out.println();
 			WalletEntity newEntity = new WalletEntity(coin, quantity);
 			cryptoWallet.getEntities().add(newEntity);
 		}

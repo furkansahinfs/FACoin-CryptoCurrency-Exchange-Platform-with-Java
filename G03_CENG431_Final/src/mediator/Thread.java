@@ -9,7 +9,7 @@ public class Thread {
 	public static int MUTEX = 0;
 
 	public static void LOCK_MUTEX(int mutex) {
-		while(mutex==1);
+		while(mutex>0);
 		mutex++;
 	}
 	

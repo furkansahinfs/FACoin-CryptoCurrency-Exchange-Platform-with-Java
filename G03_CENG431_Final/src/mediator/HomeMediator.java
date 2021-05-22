@@ -1,7 +1,10 @@
 package mediator;
 
 import javax.swing.JLabel;
+
+import controller.Consumable;
 import controller.HomeController;
+import controller.IConsumable;
 import enums.ESort;
 import exception.HttpRequestException;
 import model.User;
@@ -13,13 +16,12 @@ import view.decorator.Decorator;
 import view.decorator.DescendingOrderListDecorator;
 import view.decorator.FavListDecorator;
 import view.decorator.JListDecorator;
-import view.decorator.ThemeDecorator;
 
-public class HomeMediator {
+public class HomeMediator extends Consumable{
 
 	private User user;
 	private HomeView view;
-	private HomeController controller;
+	private IConsumable controller;
 	private JListDecorator decorator;
 	private boolean ascending = false;
 	private boolean descending = false;
@@ -31,7 +33,7 @@ public class HomeMediator {
 		decorator = new CoinListDecorator(view);
 		UpdatePool.POOL.add(decorator);
 		UpdatePool.POOL.add(new TransactionMediator(user));
-		ThemeDecorator theme = new DarkThemeDecorator(view);
+		new DarkThemeDecorator(view);
 		controller = new HomeController(this);
 	}
 
@@ -41,15 +43,18 @@ public class HomeMediator {
 
 	
 	public void logout() {
+		controller.supressNotUsed();
 		view.setVisible(false);
 		UpdatePool.POOL.remove(decorator);
-		LoginMediator mediator = new LoginMediator();
+		IConsumable mediator = new LoginMediator();
+		mediator.supressNotUsed();
 	}	
 	
 	public void goWalletPage() {
 		view.setVisible(false);
 		UpdatePool.POOL.remove(decorator);
-		WalletMediator mediator = new WalletMediator(user);
+		IConsumable mediator = new WalletMediator(user);
+		mediator.supressNotUsed();
 	}	
 
 	public void getSelectedCoinView() throws HttpRequestException {
@@ -61,7 +66,8 @@ public class HomeMediator {
 		}
 		view.setVisible(false);		
 		String[] splittedItem = label.getText().split(":");		
-		CoinInfoMediator mediator = new CoinInfoMediator(splittedItem[0],this.user);
+		IConsumable mediator = new CoinInfoMediator(splittedItem[0],this.user);
+		mediator.supressNotUsed();
 	
 	}
 	
@@ -103,7 +109,8 @@ public class HomeMediator {
 	public void ordersView() {
 		view.setVisible(false);
 		UpdatePool.POOL.remove(decorator);
-		OrderMediator mediator = new OrderMediator(user);
+		IConsumable mediator = new OrderMediator(user);
+		mediator.supressNotUsed();
 	}
 
 }

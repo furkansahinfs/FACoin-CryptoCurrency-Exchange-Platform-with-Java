@@ -1,6 +1,8 @@
 package mediator;
 
 import controller.CoinInfoController;
+import controller.Consumable;
+import controller.IConsumable;
 import enums.ECandleType;
 import fileio.repository.UserRepository;
 import model.User;
@@ -14,13 +16,12 @@ import view.color.DarkTheme;
 import view.decorator.DarkThemeDecorator;
 import view.decorator.Decorator;
 import view.decorator.TextDecorator;
-import view.decorator.ThemeDecorator;
 
-public class CoinInfoMediator {
+public class CoinInfoMediator extends Consumable {
 
 	private User user;
 	private CoinInfoView view;
-	private CoinInfoController controller;
+	private IConsumable controller;
 	private String coinName;
 	private String banknoteName;
 	private String coinId;
@@ -38,7 +39,7 @@ public class CoinInfoMediator {
 		setNamesAndIds(title);
 		service = new CandleChartService(coinName,banknoteName);
 		view = new CoinInfoView();
-		ThemeDecorator themeDecorator = new DarkThemeDecorator(view);
+		new DarkThemeDecorator(view);
 		textDecorator = new TextDecorator(view,coinName,banknoteName);
 		UpdatePool.POOL.add(textDecorator);
 		controller = new CoinInfoController(this);
@@ -48,9 +49,11 @@ public class CoinInfoMediator {
 	
 
 	public void back() {
+		controller.supressNotUsed();
 		view.setVisible(false);
 		UpdatePool.POOL.remove(textDecorator);
-		HomeMediator mediator = new HomeMediator(user);
+		IConsumable mediator = new HomeMediator(user);
+		mediator.supressNotUsed();
 	}	
 	
 	private void setNamesAndIds(String title) {
@@ -128,7 +131,7 @@ public class CoinInfoMediator {
 			WalletServiceParam params = new WalletServiceParam(coinName,banknoteName,quantity,value,coinId,banknoteId);
 			transaction.sellCoin(params);
 		} catch (Exception e) {
-			System.out.println("COUNUNFIMED131"+e.getMessage());
+			e.printStackTrace();
 		}
 		
 	}

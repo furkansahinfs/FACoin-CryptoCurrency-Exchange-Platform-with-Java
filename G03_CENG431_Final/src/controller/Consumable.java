@@ -1,10 +1,9 @@
 package controller;
 
-public class Consumable {
+public class Consumable implements IConsumable{
 
+	@Override
 	public void supressNotUsed() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

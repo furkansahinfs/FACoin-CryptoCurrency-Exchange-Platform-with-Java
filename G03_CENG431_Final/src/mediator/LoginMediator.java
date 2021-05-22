@@ -2,12 +2,12 @@ package mediator;
 
 import view.LoginView;
 import view.decorator.DarkThemeDecorator;
-import view.decorator.ThemeDecorator;
+import controller.Consumable;
 import controller.LoginController;
 import model.User;
 import service.AuthService;
 
-public class LoginMediator {
+public class LoginMediator extends Consumable{
 
 	private AuthService service;
 	private LoginView view;
@@ -16,18 +16,18 @@ public class LoginMediator {
 	public LoginMediator() {
 		service = new AuthService();
 		view = new LoginView();
-		ThemeDecorator theme = new DarkThemeDecorator(view);
+		new DarkThemeDecorator(view);
 		controller = new LoginController(this);
 	}
 
 	public void login() {
 		User user = service.login(view.getUserName().getText(), view.getPassword());
 		if (user == null) {
-			view.printMessage(false); // this function is for printing credentials wrong message
+			view.printMessage(false); 
 		} else { // if true means not print the message
-			view.printMessage(true);
+			view.printMessage(controller instanceof LoginController);
 			HomeMediator homeMediator = new HomeMediator(user);
-			view.setVisible(false);
+			view.setVisible(!(homeMediator instanceof HomeMediator));
 
 		}
 	}

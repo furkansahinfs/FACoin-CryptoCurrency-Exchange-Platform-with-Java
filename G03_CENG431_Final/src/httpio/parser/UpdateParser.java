@@ -73,7 +73,6 @@ public class UpdateParser {
 						updateData.addKeyValue(banknoteName, ((Double) banknoteValue));
 					}
 				}
-				// TODO değerler aynı kalabliyoyrmu diye bakak
 				updateDataList.add(updateData);
 			}
 		}
@@ -86,8 +85,8 @@ public class UpdateParser {
 		boolean isValidBanknote = EBanknotes.isBanknote(banknoteName);
 		boolean isValidDouble;
 		try {
-			Double temp = ((Double) banknoteValue);
-			isValidDouble = true;
+			Double val = ((Double) banknoteValue);
+			isValidDouble = val instanceof Double; //TODO buraya bak
 		} catch (Exception e) {
 			isValidDouble = false;
 		}

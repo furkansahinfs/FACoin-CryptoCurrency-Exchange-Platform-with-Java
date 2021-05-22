@@ -5,13 +5,17 @@ import exception.HttpRequestException;
 import model.Candle;
 import storage.IContainer;
 
-public class HttpRepository {
+public class HttpRepository{
 
 	// FileController to read data, write data and get read content of files.
 	private static HttpController httpController;
 
 	public HttpRepository() {
 		httpController = new HttpController();
+	}
+	
+	public void initHttpDatabase() {
+		
 	}
 
 	protected static void initHourCandles(String coinName, String banknoteName) throws HttpRequestException {

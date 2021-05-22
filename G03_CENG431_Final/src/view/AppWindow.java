@@ -2,7 +2,9 @@ package view;
 
 import javax.swing.JWindow;
 
-public class AppWindow extends JWindow {
+import controller.IConsumable;
+
+public class AppWindow extends JWindow implements IConsumable{
 
 	/**
 	 * 
@@ -14,5 +16,9 @@ public class AppWindow extends JWindow {
 	public AppWindow() {
 		FRAME = new Frame("FACoin");
 		FRAME.setVisible(true);
+	}
+
+	@Override
+	public void supressNotUsed() {
 	}
 }

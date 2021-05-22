@@ -68,22 +68,22 @@ public class CoinInfoView extends AppView {
 		buy.setFont(new Font("Arial", Font.BOLD, 14));
 		add(buy);
 
-		buyQuantity = new JTextField("BUY");
+		buyQuantity = new JTextField("Buy Quantity");
 		buyQuantity.setBounds(chartPanel.getX() + 50, 349, 130, 35);
 		buyQuantity.setFont(new Font("Arial", Font.BOLD, 14));
 		add(buyQuantity);
 
-		sellQuantity = new JTextField("SELL");
+		sellQuantity = new JTextField("Sell Quantity");
 		sellQuantity.setBounds(chartPanel.getWidth() + chartPanel.getX() - 180, 349, 130, 35);
 		sellQuantity.setFont(new Font("Arial", Font.BOLD, 14));
 		add(sellQuantity);
 
-		buyPrice = new JTextField("BUYPrice");
+		buyPrice = new JTextField("Buy Price");
 		buyPrice.setBounds(150, 395, 130, 35);
 		buyPrice.setFont(new Font("Arial", Font.BOLD, 14));
 		add(buyPrice);
 
-		sellPrice = new JTextField("SellPrice");
+		sellPrice = new JTextField("Sell Price");
 		sellPrice.setBounds(520, 395, 130, 35);
 		sellPrice.setFont(new Font("Arial", Font.BOLD, 14));
 		add(sellPrice);

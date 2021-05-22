@@ -58,9 +58,9 @@ public class UserContainer extends Container<User> {
 	}
 
 	@Override
-	public User getByName(Name name) throws ItemNotFoundException, NotSupportedException {
-		// TODO Auto-generated method stub
-		return null;
+	public User getByName(Name name) throws NotSupportedException {
+		throw new NotSupportedException(
+				"src.storage.UserContainer.getByName() function is not supported for UserContainer.");
 	}
 
 }

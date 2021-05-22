@@ -7,18 +7,21 @@ import java.awt.event.MouseListener;
 
 import mediator.OrderMediator;
 
+/**
+ * This class takes requests in Order view and sends them to mediator
+ */
 public class OrderController extends Consumable {
 
 	private OrderMediator mediator;
-	
+
 	public OrderController(OrderMediator mediator) {
 		this.mediator = mediator;
 		this.mediator.getView().addBackButtonListener(new BackButtonListener());
 		this.mediator.getView().addRejectButtonListener(new RejectButtonListener());
 		this.mediator.getView().addTransactionListener(new TransactionListListener());
-	
+
 	}
-	
+
 	class BackButtonListener implements ActionListener {
 
 		@Override
@@ -27,12 +30,12 @@ public class OrderController extends Consumable {
 		}
 
 	}
-	
+
 	class TransactionListListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			if (e.getClickCount() > 1) {
-				mediator.rejectTransactionBridge();
+				mediator.rejectTransactionBridge(); // show cancel button and password field
 			}
 		}
 
@@ -52,14 +55,13 @@ public class OrderController extends Consumable {
 		public void mouseExited(MouseEvent e) {
 		}
 	}
-	
+
 	class RejectButtonListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			mediator.rejectTransaction();
+			mediator.rejectTransaction(); // cancel a transaction if not approved
 		}
 	}
-	
-	
+
 }

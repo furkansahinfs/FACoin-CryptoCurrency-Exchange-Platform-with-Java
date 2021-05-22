@@ -37,7 +37,7 @@ public interface IContainer<T> extends Iterable<T> {
 	 * @throws NotSupportedException if item does not have a getName function
 	 */
 	public T getByName(String name) throws ItemNotFoundException, NotSupportedException;
-	
+
 	/**
 	 * This is an abstract function and it tries to get an item by its name.
 	 * 
@@ -108,8 +108,17 @@ public interface IContainer<T> extends Iterable<T> {
 	 * @return array value of IContainer
 	 */
 	public T[] toArray();
-	
+
+	/**
+	 * This functiýn converts a container into string by given integer value
+	 * 
+	 * @param value
+	 * @returns string value of the container
+	 */
 	public String toString(int value);
 
+	/**
+	 * This function clears a container
+	 */
 	public void clear();
 }

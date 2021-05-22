@@ -1,8 +1,13 @@
 package storage;
-public class Name{
-	
+
+/**
+ * This class is for compare element for containers
+ */
+public class Name {
+
 	public String name;
-	public Name(String name){
+
+	public Name(String name) {
 		this.name = name;
 	}
 }

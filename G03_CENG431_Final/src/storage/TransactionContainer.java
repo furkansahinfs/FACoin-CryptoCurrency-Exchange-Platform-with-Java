@@ -4,7 +4,7 @@ import exception.ItemNotFoundException;
 import exception.NotSupportedException;
 import model.Transaction;
 
-public class TransactionContainer extends Container<Transaction>{
+public class TransactionContainer extends Container<Transaction> {
 
 	@Override
 	public Transaction getById(String id) throws ItemNotFoundException, NotSupportedException {
@@ -23,15 +23,15 @@ public class TransactionContainer extends Container<Transaction>{
 	}
 
 	@Override
-	public Transaction getByName(String name) throws ItemNotFoundException, NotSupportedException {
-		// TODO Auto-generated method stub
-		return null;
+	public Transaction getByName(String name) throws NotSupportedException {
+		throw new NotSupportedException(
+				"src.storage.TransactionContainer.getByName() function is not supported for TransactionContainer.");
 	}
 
 	@Override
-	public Transaction getByName(Name name) throws ItemNotFoundException, NotSupportedException {
-		// TODO Auto-generated method stub
-		return null;
+	public Transaction getByName(Name name) throws NotSupportedException {
+		throw new NotSupportedException(
+				"src.storage.TransactionContainer.getByName() function is not supported for TransactionContainer.");
 	}
 
 }

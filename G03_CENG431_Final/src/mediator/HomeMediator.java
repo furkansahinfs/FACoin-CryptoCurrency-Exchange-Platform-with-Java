@@ -112,5 +112,4 @@ public class HomeMediator extends Consumable{
 		IConsumable mediator = new OrderMediator(user);
 		mediator.supressNotUsed();
 	}
-
 }

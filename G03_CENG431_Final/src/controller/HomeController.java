@@ -8,13 +8,14 @@ import java.awt.event.MouseListener;
 import enums.ESort;
 import exception.HttpRequestException;
 import mediator.HomeMediator;
+
 /**
  * This class handles home screen requests
  */
 public class HomeController extends Consumable {
 
 	private HomeMediator mediator;
-	
+
 	public HomeController(HomeMediator mediator) {
 		this.mediator = mediator;
 		mediator.getView().addSelectCoinListener((new SelectCoinListener()));
@@ -26,7 +27,6 @@ public class HomeController extends Consumable {
 		mediator.getView().addOrderButtonListener(new OrderButtonListener());
 	}
 
-
 	// by this class user can select one of the outfits
 	class SelectCoinListener implements MouseListener {
 
@@ -36,8 +36,7 @@ public class HomeController extends Consumable {
 				try {
 					mediator.getSelectedCoinView();
 				} catch (HttpRequestException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					// if there is a request error do not show it to user
 				}
 			}
 		}
@@ -58,7 +57,7 @@ public class HomeController extends Consumable {
 		public void mouseExited(MouseEvent e) {
 		}
 	}
-	
+
 	class WalletButtonListener implements ActionListener {
 
 		@Override
@@ -67,7 +66,7 @@ public class HomeController extends Consumable {
 		}
 
 	}
-	
+
 	class LogoutButtonListener implements ActionListener {
 
 		@Override
@@ -76,21 +75,21 @@ public class HomeController extends Consumable {
 		}
 
 	}
-	
+
 	class AscendingOrderListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			mediator.sort(ESort.ASCENDING);
+			mediator.sort(ESort.ASCENDING); // show list ascending order
 		}
 
 	}
-	
+
 	class DescendingOrderListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			mediator.sort(ESort.DESCENDING);
+			mediator.sort(ESort.DESCENDING); // show list descending order
 		}
 
 	}
@@ -99,16 +98,16 @@ public class HomeController extends Consumable {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			mediator.favListView();
+			mediator.favListView(); // show favorites
 		}
 
 	}
-	
+
 	class OrderButtonListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			mediator.ordersView();
+			mediator.ordersView(); // show order view
 		}
 
 	}

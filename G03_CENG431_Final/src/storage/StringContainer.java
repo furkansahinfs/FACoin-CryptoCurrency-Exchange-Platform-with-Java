@@ -1,6 +1,5 @@
 package storage;
 
-import exception.ItemNotFoundException;
 import exception.NotSupportedException;
 
 public class StringContainer extends Container<String> {
@@ -17,7 +16,12 @@ public class StringContainer extends Container<String> {
 				"src.storage.StringContainer.getByName() function is not supported for StringContainer.");
 	}
 
-
+	
+	@Override
+	public String getByName(Name name) throws NotSupportedException {
+		throw new NotSupportedException(
+				"src.storage.StringContainer.getByName() function is not supported for StringContainer.");
+	}
 	/**
 	 * This class simply converts a StringContainer to String[]
 	 * 
@@ -32,11 +36,4 @@ public class StringContainer extends Container<String> {
 		}
 		return array;
 	}
-
-	@Override
-	public String getByName(Name name) throws ItemNotFoundException, NotSupportedException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

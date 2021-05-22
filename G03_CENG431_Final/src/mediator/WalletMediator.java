@@ -109,6 +109,11 @@ public class WalletMediator extends Consumable {
 			isDeposit = false;}
 	}
 
+	public void showAlert(String message) {
+		view.showAlert(message);
+		
+	}
+
 	
 }
 

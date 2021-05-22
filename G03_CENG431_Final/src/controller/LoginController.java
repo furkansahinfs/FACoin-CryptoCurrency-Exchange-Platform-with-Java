@@ -30,35 +30,35 @@ public class LoginController {
 			mediator.login();
 		}
 	}
-}
 
-// This class listens text areas, if user clicks text, removes the text
-class TextClickListener implements MouseListener {
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		Object field = e.getSource();
-		if (field instanceof JTextField) {
-			JTextField temp = (JTextField) field;
-			if (temp.getText().equals("Username")) { // if text is initial, remove it
-				temp.setText("");
+	// This class listens text areas, if user clicks text, removes the text
+	class TextClickListener implements MouseListener {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			Object field = e.getSource();
+			if (field instanceof JTextField) {
+				JTextField temp = (JTextField) field;
+				if (temp.getText().equals("Username")) { // if text is initial, remove it
+					temp.setText("");
+				}
 			}
 		}
-	}
 
-	@Override
-	public void mousePressed(MouseEvent e) {
-	}
+		@Override
+		public void mousePressed(MouseEvent e) {
+		}
 
-	@Override
-	public void mouseReleased(MouseEvent e) {
-	}
+		@Override
+		public void mouseReleased(MouseEvent e) {
+		}
 
-	@Override
-	public void mouseEntered(MouseEvent e) {
-	}
+		@Override
+		public void mouseEntered(MouseEvent e) {
+		}
 
-	@Override
-	public void mouseExited(MouseEvent e) {
-	}
+		@Override
+		public void mouseExited(MouseEvent e) {
+		}
 
+	}
 }

@@ -122,17 +122,18 @@ public abstract class Container<T> implements IContainer<T> {
 		return string;
 	}
 
-	public String toString(int value){
+	public String toString(int value) {
 		return "";
 	}
-	
+
+	// clear
 	public void clear() {
 		this.container.clear();
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public T[] toArray(){
-		return  (T[]) this.container.toArray();
+	public T[] toArray() { // conver to array
+		return (T[]) this.container.toArray();
 	}
 
 }

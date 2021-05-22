@@ -20,6 +20,8 @@ public class WalletController extends Consumable {
 		mediator.getView().addBackButtonListener(new BackButtonListener());
 		mediator.getView().addBankButtonListener(new BankButtonListener());
 		mediator.getView().addCryptoButtonListener(new CryptoButtonListener());
+		mediator.getView().addPayListener(new PayButtonListener());
+		mediator.getView().addDepositListener(new DepositButtonListener());
 	}
 
 	// by this class user can select one of the outfits
@@ -76,6 +78,24 @@ public class WalletController extends Consumable {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			mediator.cryptoView();
+		}
+
+	}
+	
+	class PayButtonListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			mediator.depositBanknote();
+		}
+
+	}
+
+	class DepositButtonListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			mediator.showPay();
 		}
 
 	}

@@ -8,6 +8,7 @@ import controller.WalletController;
 import enums.ECoins;
 import exception.HttpRequestException;
 import model.User;
+import service.DepositPayService;
 import view.WalletView;
 import view.decorator.BankWalletListDecorator;
 import view.decorator.CryptoWalletListDecorator;
@@ -22,13 +23,15 @@ public class WalletMediator extends Consumable {
 	private JListDecorator decorator;
 	private boolean isBankView = false;
 	private boolean isCryptoView = true;
-
+	private DepositPayService service;
 	public WalletMediator(User user) {
 		this.user = user;
 		view = new WalletView(user.getCryptoWallet().getId(), user.getBankWallet().getId());
 		decorator = new CryptoWalletListDecorator(view);
 		UpdatePool.POOL.add(decorator);
 		new DarkThemeDecorator(view);
+		service = new DepositPayService();
+		service.setComboBoxValues(view);
 		controller = new WalletController(this);
 	}
 
@@ -82,6 +85,18 @@ public class WalletMediator extends Consumable {
 			isBankView = true;
 			isCryptoView = false; 
 		}
+	}
+
+	public void depositBanknote() {
+		String[] values = view.getValues();
+		if(values[0] != null && values[1] !=null) {
+			service.processDepositRequest(user.getBankWallet(),values[0],values[1]);
+		}
+		view.hidePay();
+	}
+
+	public void showPay() {
+		view.showPay();
 	}
 	
 }

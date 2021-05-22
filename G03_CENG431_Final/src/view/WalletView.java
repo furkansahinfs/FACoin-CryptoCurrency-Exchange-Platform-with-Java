@@ -5,8 +5,11 @@ import view.list.List;
 import view.list.WalletEntityList;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
@@ -24,6 +27,10 @@ public class WalletView extends AppView {
 	private final String bankWalletId;
 	private JButton bankWallet;
 	private JButton cryptoWallet;
+	private JComboBox<String> comboBox;
+	private JButton deposit;
+	private JTextField quantity;
+	private JButton pay;
 
 	public WalletView(String cryId, String bankId) {
 		this.cryptoWalletId = cryId;
@@ -49,6 +56,28 @@ public class WalletView extends AppView {
 		cryptoWallet.setBounds(455, 100, 90, 30);
 		add(cryptoWallet);
 				
+		comboBox = new JComboBox<String>();
+		comboBox.setBounds(scrollPane.getX()-150,scrollPane.getY()+50,100,30);
+		comboBox.setVisible(false);
+		add(comboBox);
+		
+		deposit = new JButton("Deposit");
+		deposit.setBounds(comboBox.getX(),comboBox.getY()-50,100,30);
+		deposit.setFont(new Font("Arial", Font.BOLD, 14));
+		add(deposit);
+		
+		quantity = new JTextField("Quantity");
+		quantity.setBounds(comboBox.getX(),comboBox.getY()+50,100,30);
+		quantity.setFont(new Font("Arial", Font.BOLD, 14));
+		quantity.setVisible(false);
+		add(quantity);
+		
+		pay = new JButton("Pay");
+		pay.setBounds(comboBox.getX(),comboBox.getY()+100,100,30);
+		pay.setFont(new Font("Arial", Font.BOLD, 16));
+		pay.setVisible(false);
+		add(pay);
+		
 		AppWindow.FRAME.getContentPane().removeAll();
 		AppWindow.FRAME.getContentPane().add(this);
 	}
@@ -69,6 +98,17 @@ public class WalletView extends AppView {
 
 	}
 	
+	public void setComboBox(String[] values) {
+		for(String string: values) {
+			comboBox.addItem(string);
+		}
+	}
+	
+	public String[] getValues() {
+		String[] values = {(String) comboBox.getSelectedItem(),quantity.getText()};
+		return values;
+	}
+	
 	/**
 	 * The function helps for detecting of selecting a outfit of a collection in the
 	 * followed users' collections using listener
@@ -77,6 +117,14 @@ public class WalletView extends AppView {
 	 */
 	public void addSelectCoinListener(MouseListener listener) {
 		walletEntityList.addMouseListener(listener);
+	}
+	
+	public void addPayListener(ActionListener listener) {
+		pay.addActionListener(listener);
+	}
+	
+	public void addDepositListener(ActionListener listener) {
+		deposit.addActionListener(listener);
 	}
 	
 	
@@ -90,6 +138,14 @@ public class WalletView extends AppView {
 		cryptoWallet.setForeground(palette.SECOND_COLOR);
 		bankWallet.setBackground(palette.BACKGROUND);
 		bankWallet.setForeground(palette.SECOND_COLOR);
+		deposit.setBackground(palette.FIRST_COLOR);
+		deposit.setForeground(palette.BACKGROUND);
+		pay.setBackground(palette.BACKGROUND);
+		pay.setForeground(palette.SECOND_COLOR);
+		quantity.setBackground(palette.BACKGROUND);
+		quantity.setForeground(palette.FIRST_COLOR);
+		comboBox.setBackground(palette.BACKGROUND);
+		comboBox.setForeground(palette.FIRST_COLOR);
 	}
 
 	public void addBackButtonListener(ActionListener listener) {
@@ -111,7 +167,18 @@ public class WalletView extends AppView {
 		updateUI();
 	}
 	
-
+	public void hidePay() {
+		pay.setVisible(false);
+		quantity.setVisible(false);
+		comboBox.setVisible(false);
+	}
+	
+	public void showPay() {
+		pay.setVisible(true);
+		quantity.setVisible(true);
+		comboBox.setVisible(true);
+		
+	}
 
 	@Override
 	public List getList() {

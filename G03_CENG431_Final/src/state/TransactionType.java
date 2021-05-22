@@ -1,20 +1,20 @@
 package state;
 
 public class TransactionType {
-	private State state; // one of state objects Completed,InProgress,NotStarted
+	private State state; // one of state objects Pending,Approved
 
 	/**
-	 * The constructor for Product state object.
+	 * The constructor for Transaction Type object.
 	 * 
-	 * @param state = one of state objects Completed,InProgress,NotStarted
+	 * @param state = one of state objects Pending,Approved
 	 */
 	public TransactionType(State state) {
 		this.state = state;
 	}
 
 	/**
-	 * The default constructor for Product state object whose state defined as
-	 * NotStarted
+	 * The default constructor for Transaction Type object whose state defined as
+	 * Pending
 	 */
 	public TransactionType() {
 		this.state = new Pending();

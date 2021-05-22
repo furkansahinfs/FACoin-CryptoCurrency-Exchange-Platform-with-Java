@@ -3,12 +3,11 @@ package state;
 public abstract class State {
 
 	/**
-	 * The function updates the state of given product state as next state
+	 * The function updates the state of given transaction type as next state
 	 * 
-	 * @param state product state object
+	 * @param state transaction type object
 	 */
 	public abstract void nextState(TransactionType state);
-
 
 	/**
 	 * The function returns the state.
@@ -17,4 +16,3 @@ public abstract class State {
 	 */
 	public abstract String getState();
 }
-

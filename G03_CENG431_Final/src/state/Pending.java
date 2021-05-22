@@ -1,11 +1,11 @@
 package state;
 
-public class Pending extends State{
-/**
-	 * The function updates the state of given product state object as InProgress
+public class Pending extends State {
+	/**
+	 * The function updates the state of given transaction type object as Approved
 	 * state object.
 	 * 
-	 * @param state product state object
+	 * @param state transaction type object
 	 */
 	@Override
 	public void nextState(TransactionType state) {

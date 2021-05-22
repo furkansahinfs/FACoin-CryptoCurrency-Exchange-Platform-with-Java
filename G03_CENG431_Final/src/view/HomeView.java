@@ -6,6 +6,8 @@ import view.list.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
@@ -23,6 +25,7 @@ public class HomeView extends AppView {
 	private List coinList;
 	private JScrollPane scrollPane;
 	private ColorPalette palette;
+	private JLabel infoLabel;
 	private JButton logout;
 	private JButton wallet;
 	private JButton favs;
@@ -74,6 +77,11 @@ public class HomeView extends AppView {
 		wallet.setBounds(50, 50, 100, 50);
 		wallet.setFont(new Font("Arial", Font.BOLD, 20));// TODO arial
 		add(wallet);
+		
+		infoLabel = new JLabel("<html>In every 10 seconds, values are updated automatically.<br>You can sort the list with the arrow buttons.<br>You can see your favorites using star button.<br>You can see the coin info view by clicking twice on a coin.</html>");
+		infoLabel.setBounds(225, 450, 600, 100);
+		infoLabel.setForeground(Color.CYAN);
+		add(infoLabel);
 	}
 
 	/**

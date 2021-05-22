@@ -97,6 +97,5 @@ public class WalletController extends Consumable {
 		public void actionPerformed(ActionEvent e) {
 			mediator.showPay();
 		}
-
 	}
 }

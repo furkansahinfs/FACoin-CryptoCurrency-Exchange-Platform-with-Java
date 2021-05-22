@@ -47,7 +47,7 @@ public class FavListService {
 		CoinListMediator mediator = new CoinListMediator();
 		DefaultListModel<JLabel> listModel = mediator.getList();
 		DefaultListModel<JLabel> favoritesModel = new DefaultListModel<JLabel>();
-		Dictionary<String,String> favorites = user.getFavorites();
+		Dictionary<String,java.util.List<String>> favorites = user.getFavorites();
 		
 		Enumeration<String> keys = favorites.keys();
  
@@ -55,22 +55,19 @@ public class FavListService {
         while(keys.hasMoreElements()) {
  
             String coinId = keys.nextElement();
-			String banknoteId = favorites.get(coinId);
-			
-			DatabaseResult coinResult = coins.getById(coinId);
-			DatabaseResult banknoteResult = banknotes.getById(banknoteId);
-			
-			String coin = ((Currency) coinResult.getObject()).getName();
-			String banknote = ((Currency) banknoteResult.getObject()).getName();			
-			JLabel label = findLabel(listModel,coin,banknote);
-			
-			if(label != null)
-			{
-				int index = favoritesModel.size();
-				favoritesModel.add(index, label);
-			}
-			
-           	
+            java.util.List<String> banknoteFavs = favorites.get(coinId);
+            DatabaseResult coinResult = coins.getById(coinId);
+            String coin = ((Currency) coinResult.getObject()).getName();
+            for(String banknoteId: banknoteFavs) {
+    			DatabaseResult banknoteResult = banknotes.getById(banknoteId);
+    			String banknote = ((Currency) banknoteResult.getObject()).getName();	
+    			JLabel label = findLabel(listModel,coin,banknote);
+    			if(label != null)
+    			{
+    				int index = favoritesModel.size();
+    				favoritesModel.add(index, label);
+    			}
+            }			
         }
 
 		return new CoinList(favoritesModel);

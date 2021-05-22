@@ -24,6 +24,9 @@ public class WalletMediator extends Consumable {
 	private boolean isBankView = false;
 	private boolean isCryptoView = true;
 	private DepositPayService service;
+	
+	private boolean isDeposit = false;
+	
 	public WalletMediator(User user) {
 		this.user = user;
 		view = new WalletView(user.getCryptoWallet().getId(), user.getBankWallet().getId());
@@ -90,14 +93,22 @@ public class WalletMediator extends Consumable {
 	public void depositBanknote() {
 		String[] values = view.getValues();
 		if(values[0] != null && values[1] !=null) {
-			service.processDepositRequest(user.getBankWallet(),values[0],values[1]);
+			boolean result = service.processDepositRequest(user.getBankWallet(),values[0],values[1]);
+			if(!result)
+				view.showAlert("Please use \".\" in prices and quantities when using fractions");
 		}
 		view.hidePay();
 	}
 
 	public void showPay() {
-		view.showPay();
+		if(!isDeposit) {
+			view.showPay();
+			isDeposit = true;}
+		else {
+			view.hidePay();
+			isDeposit = false;}
 	}
+
 	
 }
 

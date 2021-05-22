@@ -1,6 +1,8 @@
 package model;
 
 import java.util.Dictionary;
+import java.util.List;
+
 import storage.IContainer;
 
 public class User  extends AbstractEntity{
@@ -10,10 +12,10 @@ public class User  extends AbstractEntity{
 	private String password;
 	private Wallet cryptoWallet;
 	private Wallet bankWallet;
-	private Dictionary<String,String> favorites;
+	private Dictionary<String,List<String>> favorites;
 	private IContainer<Transaction> transactionContainer;
 	
-	public User(String id, String userName, String password, Wallet cryptoWallet, Wallet bankWallet, Dictionary<String,String> favorites, IContainer<Transaction> transactionContainer)
+	public User(String id, String userName, String password, Wallet cryptoWallet, Wallet bankWallet, Dictionary<String,List<String>> favorites, IContainer<Transaction> transactionContainer)
 	{
 		super(id);
 		this.userName=userName;
@@ -40,7 +42,7 @@ public class User  extends AbstractEntity{
 		return bankWallet;
 	}
 
-	public Dictionary<String,String> getFavorites()
+	public Dictionary<String,List<String>> getFavorites()
 	{
 		return favorites;
 	}	

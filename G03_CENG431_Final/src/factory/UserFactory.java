@@ -14,7 +14,8 @@ import model.User;
 import model.Wallet;
 import storage.IContainer;
 import storage.TransactionContainer;
-
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
@@ -45,7 +46,7 @@ public class UserFactory {
 		Object bankWallet = resultBankWallet.getObject();
 
 		if (cryptoWallet != null && bankWallet != null) {
-			Dictionary<String,String> favoritesDictionary = createDictionary(favorites);
+			Dictionary<String,List<String>> favoritesDictionary = createDictionary(favorites);
 			IContainer<Transaction> transactions = createTransactions(transactionIds);
 			userResult = new User(id, userName, password, (Wallet) cryptoWallet, (Wallet) bankWallet, favoritesDictionary, transactions);
 		}
@@ -54,9 +55,9 @@ public class UserFactory {
 		
 	}
 	
-	private Dictionary<String,String> createDictionary(String favorites)
+	private Dictionary<String,List<String>> createDictionary(String favorites)
 	{
-		Dictionary<String,String> favoritesDictionary = new Hashtable<String,String>();
+		Dictionary<String,List<String>> favoritesDictionary = new Hashtable<String,List<String>>();
 		if(favorites.isEmpty())
 			return favoritesDictionary;
 		String[] splittedFavorites = favorites.split(",");
@@ -68,7 +69,13 @@ public class UserFactory {
 			Object banknote = resultOfBanknote.getObject();
 
 			if(coin != null && banknote != null) {
-				favoritesDictionary.put(pair[0], pair[1]);
+				List<String> list = favoritesDictionary.get(pair[0]);
+				if(list == null)
+				{
+					list= new ArrayList<String>();
+				}
+				list.add(pair[1]);
+				favoritesDictionary.put(pair[0], list);
 			}	
 		}
 		return favoritesDictionary;

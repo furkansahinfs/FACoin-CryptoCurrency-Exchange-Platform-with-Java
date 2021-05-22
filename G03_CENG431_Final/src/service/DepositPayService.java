@@ -33,18 +33,19 @@ public class DepositPayService {
 		view.setComboBox(names.split(","));
 	}
 
-	public void processDepositRequest(Wallet bankWallet, String banknoteName, String quantity) {
+	public boolean processDepositRequest(Wallet bankWallet, String banknoteName, String quantity) {
 		Double banknoteQuantity = 0.0;
 		try {
 			banknoteQuantity = Double.valueOf(quantity);
 		}catch(NumberFormatException e) {
-			return;
+			return false;
 		}
 		DatabaseResult drResult = banknotes.getByName(banknoteName);
 		if(drResult.getObject()==null) {
-			return;
+			return false;
 		}
 		Currency banknote = (Currency) drResult.getObject();
 		service.setBankWalletQuantity(bankWallet, banknote, banknoteQuantity);
+		return true;
 	}
 }

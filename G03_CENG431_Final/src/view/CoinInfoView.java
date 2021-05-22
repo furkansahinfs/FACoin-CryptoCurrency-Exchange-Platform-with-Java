@@ -3,10 +3,13 @@ package view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.Timer;
+
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
@@ -29,7 +32,9 @@ public class CoinInfoView extends AppView {
 	private JTextField sellQuantity;
 	private JTextField buyPrice;
 	private JTextField sellPrice;
-
+	private JLabel infoLabel;
+	private JLabel alert;
+	
 	public CoinInfoView() {
 		setLayout(null);
 
@@ -42,7 +47,7 @@ public class CoinInfoView extends AppView {
 		chartPanel.setPreferredSize(new Dimension(600, 300));
 		chartPanel.setBounds(100, 25, 600, 300);
 		add(chartPanel);
-
+		
 		dayCandle = new JButton("DAY");
 		dayCandle.setBounds(29, 302, 65, 23);
 		dayCandle.setFont(new Font("Arial", Font.BOLD, 11));
@@ -68,6 +73,12 @@ public class CoinInfoView extends AppView {
 		buy.setFont(new Font("Arial", Font.BOLD, 14));
 		add(buy);
 
+		alert = new JLabel("");
+		alert.setBounds(chartPanel.getX()+25,coinValue.getY()+110,500,50);
+		alert.setFont(new Font("Arial", Font.BOLD, 14));
+		alert.setVisible(false);
+		add(alert);
+		
 		buyQuantity = new JTextField("Buy Quantity");
 		buyQuantity.setBounds(chartPanel.getX() + 50, 349, 130, 35);
 		buyQuantity.setFont(new Font("Arial", Font.BOLD, 14));
@@ -92,6 +103,14 @@ public class CoinInfoView extends AppView {
 		back.setBounds(14, 25, 76, 30);
 		back.setFont(new Font("Arial", Font.BOLD, 14));
 		add(back);
+		
+		infoLabel =new JLabel("<html>In every 10 seconds, value of coin is updated automatically."
+				+ "<br>You can see day/hour candles using day/hour buttons."
+				+ "<br>You can favor/unfavor coin using star button.<br>(yellow = favored, blue = unfavored).</html>");
+		infoLabel.setBounds(225, 460, 600, 100);
+		infoLabel.setForeground(Color.GRAY);
+		add(infoLabel);
+
 
 		AppWindow.FRAME.getContentPane().add(this);
 
@@ -167,6 +186,18 @@ public class CoinInfoView extends AppView {
 		return;
 	}
 
+	public void showAlert(String string) {
+		alert.setText(string);
+		alert.setVisible(true);
+		new Timer(2000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                alert.setVisible(false);
+            }
+        }).start();
+	}
+	
+	
 	private void updateColors() {
 		setBackground(palette.BACKGROUND);
 		chartPanel.setBackground(palette.BACKGROUND);
@@ -191,6 +222,8 @@ public class CoinInfoView extends AppView {
 		buyPrice.setForeground(palette.FIRST_COLOR);
 		sellPrice.setBackground(palette.BACKGROUND);
 		sellPrice.setForeground(palette.FIRST_COLOR);
+		alert.setBackground(palette.BACKGROUND);
+		alert.setForeground(palette.FIRST_COLOR);
 	}
 
 }

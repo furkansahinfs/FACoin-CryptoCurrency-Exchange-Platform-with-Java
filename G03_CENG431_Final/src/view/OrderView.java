@@ -35,6 +35,7 @@ public class OrderView extends AppView {
 	private JPasswordField password;
 	private JLabel alert;
 	private final String userId;
+	private JLabel infoLabel;
 	
 	public OrderView(String userId) {
 		this.userId = userId;
@@ -68,6 +69,11 @@ public class OrderView extends AppView {
 		alert.setFont(new Font("Arial", Font.BOLD, 20));
 		alert.setVisible(false);
 		add(alert);
+		
+		infoLabel =new JLabel("<html>In every 10 seconds, transactions are executed automatically.<br>You can cancel pending transaction<br>by clicking twice on it and typing password</html>");
+		infoLabel.setBounds(175, 400, 500, 200);
+		infoLabel.setForeground(Color.CYAN);
+		add(infoLabel);
 		
 		AppWindow.FRAME.getContentPane().removeAll();
 		AppWindow.FRAME.getContentPane().add(this);

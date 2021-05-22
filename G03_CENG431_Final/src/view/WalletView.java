@@ -9,8 +9,11 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.Timer;
 
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 
@@ -31,6 +34,8 @@ public class WalletView extends AppView {
 	private JButton deposit;
 	private JTextField quantity;
 	private JButton pay;
+	private JLabel infoLabel;
+	private JLabel alert;
 
 	public WalletView(String cryId, String bankId) {
 		this.cryptoWalletId = cryId;
@@ -77,6 +82,19 @@ public class WalletView extends AppView {
 		pay.setFont(new Font("Arial", Font.BOLD, 16));
 		pay.setVisible(false);
 		add(pay);
+		
+		infoLabel =new JLabel("<html>In every 10 seconds, corresponding values of<br>crypto wallet and bank wallet are updated automatically."
+				+ "<br>You can see coin info view by clicking twice on the coin"
+				+"<br>You can add money using deposit.</html>");
+		infoLabel.setBounds(200, 400, 500, 200);
+		infoLabel.setForeground(Color.CYAN);
+		add(infoLabel);
+	
+		alert = new JLabel("");
+		alert.setBounds(0,0,500,50);
+		alert.setFont(new Font("Arial", Font.BOLD, 14));
+		alert.setVisible(false);
+		add(alert);
 		
 		AppWindow.FRAME.getContentPane().removeAll();
 		AppWindow.FRAME.getContentPane().add(this);
@@ -146,6 +164,8 @@ public class WalletView extends AppView {
 		quantity.setForeground(palette.FIRST_COLOR);
 		comboBox.setBackground(palette.BACKGROUND);
 		comboBox.setForeground(palette.FIRST_COLOR);
+		alert.setBackground(palette.BACKGROUND);
+		alert.setForeground(palette.FIRST_COLOR);
 	}
 
 	public void addBackButtonListener(ActionListener listener) {
@@ -180,6 +200,17 @@ public class WalletView extends AppView {
 		
 	}
 
+	public void showAlert(String string) {
+		alert.setText(string);
+		alert.setVisible(true);
+		new Timer(2000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                alert.setVisible(false);
+            }
+        }).start();
+	}
+	
 	@Override
 	public List getList() {
 		return this.walletEntityList;

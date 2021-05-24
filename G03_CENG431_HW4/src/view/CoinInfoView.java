@@ -49,12 +49,12 @@ public class CoinInfoView extends AppView {
 		add(chartPanel);
 
 		dayCandle = new JButton("DAY");
-		dayCandle.setBounds(29, 302, 65, 23);
+		dayCandle.setBounds(24, 302, 70, 23);
 		dayCandle.setFont(new Font("Arial", Font.BOLD, 11));
 		add(dayCandle);
 
 		hourCandle = new JButton("HOUR");
-		hourCandle.setBounds(29, 275, 65, 23);
+		hourCandle.setBounds(24, 275, 70, 23);
 		hourCandle.setFont(new Font("Arial", Font.BOLD, 11));
 		add(hourCandle);
 

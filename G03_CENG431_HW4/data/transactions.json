@@ -1,0 +1,116 @@
+{
+    "97457": {
+        "coinValue": "50000.0",
+        "coinQ": "-0.001",
+        "type": "Pending",
+        "pair": "1-1"
+    },
+    "70521": {
+        "coinValue": "170.0",
+        "coinQ": "5.0",
+        "type": "Approved",
+        "pair": "2-1"
+    },
+    "74974": {
+        "coinValue": "2423.0",
+        "coinQ": "0.1",
+        "type": "Approved",
+        "pair": "9-1"
+    },
+    "43627": {
+        "coinValue": "155.0",
+        "coinQ": "5.0",
+        "type": "Approved",
+        "pair": "4-2"
+    },
+    "66437": {
+        "coinValue": "1.55",
+        "coinQ": "200.0",
+        "type": "Approved",
+        "pair": "6-1"
+    },
+    "24323": {
+        "coinValue": "0.062",
+        "coinQ": "10000.0",
+        "type": "Approved",
+        "pair": "12-2"
+    },
+    "35691": {
+        "coinValue": "5.0",
+        "coinQ": "300.0",
+        "type": "Pending",
+        "pair": "6-2"
+    },
+    "9390": {
+        "coinValue": "182.0",
+        "coinQ": "20.0",
+        "type": "Approved",
+        "pair": "13-2"
+    },
+    "0": {
+        "coinValue": "15.0",
+        "coinQ": "10.0",
+        "type": "Pending",
+        "pair": "13-1"
+    },
+    "76231": {
+        "coinValue": "158.0",
+        "coinQ": "20.0",
+        "type": "Approved",
+        "pair": "4-2"
+    },
+    "89848": {
+        "coinValue": "2400.0",
+        "coinQ": "-0.05",
+        "type": "Approved",
+        "pair": "9-1"
+    },
+    "57422": {
+        "coinValue": "38512.0",
+        "coinQ": "0.005",
+        "type": "Approved",
+        "pair": "1-1"
+    },
+    "38995": {
+        "coinValue": "2425.0",
+        "coinQ": "0.1",
+        "type": "Approved",
+        "pair": "9-1"
+    },
+    "50960": {
+        "coinValue": "21003.0",
+        "coinQ": "0.3",
+        "type": "Approved",
+        "pair": "9-2"
+    },
+    "53447": {
+        "coinValue": "40000.0",
+        "coinQ": "-0.02",
+        "type": "Pending",
+        "pair": "9-2"
+    },
+    "37822": {
+        "coinValue": "40000.0",
+        "coinQ": "0.005",
+        "type": "Approved",
+        "pair": "1-1"
+    },
+    "87045": {
+        "coinValue": "0.031",
+        "coinQ": "1000.0",
+        "type": "Approved",
+        "pair": "5-2"
+    },
+    "17039": {
+        "coinValue": "8.35",
+        "coinQ": "300.0",
+        "type": "Approved",
+        "pair": "15-2"
+    },
+    "36405": {
+        "coinValue": "13.0",
+        "coinQ": "-150.0",
+        "type": "Pending",
+        "pair": "15-2"
+    }
+}

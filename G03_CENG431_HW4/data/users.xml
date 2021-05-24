@@ -1,0 +1,43 @@
+<?xml version = "1.0"?>
+<users>
+    <user id="1">
+		<username>arif</username>
+		<password>123456</password>
+		<crypto_wallet>0</crypto_wallet>
+		<bank_wallet>0</bank_wallet>
+		<favorites>13-1,1-1,9-1</favorites>
+		<transactions>38995,0,37822,89848</transactions>    
+	</user>
+    <user id="2">
+		<username>furkan</username>
+		<password>123456</password>
+		<crypto_wallet>227</crypto_wallet>
+		<bank_wallet>49182</bank_wallet>
+		<favorites>6-2,4-2,12-2</favorites>
+		<transactions>24323,76231,35691,43627</transactions>    
+	</user>
+    <user id="3">
+		<username>serhat</username>
+		<password>123456</password>
+		<crypto_wallet>89229</crypto_wallet>
+		<bank_wallet>24083</bank_wallet>
+		<favorites>6-2,15-1,5-2,2-1,1-1</favorites>
+		<transactions>87045,70521,50960,53447</transactions>    
+	</user>
+    <user id="4">
+		<username>dilek</username>
+		<password>123456</password>
+		<crypto_wallet>23707</crypto_wallet>
+		<bank_wallet>64100</bank_wallet>
+		<favorites>6-1,14-1,13-2,11-2,11-1</favorites>
+		<transactions>9390,17039,57422,66437,97457,36405</transactions>    
+	</user>
+    <user id="5">
+		<username>tugkan</username>
+		<password>123456</password>
+		<crypto_wallet>62659</crypto_wallet>
+		<bank_wallet>83995</bank_wallet>
+		<favorites>10-1,9-1,8-1</favorites>
+		<transactions>74974</transactions>    
+	</user>
+</users>

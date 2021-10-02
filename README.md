@@ -4,6 +4,7 @@ Grade : 100/100
 
 To run the project you have to add the CryptoCompareAPI key to the src/settings/AppSettings.java -> public final static String CRYPTO_API_KEY = "KEY";
 
+
 FACoin is a basic cryptocurrency exchange app. We make request to an coin API for
 updated coin values. System has specified trading pairs but any pair can be added
 to system easily just adding to coins.json and banknotes.json files and enumarations
@@ -11,6 +12,7 @@ of that currencies.
 We also make a request to that API for candles of selected trading pair when user wants
 to see its candles. System has hour candles and day candles. History of candles can be changed
 in AppSettings. 
+
 
 We have used concepts of:
 * [MVC Design pattern](https://en.wikipedia.org/wiki/Model–view–controller)

@@ -5,7 +5,7 @@ Grade : 100/100
 To run the project you have to add the CryptoCompareAPI key to the src/settings/AppSettings.java -> public final static String CRYPTO_API_KEY = "KEY";
 
 
-FACoin is a basic cryptocurrency exchange app. We make request to an coin API for
+FACoin is a basic cryptocurrency exchange app. We make request to a coin API for
 updated coin values. System has specified trading pairs but any pair can be added
 to system easily just adding to coins.json and banknotes.json files and enumarations
 of that currencies. 
